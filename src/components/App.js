@@ -1,13 +1,14 @@
 import React from 'react';
-import './App.css';
 import Navbar from './Navbar/Navbar';
-const App = () => {
- 
-    return (
-      <div>
-        <Navbar />
-      </div>
-    );
+import AddItem from './Add/AddItem'
+import EditItem from './Edit/EditItem';
+function App() {
+  return (
+    <h1>
+      <Navbar />
+      <AddItem />
+      {/* <EditItem /> */}
+    </h1>
+  );
 }
-
 export default App;
