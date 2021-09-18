@@ -12,11 +12,7 @@ const Navbar = () => {
 
       <Menu.Item name="sign-in">Sign-in</Menu.Item>
       <Menu.Item position="right">
-        <Form>
-          <Form.Field>
-            <input type="text" name="search" placeholder="Search..." />
-          </Form.Field>
-        </Form>
+       <Button primary content="shit button"></Button>
       </Menu.Item>
     </Menu>
   );
