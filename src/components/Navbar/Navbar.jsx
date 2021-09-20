@@ -5,14 +5,21 @@ const Navbar = () => {
   return (
     <Menu stackable>
       <Menu.Item>
-        <img src="https://react.semantic-ui.com/logo.png" />
+        <img src="/images/logo.svg" alt="logo" />
       </Menu.Item>
+      <Menu.Item name="features">Cryptolx</Menu.Item>
 
-      <Menu.Item name="features">Features</Menu.Item>
-
-      <Menu.Item name="sign-in">Sign-in</Menu.Item>
       <Menu.Item position="right">
-       <Button primary content="shit button"></Button>
+        <Menu.Item name="features" position="right">
+          Features
+        </Menu.Item>
+
+        <Menu.Item name="sign-in" position="right">
+          Sign-in
+        </Menu.Item>
+        <Menu.Item position="right">
+          <Button primary content="Register"></Button>
+        </Menu.Item>
       </Menu.Item>
     </Menu>
   );
