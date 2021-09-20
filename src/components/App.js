@@ -6,7 +6,7 @@ import Footer from './Footer/Footer';
 // import LoginComponent from './Login/Login';
 // import RegisterComponent from './Register/Register';
 // import Home from './Home/Home';
-
+import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -22,6 +22,7 @@ function App() {
           <Route path='/dashboard/add-item' component={AddItem} />
           <Route path='/dashboard/edit-item' component={EditItem} />
         </Switch>
+        <Dashboard />
         <Footer />
       </Router>
     </>
