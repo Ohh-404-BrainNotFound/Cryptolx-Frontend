@@ -25,9 +25,6 @@ const Home = () => {
       <div className="bns-vector">
           <img src="/images/bns.png" alt="bns" className="bns-vector" />
       </div>
-      <div className="footer">
-          Made this shit with 💻 by Noobs 
-      </div>
     </div>
   );
 };
