@@ -1,9 +1,9 @@
 import React from 'react';
-import { Image, Grid, Icon, Segment } from 'semantic-ui-react';
+import { Image, Grid, Icon, Segment, List } from 'semantic-ui-react';
 import './DashboardItem.scss';
 function DashboardItem({ imgSrc, name, price, location, date }) {
   return (
-    <div>
+    <div className='item_container'>
       <Segment>
         <Grid className='item_segment'>
           <Grid.Column width={4}>
@@ -11,15 +11,23 @@ function DashboardItem({ imgSrc, name, price, location, date }) {
           </Grid.Column>
 
           <Grid.Column width={8} className='item_desciption'>
-            <Grid>
-              <Grid.Row as='h2'>{name} </Grid.Row>
-              <Grid.Row as='span'>{price}</Grid.Row>
-              <Grid.Row as='span'>{location}</Grid.Row>
-              <Grid.Row as='span'>{date}</Grid.Row>
-            </Grid>
+            <List>
+              <List.Item as='h2' className='heading_desciption_item'>
+                {name}
+              </List.Item>
+              <List.Item as='span' className='span_description_item'>
+                {price}
+              </List.Item>
+              <List.Item as='span' className='span_description_item'>
+                {location}
+              </List.Item>
+              <List.Item as='span' className='span_description_item'>
+                {date}
+              </List.Item>
+            </List>
           </Grid.Column>
 
-          <Grid.Column width={2} className='right aligned item_icons'>
+          <Grid.Column width={4} className='right aligned item_icons'>
             <Icon name='edit' size='big'></Icon>
             <Icon name='trash alternate' size='big'></Icon>
           </Grid.Column>

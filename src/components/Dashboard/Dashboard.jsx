@@ -28,7 +28,7 @@ function Dashboard() {
           {dashboardData.map((data, index) => {
             return (
               <Grid.Row>
-                <Container>
+                <Container className='red'>
                   <DashboardItem
                     imgSrc={data.imgSrc}
                     name={data.name}
