@@ -17,8 +17,8 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path='/' component={Home} />
-          <Route path='/dashboard' component={Dashboard} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/dashboard' component={Dashboard} />
           <Route path='/login' component={LoginComponent} />
           <Route path='/sign-up' component={RegisterComponent} />
           <Route path='/dashboard/add-item' component={AddItem} />
