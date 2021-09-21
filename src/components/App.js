@@ -3,8 +3,8 @@ import Navbar from './Navbar/Navbar';
 import AddItem from './AddItem/AddItem';
 import EditItem from './EditItem/EditItem';
 import Footer from './Footer/Footer';
-// import LoginComponent from './Login/Login';
-// import RegisterComponent from './Register/Register';
+import LoginComponent from './Login/Login';
+import RegisterComponent from './Register/Register';
 import Home from './Home/Home';
 import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
@@ -17,14 +17,13 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          {/* <Route path='/' component={Home} /> */}
-          {/* <Route path='/dashboard' component={Dashboard} /> */}
-          {/* <Route path='/login' component={LoginComponent} /> */}
-          {/* <Route path='/sign-up' component={RegisterComponent} /> */}
-          {/* <Route path='/dashboard/add-item' component={AddItem} /> */}
-          {/* <Route path='/dashboard/edit-item' component={EditItem} /> */}
-          {/* <Route path='/listing' component={ListingPage} /> */}
-          <ListingPage />
+          <Route path='/' component={Home} />
+          <Route path='/dashboard' component={Dashboard} />
+          <Route path='/login' component={LoginComponent} />
+          <Route path='/sign-up' component={RegisterComponent} />
+          <Route path='/dashboard/add-item' component={AddItem} />
+          <Route path='/dashboard/edit-item' component={EditItem} />
+          <Route path='/listing' component={ListingPage} />
         </Switch>
         <Footer />
       </Router>
