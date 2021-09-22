@@ -1,0 +1,30 @@
+[
+  {
+    "imgSrc": "images/item.png",
+    "name": "defaultName",
+    "price": "40",
+    "location": "Mumbai,India",
+    "date": "10-04-2021"
+  },
+  {
+    "imgSrc": "images/item.png",
+    "name": "defaultName",
+    "price": "40",
+    "location": "Mumbai,India",
+    "date": "10-04-2021"
+  },
+  {
+    "imgSrc": "images/item.png",
+    "name": "defaultName",
+    "price": "40",
+    "location": "Mumbai,India",
+    "date": "10-04-2021"
+  },
+  {
+    "imgSrc": "images/item.png",
+    "name": "defaultName",
+    "price": "40",
+    "location": "Mumbai,India",
+    "date": "10-04-2021"
+  }
+]

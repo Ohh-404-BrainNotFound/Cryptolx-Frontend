@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Grid, Icon, Segment, List } from 'semantic-ui-react';
-import './DashboardItem.scss';
-function DashboardItem({ imgSrc, name, price, location, date }) {
+import './orderItem.scss';
+function orderItem({ imgSrc, name, price, location, date }) {
   return (
     <div className='item_container'>
       <Segment>
@@ -37,4 +37,4 @@ function DashboardItem({ imgSrc, name, price, location, date }) {
   );
 }
 
-export default DashboardItem;
+export default orderItem;
