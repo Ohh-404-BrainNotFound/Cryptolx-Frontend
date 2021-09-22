@@ -1,0 +1,45 @@
+.forleftbackground {
+    position: absolute;
+    width: 683px;
+    height: 667px;
+    left: 570px;
+    top: 193px;
+  
+    background: url(photo/login.jpg);
+  }
+  .forborder {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .forrightdiv {
+    position: absolute;
+    width: 515px;
+    height: 619px;
+    left: 167px;
+    top: 223px;
+  
+    background: #ffffff;
+    box-shadow: 3px 4px 15px rgba(0, 0, 0, 0.25);
+  }
+  .login {
+    margin-top: 5%;
+    font-family: Gilroy;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    /* identical to box height */
+  
+    text-align: center;
+  
+    color: #2c2c2c;
+  }
+  .paragraph {
+    font-family: Avenir Next;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+  
+    color: #818181;
+  }
