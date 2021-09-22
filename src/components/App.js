@@ -18,14 +18,15 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={Home} />
+          {/* <Route exact path='/' component={Home} />
           <Route exact path='/dashboard' component={Dashboard} />
           <Route path='/login' component={LoginComponent} />
           <Route path='/sign-up' component={RegisterComponent} />
           <Route path='/dashboard/add-item' component={AddItem} />
           <Route path='/dashboard/edit-item' component={EditItem} />
           <Route path='/listing' component={ListingPage} />
-          <Route path='/orders' component={orderPage}></Route>
+          <Route path='/orders' component={orderPage}></Route> */}
+          <Login />
         </Switch>
         <Footer />
       </Router>
