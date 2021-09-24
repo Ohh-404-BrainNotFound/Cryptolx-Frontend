@@ -1,10 +1,10 @@
 import { Grid, Header, Image, Message, Container, Segment, Form, Button } from 'semantic-ui-react'
-import { signInWithGoogle } from '../../../Services/Consumer/consumerAuth';
+import { signInWithGoogle } from '../../Services/auth';
 import { useEffect, useContext, useState } from 'react';
-import { UserContext } from '../../../Providers/userProvider'
+import { UserContext } from '../../Provider/userCheck'
 import { Redirect } from "react-router-dom"; 
 import React from "react";
-import "./Login.css"
+// import "./Login.css"
 
 const LoginPage = () => {
   
@@ -14,13 +14,15 @@ const LoginPage = () => {
   
   useEffect(() => {
     if (user && !isLoading) {
-        setredirect("/");
+        setredirect("/dashboard");
+    } else {
+      setredirect('/login');
     }
   }, [user, isLoading]);
 
-  if (redirect) {
-    return <Redirect to={redirect} />;
-  }
+  // if (redirect) {
+  //   return <Redirect to={redirect} />;
+  // }
   return (
     <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>

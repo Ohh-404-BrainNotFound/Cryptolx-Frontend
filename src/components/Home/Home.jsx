@@ -1,8 +1,26 @@
 import React from "react";
 import { Container, Button, Divider } from "semantic-ui-react";
 import "./Home.scss";
+import { useEffect, useContext, useState } from 'react';
+import { UserContext } from '../../Provider/userCheck'
+import { Redirect } from "react-router-dom"; 
 
 const Home = () => {
+  
+  const info = useContext(UserContext);
+  const { user, isLoading } = info;
+  const [redirect, setredirect] = useState(null);
+  
+  useEffect(() => {
+    if (user && !isLoading) {
+        setredirect("/dashboard");
+    }
+  }, [user, isLoading]);
+  
+  if(redirect) {
+    return <Redirect to={redirect} />;
+  }
+
   return (
     <div>
       <div className="intro-section">

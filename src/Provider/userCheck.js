@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect, createContext } from "react";
-import firebase from "firebase/app";
-import "firebase/auth";
-import { initializeApp } from '../Services/Utils'
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import { initializeApp } from "../Services/init"
 
 initializeApp();
 const auth = firebase.auth();
@@ -16,6 +16,7 @@ const UserProvider = (props) => {
   useEffect(() => {
     auth.onAuthStateChanged(async (person) => {
       if (person) {
+        console.log(person);
         const { displayName, email,uid } = person;
         setInfo({
           user: { displayName, email,uid },
