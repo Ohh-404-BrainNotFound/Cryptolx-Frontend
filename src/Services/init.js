@@ -4,9 +4,9 @@ import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
 import '@firebase/database';
 import 'firebase/compat/firestore';
-require(dotenv.config());
+dotenv.config();
 
-export const initializeApp = () => {
+const initializeOurApp = () => {
   if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: process.env.REACT_APP_API_KEY,
@@ -18,3 +18,5 @@ export const initializeApp = () => {
     });
   }
 };
+
+export default initializeOurApp;

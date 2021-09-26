@@ -1,9 +1,9 @@
-import "firebase/auth";
-import { initializeApp } from "./init"
-import "firebase/compat/auth";
-import firebase from "firebase/compat/app";
-import "@firebase/database";
-import "firebase/compat/firestore";
+import 'firebase/auth';
+import initializeApp from './init';
+import 'firebase/compat/auth';
+import firebase from 'firebase/compat/app';
+import '@firebase/database';
+import 'firebase/compat/firestore';
 
 initializeApp();
 const auth = firebase.auth();
@@ -12,11 +12,14 @@ var user;
 const db = firebase.firestore();
 
 const saveUser = async ({ email, uid, displayName }) => {
-  await db.collection("users").doc(uid).set({
-    displayName,
-    email
-  })
-}
+  await db
+    .collection('users')
+    .doc(uid)
+    .set({
+      displayName,
+      email,
+    });
+};
 
 export const signInWithGoogle = () => {
   auth
@@ -26,9 +29,9 @@ export const signInWithGoogle = () => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       // var token = credential.accessToken;
       // The signed-in user info.
-      if(result.additionalUserInfo.isNewUser){
+      if (result.additionalUserInfo.isNewUser) {
         user = result.user;
-        saveUser(user);       
+        saveUser(user);
       }
       // ...
     })
@@ -44,10 +47,13 @@ export const signInWithGoogle = () => {
     });
 };
 
-export const isUser = async(id)=>{
-  const userRef = await db.collection("user").doc(id).get();
+export const isUser = async (id) => {
+  const userRef = await db
+    .collection('user')
+    .doc(id)
+    .get();
   return userRef.exists;
-}
+};
 
 export const signOut = () => {
   initializeApp();
@@ -55,11 +61,11 @@ export const signOut = () => {
     .auth()
     .signOut()
     .then(() => {
-      console.log("Sign out successfully");
+      console.log('Sign out successfully');
       return true;
     })
     .catch((error) => {
-      console.log("Error Occured While signing out!!");
+      console.log('Error Occured While signing out!!');
       console.log(error.message);
       return false;
     });

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { useState, useEffect, createContext } from "react";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import { initializeApp } from "../Services/init"
+import { useState, useEffect, createContext } from 'react';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import initializeApp from '../Services/init';
 
 initializeApp();
+console.log('fireabse', firebase);
 const auth = firebase.auth();
 
 export const UserContext = createContext({
@@ -17,9 +18,9 @@ const UserProvider = (props) => {
     auth.onAuthStateChanged(async (person) => {
       if (person) {
         console.log(person);
-        const { displayName, email,uid } = person;
+        const { displayName, email, uid } = person;
         setInfo({
-          user: { displayName, email,uid },
+          user: { displayName, email, uid },
           isLoading: false,
         });
       } else {
