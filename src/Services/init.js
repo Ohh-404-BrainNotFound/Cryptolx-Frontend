@@ -1,10 +1,10 @@
-import dotenv from "dotenv";
-import "firebase/auth";
-import "firebase/compat/auth";
-import firebase from "firebase/compat/app";
-import "@firebase/database";
-import "firebase/compat/firestore";
-dotenv.config();
+import dotenv from 'dotenv';
+import 'firebase/auth';
+import 'firebase/compat/auth';
+import firebase from 'firebase/compat/app';
+import '@firebase/database';
+import 'firebase/compat/firestore';
+require(dotenv.config());
 
 export const initializeApp = () => {
   if (!firebase.apps.length) {
