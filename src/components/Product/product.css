@@ -1,0 +1,169 @@
+.header_section{
+    position: absolute;
+  width: 1800px;
+  height: 686px;
+  left: -27px;
+  top: 199px;
+  
+  background: #FFCE45;
+  }
+  .productpicture{
+  width: 894px;
+  height: 452px;
+  margin-right: 12%;
+  }
+  .productdescription{
+    position: absolute;
+  width: 1168px;
+  height: 249px;
+  left: 132px;
+  top: 953px;
+  background: #FFCE45;
+  }
+  .buynow{
+    position: absolute;
+  width: 572px;
+  height: 75px;
+  left: 463px;
+  top: 1281px;
+  
+  background: #AF3419;
+  border-radius: 6px;
+  }
+  .makeanoffer{
+    position: absolute;
+  width: 572px;
+  height: 75px;
+  left: 463px;
+  top: 1374px;
+  
+  background: #AF3419;
+  border-radius: 6px;
+  }
+  .getsellerinfo{
+    position: absolute;
+  width: 572px;
+  height: 75px;
+  left: 463px;
+  top: 1469px;
+  
+  background: #AF3419;
+  border-radius: 6px;
+  }
+  .border{
+    position: absolute;
+  width: 1739px;
+  height: 2px;
+  left: -96px;
+  top: 1579px;
+  
+  background: #FFF5DA;
+  }
+  .similar{
+    position: absolute;
+    width: 576px;
+    height: 75px;
+    left: 175px;
+    top: 1616px;
+    
+    font-family: Gill Sans;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 44px;
+    line-height: 50px;
+    
+    color: #AF3419
+  }
+  .product1{
+    position: absolute;
+    width: 327px;
+    height: 288px;
+    left: 171px;
+    top: 1688px;
+    background: #FFCE45;
+  }
+  .product2{
+    position: absolute;
+    width: 327px;
+    height: 288px;
+    left: 565px;
+    top: 1684px;
+    background: #FFCE45;
+  }
+  .product3{
+    position: absolute;
+    width: 327px;
+    height: 288px;
+    left: 952px;
+    top: 1684px;
+    
+    background: #FFCE45;
+  }
+  ._text{
+    margin-top: 2.5%;
+    font-family: Gill Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 37px;
+   
+    color: #FFFFFF;
+  }
+  .product_name{
+    font-family: Gill Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 60px;
+  line-height: 69px;
+  
+  color: #494949;
+  }
+  .productname{
+    position: absolute;
+  width: 669px;
+  height: 144px;
+  left: 327px;
+  top: 476px;
+  padding-right: 15%;
+   
+  }
+  .handshake{
+    position: absolute;
+  left: 22.52%;
+  top: 13.98%;
+  bottom: 13.5%;
+  
+  }
+  .price{
+    position: absolute;
+  width: 576px;
+  left: 831px;
+  top: 476px;
+  }
+  .product_price{
+    font-family: Gill Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 60px;
+  line-height: 69px;
+  
+  color: #494949;
+  }
+  .location_text{
+    font-family: Gill Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 34px;
+  
+  color: #494949;
+  }
+  .date{
+    font-family: Gill Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 23px;
+  
+  color: #8F8F8F;
+  }
