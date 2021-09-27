@@ -12,13 +12,11 @@ import {
 } from 'semantic-ui-react';
 import './AddItem.scss';
 import { addItem } from '../../Provider/addItem';
-import { useEffect, useContext } from "react";
-import { UserContext } from "../../Provider/userCheck";
-import { Redirect } from "react-router-dom";
-
+import { useEffect, useContext } from 'react';
+import { UserContext } from '../../Provider/userCheck';
+import { Redirect } from 'react-router-dom';
 
 function AddItem() {
-
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [redirect, setredirect] = useState(null);
@@ -26,9 +24,9 @@ function AddItem() {
   useEffect(() => {
     console.log(user);
     if (user && !isLoading) {
-      setredirect("/");
+      setredirect('/');
     } else {
-      setredirect("/dashboard");
+      setredirect('/dashboard');
     }
   }, [user, isLoading]);
 
@@ -39,7 +37,7 @@ function AddItem() {
   const saveItem = async () => {
     console.log(itemName, price, user.uid);
     await addItem(itemName, price, user.uid);
-  }
+  };
   return (
     <Container>
       <Header style={{ marginLeft: '50px' }}> Add item </Header>
