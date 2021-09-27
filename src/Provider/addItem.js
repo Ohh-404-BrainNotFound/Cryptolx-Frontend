@@ -6,9 +6,12 @@ import { initializeApp } from '../Services/init';
 
 initializeApp();
 
-const addItem = async (details) => {
-  const db = firebase.firestore();
+const db = firebase.firestore();
 
-  db.collection('items').add(details);
+export const addItem = async (itemName, price, id) => {
+  try {
+  await db.collection('users').doc(id).collection("items").add({ name: itemName, price: price }).then((doc) => console.log(doc));
+  } catch(err) {
+    console.log("this is error ",err);
+  }
 };
-export default addItem;

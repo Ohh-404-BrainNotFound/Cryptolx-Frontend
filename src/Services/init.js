@@ -9,12 +9,12 @@ dotenv.config();
 export const initializeApp = () => {
   if (!firebase.apps.length) {
     firebase.initializeApp({
-      apiKey: process.env.REACT_APP_API_KEY,
-      authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-      projectId: process.env.REACT_APP_PROJECT_ID,
-      storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-      messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-      appId: process.env.REACT_APP_APP_ID,
+  apiKey: "AIzaSyBszLMoO_V7ry9jakwyOmky74hf173Sq_k",
+  authDomain: "crypto-76324.firebaseapp.com",
+  projectId: "crypto-76324",
+  storageBucket: "crypto-76324.appspot.com",
+  messagingSenderId: "900368573218",
+  appId: "1:900368573218:web:aa810884e45e47abcc3b7b"
     });
   }
 };
