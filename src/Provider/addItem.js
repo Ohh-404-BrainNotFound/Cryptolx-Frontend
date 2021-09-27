@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect, createContext } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import initializeApp from '../Services/init';
+import { initializeApp } from '../Services/init';
 
 initializeApp();
 

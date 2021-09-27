@@ -1,5 +1,5 @@
 import 'firebase/auth';
-import initializeApp from './init';
+import { initializeApp } from './init';
 import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
 import '@firebase/database';
