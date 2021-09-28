@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Grid, Icon, Segment, List } from 'semantic-ui-react';
 import './DashboardItem.scss';
+import { getImageUrl } from "../../../Services/utils"
 function DashboardItem({ imgSrc, name, price, location, date }) {
+
+  const [image, setImage] = useState("");
+
+  const getImage = async () => {
+    let imageLocation = await getImageUrl("itemimage", imgSrc);
+    setImage(imageLocation);
+  }
+
+  useEffect(() => {
+    getImage();
+  },[])
+
   return (
     <div className='item_container'>
       <Segment>
         <Grid className='item_segment'>
           <Grid.Column width={4}>
-            <Image src={imgSrc} />
+            <Image
+            src={!!image ? image : "/images/item.png" } 
+            />
           </Grid.Column>
 
           <Grid.Column width={8} className='item_desciption'>

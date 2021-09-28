@@ -1,19 +1,37 @@
 import React from "react";
 import { Card, Label } from "semantic-ui-react";
+import { useState, useEffect } from "react";
+import { getImageUrl } from "../../../Services/utils";
 
-const ProductCard = () => {
+const ProductCard = (props) => {
+
+  const [image, setImage] = useState("");
+
+  const getImage = async () => {
+    let imageLocation = await getImageUrl("itemimage", props.data.image);
+    setImage(imageLocation);
+  }
+
+  useEffect(() => {
+    getImage();
+  },[])
+
   return (
     <Card>
       <img
-        src={"/images/item.png"}
+        src={!!image ? image : "/images/item.png" }
         style={{ height: "300px", width: "290px" }}
         alt="card"
       />
       <Card.Content>
-        <Card.Header>Shit item </Card.Header>
-        <Card.Description>This is shit description</Card.Description>
+        <Card.Header>{props.data.name} </Card.Header>
         <Card.Description>
-          <span>Ξ150</span>
+          {props.data.description > 40
+            ? props.data.description.slice(0, 30) + "..."
+            : props.data.description}
+        </Card.Description>
+        <Card.Description>
+          <span>Ξ{props.data.price}</span>
         </Card.Description>
       </Card.Content>
     </Card>
