@@ -42,7 +42,7 @@ const Dashboard = ()  => {
     }
 }, [user, isLoading]);
 
-  return ( loading ? (<div>
+  return ( !loading ? (<div>
     <Container>
       <Header>
         <Grid>
