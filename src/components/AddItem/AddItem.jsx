@@ -25,9 +25,9 @@ function AddItem() {
   useEffect(() => {
     console.log(user);
     if (user && !isLoading) {
-      setredirect("/");
+      setredirect('/');
     } else {
-      setredirect("/dashboard");
+      setredirect('/dashboard');
     }
   }, [user, isLoading]);
 
