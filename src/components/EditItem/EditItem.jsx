@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Menu,
   Header,
@@ -9,8 +9,54 @@ import {
   Container,
   Divider,
 } from "semantic-ui-react";
+import { Redirect } from "react-router";
 import "./EditItem.scss";
-function EditItem() {
+import { saveEditedItem } from "../../Services/userServices"
+
+const EditItem = (props) => {
+
+  const [redirect, setRedirect] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [item, setItem] = useState({name: "", price: "", description: "", id: ""});
+
+  useEffect(() => {
+
+    if(props) {
+      setItem({
+        id: props.location.obj.id,
+        name: props.location.obj.name,
+        price: props.location.obj.price,
+        description: props.location.obj.description,
+      });
+    } else {
+      setRedirect("/dashboard");
+    }
+  },[])
+
+  const saveEditedDetails = async () => {
+    try {
+      setLoading(true);
+      await saveEditedItem(item, props.location.obj.userid);
+      setLoading(false);
+    } catch(err) {
+      console.log(err);
+    }
+
+  }
+
+  const editItem = (e) => {
+    setItem({
+      ...item,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
+  useEffect(() => {
+    if(redirect) {
+      return <Redirect to={redirect} />
+    }
+  },[redirect])
+
   return (
     <Container>
       <Header style={{ marginLeft: "50px"}}>Edit Item</Header>
@@ -19,21 +65,21 @@ function EditItem() {
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Name
           </label>
-          <input type="text" name="product-name" />
+          <input type="text" name="name" value={item.name} onChange ={(e) => editItem(e)} />
         </Form.Field>
         <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Price Ξ
           </label>
-          <input type="text" name="product-price" />
+          <input type="text" name="price" value={item.price} onChange ={(e) => editItem(e)} />
         </Form.Field>
         <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans - Light" }}>
             Product Detail
           </label>
-          <textarea></textarea>
+          <textarea value={item.description} name="description" onChange ={(e) => editItem(e)} > </textarea>
         </Form.Field>
-        <Button
+        {/* <Button
           class="ui button"
           type="images"
           content="upload images"
@@ -44,16 +90,18 @@ function EditItem() {
           }}
         >
           Upload Images
-        </Button>
+        </Button> */}
         <Divider />
         <Button
           class="ui button"
           type="submit"
+          loading = {loading}
           style={{
             backgroundColor: "orange",
             color: "white",
             font: "Gill Sans - Light",
           }}
+          onClick = {() => saveEditedDetails()}
         >
         Save Changes
         </Button>

@@ -3,13 +3,13 @@ import { Container, Header, Grid } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import Card from "../Shared/ProductCard/ProductCard";
 import "./Listings.scss";
-import { getAllItems } from "../../Services/generalServices"
-import Loader from "../Shared/Loader/Loader"
+import { getAllItems } from "../../Services/generalServices";
+import Loader from "../Shared/Loader/Loader";
+import { Link } from "react-router-dom";
 
 // let items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ListingPage = () => {
-
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const fetchItems = async () => {
@@ -18,29 +18,27 @@ const ListingPage = () => {
     setLoading(false);
     setProducts(data);
     console.log(data);
-  }
+  };
 
   useEffect(() => {
     fetchItems();
-  },[])
+  }, []);
 
-
-  return (loading ? <Loader /> :
+  return loading ? (
+    <Loader />
+  ) : (
     <Container>
-      <Header as='h1' style={{ marginTop: '50px' }}>
-        <h1 className='listing-heading'> Featured </h1>
+      <Header as="h1" style={{ marginTop: "50px" }}>
+        <h1 className="listing-heading"> Featured </h1>
       </Header>
       <Grid stackable columns={3}>
         {products.map((product) => {
           return (
             <Grid.Column>
-              <Container fluid textAlign='center'>
-                {/* <NavLink
-                      activeClassName="current"
-                    //   to={path}
-                    > */}
-                <Card data = {product.data} />
-                {/* </NavLink> */}
+              <Container fluid textAlign="center">
+                <Link to={`product/${product.id}`}>
+                  <Card data={product.data} />
+                </Link>
               </Container>
             </Grid.Column>
           );

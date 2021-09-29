@@ -10,11 +10,11 @@ import {
   Item,
 } from 'semantic-ui-react';
 import DashboardItem from './DashboardItem/DashboardItem';
-import { getUserAddedItems } from "../../Services/userServices"
+import { getUserAddedItems, deleteItem } from "../../Services/userServices"
 import Loader from "../Shared/Loader/Loader"
 // import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-const dashboardData = require('../../data/dashboardItems.json');
+
 const Dashboard = ()  => {
 
   const info = useContext(UserContext);
@@ -27,6 +27,7 @@ const Dashboard = ()  => {
     setLoading(true);
     let items = await getUserAddedItems(user.uid);
     setLoading(false);
+    console.log(items);
     setUserAddedItems(items);
     console.log(items);
     console.log(user);
@@ -50,9 +51,15 @@ const Dashboard = ()  => {
             Dashboard
           </Grid.Column>
           <Grid.Column width={8} className='right aligned'>
+          <Button warning floated="left">My Cart</Button>
+          <Button basic floated="right" >My Orders</Button>
+          <Button danger floated="right" >Your Orders</Button>
             <Link to="/dashboard/add-item">
             <Button className='primary'>Add Item</Button>
-              </Link>
+            </Link>
+            <Header>
+              Total Earning: 00 eth 
+            </Header>
           </Grid.Column>
         </Grid>
       </Header>
@@ -66,7 +73,10 @@ const Dashboard = ()  => {
                   imgSrc={data.data.image}
                   name={data.data.name}
                   price={data.data.price}
-                  date={data.data.description}
+                  data={data.data.description}
+                  itemid = {data.id}
+                  fetchItems = {fetchUseritems}
+                  userid = {user.uid}
                 />
               </Container>
             </Grid.Row>

@@ -66,7 +66,7 @@
     left: 175px;
     top: 1616px;
     
-    font-family: Gill Sans;
+    font-family: "Roboto";
     font-style: italic;
     font-weight: normal;
     font-size: 44px;
@@ -101,7 +101,7 @@
   }
   ._text{
     margin-top: 2.5%;
-    font-family: Gill Sans;
+    font-family: "Roboto";
     font-style: normal;
     font-weight: normal;
     font-size: 32px;
@@ -110,7 +110,7 @@
     color: #FFFFFF;
   }
   .product_name{
-    font-family: Gill Sans;
+    font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 60px;
@@ -141,7 +141,7 @@
   top: 476px;
   }
   .product_price{
-    font-family: Gill Sans;
+    font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 60px;
@@ -150,7 +150,7 @@
   color: #494949;
   }
   .location_text{
-    font-family: Gill Sans;
+    font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
@@ -159,7 +159,7 @@
   color: #494949;
   }
   .date{
-    font-family: Gill Sans;
+    font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
@@ -167,3 +167,8 @@
   
   color: #8F8F8F;
   }
+
+  .course-image {
+    width: 100%;
+    height: 50vh;
+}

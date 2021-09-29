@@ -32,6 +32,8 @@ export const signInWithGoogle = () => {
         user = result.user;
         saveUser(user);
       }
+
+      return true;
       // ...
     })
     .catch((error) => {

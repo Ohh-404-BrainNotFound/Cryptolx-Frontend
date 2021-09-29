@@ -20,6 +20,17 @@ const LoginPage = () => {
     }
   }, [user, isLoading]);
 
+  const googleSignIn = () => {
+    try {
+      let result = signInWithGoogle();
+      if(result) {
+        window.location.href = "/dashboard";
+      }
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   // if (redirect) {
   //   return <Redirect to={redirect} />;
   // }
@@ -32,7 +43,7 @@ const LoginPage = () => {
           </Header>
           <Container textAlign="center">
             <Segment>
-              <img onClick={signInWithGoogle} className="google-login" alt="sign in with google" src='/images/google.png' />
+              <img onClick={() => googleSignIn()} className="google-login" alt="sign in with google" src='/images/google.png' />
             </Segment>
           </Container>
         </Container>

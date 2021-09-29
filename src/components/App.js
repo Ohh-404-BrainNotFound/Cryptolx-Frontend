@@ -13,6 +13,7 @@ import 'semantic-ui-css/semantic.min.css';
 import ListingPage from './Listings/Listings';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import UserProvider from '../Provider/userCheck';
+import ProductPage from "./Product/ProductPage"
 
 function App() {
   return (
@@ -25,9 +26,10 @@ function App() {
           <Route exact path='/dashboard' component={Dashboard} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/dashboard/add-item' component={AddItem} />
-          <Route exact path='/dashboard/edit-item' component={EditItem} />
+          <Route exact path='/dashboard/edit-item/:itemid' component={EditItem} />
           <Route exact path='/listing' component={ListingPage} />
           <Route exact path='/orders' component={orderPage} />
+          <Route exact path='/product/:productid' component={ProductPage} />
         </Switch>
         <Footer />
       </Router>

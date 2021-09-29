@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Image, Grid, Icon, Segment, List } from 'semantic-ui-react';
 import './DashboardItem.scss';
+import { deleteItem } from "../../../Services/userServices"
 import { getImageUrl } from "../../../Services/utils"
-function DashboardItem({ imgSrc, name, price, location, date }) {
+import { Link } from "react-router-dom"
+
+function DashboardItem({ imgSrc, name, price, location, data, itemid, fetchItems, userid }) {
 
   const [image, setImage] = useState("");
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
     setImage(imageLocation);
+  }
+
+  const deleteAddedItem = async () => {
+    await deleteItem(userid, itemid);
+    fetchItems();
   }
 
   useEffect(() => {
@@ -37,14 +45,28 @@ function DashboardItem({ imgSrc, name, price, location, date }) {
                 {location}
               </List.Item>
               <List.Item as='span' className='span_description_item'>
-                {date}
+                {data}
               </List.Item>
             </List>
           </Grid.Column>
 
           <Grid.Column width={4} className='right aligned item_icons'>
-            <Icon name='edit' size='big'></Icon>
-            <Icon name='trash alternate' size='big'></Icon>
+          <Link to={{pathname: `dashboard/edit-item/${itemid}`, obj: {
+                id: itemid,
+                name: name,
+                price: price,
+                description: data,
+                userid: userid
+                // title: obj.heading,
+                // date: obj.date,
+                // place: obj.place,
+                // text: obj.body,
+                // image: obj.img,
+                // author: obj.author,
+              }}}>
+            <Icon name='edit' size='big' ></Icon>
+              </Link>
+            <Icon name='trash alternate' onClick={() => deleteAddedItem()} size='big'></Icon>
           </Grid.Column>
         </Grid>
       </Segment>

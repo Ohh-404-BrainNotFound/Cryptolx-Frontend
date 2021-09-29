@@ -35,4 +35,26 @@ export const getUserAddedItems = async (userid) => {
     }
 }
 
+export const deleteItem = async (userid, itemid) => {
+  try {
+    console.log("this is called " + itemid + " " + userid);
+      await db.collection("users").doc(userid).collection("items").doc(itemid).delete();
+  } catch (err) {
+      console.log(err.message);
+      return err.message;
+  }
+};
 
+export const saveEditedItem = async (details, userid) => {
+  try {
+    console.log(userid +" ");
+    console.log(details);
+    await db.collection("users").doc(userid).collection("items").doc(details.id).update({
+      name: details.name,
+      price: details.price,
+      description: details.description
+    });
+  } catch(err) {
+    console.log(err);
+  }
+}
