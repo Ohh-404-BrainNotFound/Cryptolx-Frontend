@@ -14,6 +14,8 @@ import ListingPage from './Listings/Listings';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import UserProvider from '../Provider/userCheck';
 import ProductPage from "./Product/ProductPage"
+import failurePage from './Failure/failurePage';
+import successPage from './Success/successPage';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route exact path='/listing' component={ListingPage} />
           <Route exact path='/orders' component={orderPage} />
           <Route exact path='/product/:productid' component={ProductPage} />
+          <Route exact path='/failure' component={failurePage}/>
+          <Route exact path='/failure' component={successPage}/>
         </Switch>
         <Footer />
       </Router>
