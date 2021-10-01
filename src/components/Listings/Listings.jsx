@@ -7,8 +7,6 @@ import { getAllItems } from "../../Services/generalServices";
 import Loader from "../Shared/Loader/Loader";
 import { Link } from "react-router-dom";
 
-// let items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const ListingPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +15,7 @@ const ListingPage = () => {
     let data = await getAllItems();
     setLoading(false);
     setProducts(data);
-    console.log(data);
+    console.log("this is the data", data);
   };
 
   useEffect(() => {
@@ -36,7 +34,7 @@ const ListingPage = () => {
           return (
             <Grid.Column>
               <Container fluid textAlign="center">
-                <Link to={`product/${product.id}`}>
+                <Link to={`product/${product.id}`} >
                   <Card data={product.data} />
                 </Link>
               </Container>

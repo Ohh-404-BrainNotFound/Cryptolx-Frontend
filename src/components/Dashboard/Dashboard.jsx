@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from "../../Provider/userCheck"
-import { Redirect } from 'react-router';
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../Provider/userCheck";
+import { Redirect } from "react-router";
 import {
   Container,
   Grid,
@@ -8,20 +8,19 @@ import {
   Image,
   Button,
   Item,
-} from 'semantic-ui-react';
-import DashboardItem from './DashboardItem/DashboardItem';
-import { getUserAddedItems, deleteItem } from "../../Services/userServices"
-import Loader from "../Shared/Loader/Loader"
+} from "semantic-ui-react";
+import DashboardItem from "./DashboardItem/DashboardItem";
+import { getUserAddedItems, deleteItem } from "../../Services/userServices";
+import Loader from "../Shared/Loader/Loader";
 // import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const Dashboard = ()  => {
-
+const Dashboard = () => {
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [redirect, setredirect] = useState(null);
   const [userAddedItems, setUserAddedItems] = useState([]);
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchUseritems = async () => {
     setLoading(true);
@@ -31,59 +30,62 @@ const Dashboard = ()  => {
     setUserAddedItems(items);
     console.log(items);
     console.log(user);
-  }
+  };
 
   useEffect(() => {
     if (!isLoading) {
-        if (!user) {
-            setredirect("/");
-        } else {
-            fetchUseritems();
-        }
+      if (!user) {
+        setredirect("/");
+      } else {
+        fetchUseritems();
+      }
     }
-}, [user, isLoading]);
+  }, [user, isLoading]);
 
-  return ( !loading ? (<div>
-    <Container>
-      <Header>
-        <Grid>
-          <Grid.Column width={8} className='left aligned' as='h1'>
-            Dashboard
-          </Grid.Column>
-          <Grid.Column width={8} className='right aligned'>
-            <Link to="/dashboard/add-item">
-            <Button className='primary' >Add Item</Button>
-            </Link>
-            <Header>
-              Total Earning: 00 eth 
-            </Header>
-          </Grid.Column>
-        </Grid>
-      </Header>
-
-      <Grid>
-        {userAddedItems.map((data, index) => {
-          return (
-            <Grid.Row>
-              <Container className='red'>
-                <DashboardItem
-                  imgSrc={data.data.image}
-                  name={data.data.name}
-                  price={data.data.price}
-                  data={data.data.description}
-                  itemid = {data.id}
-                  fetchItems = {fetchUseritems}
-                  userid = {user.uid}
-                />
-              </Container>
-            </Grid.Row>
-          );
-        })}
-      </Grid>
-    </Container>
-  </div>) :  <Loader />
-
+  return !loading ? (
+    <div>
+      <Container>
+        <Header>
+          <Grid>
+            <Grid.Column width={8} className="left aligned" as="h1">
+              Dashboard
+            </Grid.Column>
+            <Grid.Column width={8} className="right aligned">
+              <Link to="/dashboard/add-item">
+                <Button className="primary">Add Item</Button>
+              </Link>
+              <Header>Total Earning: 00 eth</Header>
+            </Grid.Column>
+          </Grid>
+        </Header>
+        {userAddedItems.length > 0 ? (
+          <Grid>
+            {userAddedItems.map((data, index) => {
+              return (
+                <Grid.Row>
+                  <Container className="red">
+                    <DashboardItem
+                      imgSrc={data.data.image}
+                      name={data.data.name}
+                      price={data.data.price}
+                      data={data.data.description}
+                      itemid={data.id}
+                      fetchItems={fetchUseritems}
+                      userid={user.uid}
+                    />
+                  </Container>
+                </Grid.Row>
+              );
+            })}
+          </Grid>
+        ) : (
+          <Header>you haven't added any items till now !!</Header>
+        )}
+      </Container>
+    </div>
+  ) : (
+    <Loader />
   );
-}
+};
 
 export default Dashboard;

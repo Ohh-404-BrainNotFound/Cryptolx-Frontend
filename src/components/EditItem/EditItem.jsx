@@ -12,6 +12,7 @@ import {
 import { Redirect } from "react-router";
 import "./EditItem.scss";
 import { saveEditedItem } from "../../Services/userServices"
+import toast, { Toaster } from "react-hot-toast";
 
 const EditItem = (props) => {
 
@@ -38,8 +39,10 @@ const EditItem = (props) => {
       setLoading(true);
       await saveEditedItem(item, props.location.obj.userid);
       setLoading(false);
+      toast.success('Successfully item updated !!')
     } catch(err) {
       console.log(err);
+      toast.error('Some error occured check console ')
     }
 
   }
@@ -59,6 +62,7 @@ const EditItem = (props) => {
 
   return (
     <Container>
+       <Toaster />
       <Header style={{ marginLeft: "50px"}}>Edit Item</Header>
       <Form>
         <Form.Field>

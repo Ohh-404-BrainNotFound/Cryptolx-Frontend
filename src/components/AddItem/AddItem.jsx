@@ -15,6 +15,7 @@ import { addItem } from "../../Services/userServices";
 import { useEffect, useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { Redirect } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function AddItem() {
   const info = useContext(UserContext);
@@ -42,8 +43,10 @@ function AddItem() {
       setSave(true);
       await addItem(itemName, price, productDescription, user.uid, image);
       setSave(false);
+      toast.success('Successfully item added !!')
     } catch (err) {
       console.log(err);
+      toast.error('Failed to add !!')
       throw new err();
     }
   };
@@ -56,6 +59,7 @@ function AddItem() {
 
   return (
     <Container>
+       <Toaster />
       <Header style={{ marginLeft: "50px" }}> Add item </Header>
       <Form>
         <Form.Field>

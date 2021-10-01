@@ -58,3 +58,26 @@ export const saveEditedItem = async (details, userid) => {
     console.log(err);
   }
 }
+
+
+export const addItemToCart = async (userid, itemid) => {
+  try {    
+    await db.collection('users').doc(userid).collection("cart").add({ itemId: itemid })
+    return true;
+  } catch(err) {
+    console.log(err);
+    return false;
+  }
+}
+
+export const currentCartItems = async userid => {
+  try { 
+    let itemid = [];   
+    let userItemRef = await db.collection('users').doc(userid).collection("cart").get();
+    userItemRef.forEach((product) => itemid.push({ id: product.data().id }));
+    return itemid;
+  } catch(err) {
+    console.log(err);
+    return false;
+  }
+}

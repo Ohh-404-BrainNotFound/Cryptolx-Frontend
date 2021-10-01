@@ -4,22 +4,27 @@ import { Link } from "react-router-dom";
 import "./Navbar.scss";
 import { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../Provider/userCheck";
-import { Redirect } from "react-router-dom";
 import { signOut } from "../../Services/auth";
+import { useHistory } from "react-router";
 
 const Navbar = () => {
   const info = useContext(UserContext);
   const { user, isLoading } = info;
-  const [redirect, setredirect] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
-    console.log(user);
-    if (user && !isLoading) {
-      setredirect("/");
-    } else {
-      setredirect("/dashboard");
+    if (!user || isLoading) {
+      history.push("/");
     }
   }, [user, isLoading]);
+
+  const logOutUser = () => {
+    try {
+      signOut();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Menu stackable>
@@ -29,22 +34,31 @@ const Navbar = () => {
       <Menu.Item name="features">Cryptolx</Menu.Item>
 
       <Menu.Item position="right">
+        <Menu.Item name="products">
+          <Link activeClassName="current" to="/listing">
+            Products
+          </Link>
+        </Menu.Item>
         <Menu.Item name="features" position="right">
           Features
         </Menu.Item>
         {!!user ? (
           <>
-            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+            <Menu.Item name="sign-in" position="right">
               <Icon name="shopping bag" /> My cart
             </Menu.Item>
-            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+            <Menu.Item name="sign-in" position="right">
               <Button icon="shopping bag" content="My Orders" positive />
             </Menu.Item>
-            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+            <Menu.Item name="sign-in" position="right">
               <Button icon="shopping bag" content="Your orders" primary />
             </Menu.Item>
 
-            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+            <Menu.Item
+              name="sign-in"
+              position="right"
+              onClick={() => logOutUser()}
+            >
               Sign out
             </Menu.Item>
           </>
