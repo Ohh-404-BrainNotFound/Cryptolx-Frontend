@@ -14,6 +14,7 @@ contract Account {
 
     function redeemBalance() public restricted {
         msg.sender.transfer(userMoney[msg.sender]);
+        userMoney[msg.sender] = 0;
     } 
     
     function buyCourse(address whomCourseBuyed) public payable {
