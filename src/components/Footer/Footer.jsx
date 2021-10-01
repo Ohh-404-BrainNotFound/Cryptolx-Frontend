@@ -1,5 +1,6 @@
 import React from 'react';
 import { Segment, Container, Grid, Header, List } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 import './Footer.scss';
 function Footer() {
   return (
@@ -29,8 +30,16 @@ function Footer() {
               <Header className='hidden'>I am Hidden</Header>
               <List className='animated'>
                 {/* <List.Item className='hidden'>I am Hidden</List.Item> */}
-                <List.Item as='span'>Privacy</List.Item>
-                <List.Item as='span'>Terms of Use</List.Item>
+                <List.Item as='span'>
+                  <Link activeClassName="current" to="/failure">
+                  Privacy
+                  </Link>
+                </List.Item>
+                <List.Item as='span'>
+                <Link activeClassName="current" to="/success">
+                  Terms of Use
+                </Link>
+                </List.Item>
                 <List.Item as='span'>Crypto</List.Item>
               </List>
             </Grid.Column>
