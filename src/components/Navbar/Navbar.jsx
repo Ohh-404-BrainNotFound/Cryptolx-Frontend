@@ -33,9 +33,21 @@ const Navbar = () => {
           Features
         </Menu.Item>
         {!!user ? (
-          <Menu.Item name="sign-in" position="right" onClick={signOut}>
-            Sign out
-          </Menu.Item>
+          <>
+            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+              <Icon name="shopping bag" /> My cart
+            </Menu.Item>
+            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+              <Button icon="shopping bag" content="My Orders" positive />
+            </Menu.Item>
+            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+              <Button icon="shopping bag" content="Your orders" primary />
+            </Menu.Item>
+
+            <Menu.Item name="sign-in" position="right" onClick={signOut}>
+              Sign out
+            </Menu.Item>
+          </>
         ) : (
           <Menu.Item name="sign-in" position="right">
             <Link activeClassName="current" to="/login">
@@ -43,7 +55,6 @@ const Navbar = () => {
             </Link>
           </Menu.Item>
         )}
-
       </Menu.Item>
     </Menu>
   );

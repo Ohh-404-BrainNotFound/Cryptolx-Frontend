@@ -51,11 +51,8 @@ const Dashboard = ()  => {
             Dashboard
           </Grid.Column>
           <Grid.Column width={8} className='right aligned'>
-          <Button warning floated="left">My Cart</Button>
-          <Button basic floated="right" >My Orders</Button>
-          <Button danger floated="right" >Your Orders</Button>
             <Link to="/dashboard/add-item">
-            <Button className='primary'>Add Item</Button>
+            <Button className='primary' >Add Item</Button>
             </Link>
             <Header>
               Total Earning: 00 eth 

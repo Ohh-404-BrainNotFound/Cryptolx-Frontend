@@ -30,6 +30,8 @@ function App() {
           <Route exact path='/listing' component={ListingPage} />
           <Route exact path='/orders' component={orderPage} />
           <Route exact path='/product/:productid' component={ProductPage} />
+          <Route exact path='/dashboard/:productid' component={ProductPage} />
+          <Route exact path='/dashboard/:productid' component={ProductPage} />
         </Switch>
         <Footer />
       </Router>
