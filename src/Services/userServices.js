@@ -60,9 +60,9 @@ export const saveEditedItem = async (details, userid) => {
 }
 
 
-export const addItemToCart = async (userid, itemid) => {
+export const addItemToCart = async (userid, itemid, itemName, itemPrice) => {
   try {    
-    await db.collection('users').doc(userid).collection("cart").add({ itemId: itemid })
+    await db.collection('users').doc(userid).collection("cart").add({ itemId: itemid, name: itemName, price: itemPrice })
     return true;
   } catch(err) {
     console.log(err);
@@ -74,10 +74,21 @@ export const currentCartItems = async userid => {
   try { 
     let itemid = [];   
     let userItemRef = await db.collection('users').doc(userid).collection("cart").get();
-    userItemRef.forEach((product) => itemid.push({ id: product.data().id }));
+    userItemRef.forEach((product) => itemid.push({ id: product.data().itemId, price: product.data().price, name: product.data().name }));
+    console.log(itemid);
     return itemid;
   } catch(err) {
     console.log(err);
     return false;
   }
 }
+
+export const deleteItemFromCart = async (userid, itemid) => {
+  try {
+    console.log("this is called " + itemid + " " + userid);
+      await db.collection("users").doc(userid).collection("cart").doc(itemid).delete();
+  } catch (err) {
+      console.log(err.message);
+      return err.message;
+  }
+};

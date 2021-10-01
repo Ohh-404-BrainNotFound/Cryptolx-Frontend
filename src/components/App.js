@@ -16,6 +16,7 @@ import UserProvider from '../Provider/userCheck';
 import ProductPage from "./Product/ProductPage"
 import failurePage from './Failure/failurePage';
 import successPage from './Success/successPage';
+import UserCart from './UserCart/UserCart';
 
 function App() {
   return (
@@ -31,9 +32,8 @@ function App() {
           <Route exact path='/dashboard/edit-item/:itemid' component={EditItem} />
           <Route exact path='/listing' component={ListingPage} />
           <Route exact path='/orders' component={orderPage} />
+          <Route exact path='/dashboard/cart' component={UserCart}/>
           <Route exact path='/product/:productid' component={ProductPage} />
-          <Route exact path='/dashboard/:productid' component={ProductPage} />
-          <Route exact path='/dashboard/:productid' component={ProductPage} />
           <Route exact path='/failure' component={failurePage}/>
           <Route exact path='/success' component={successPage}/>
         </Switch>

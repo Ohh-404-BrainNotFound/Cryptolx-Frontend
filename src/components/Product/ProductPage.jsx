@@ -133,12 +133,15 @@ const ProductPage = () => {
         console.log(item);
         item.map((item) => {
           if (item.id === location.productid) { check = true; }
+          console.log(item.id+" "+ location.productid);
+          // console.log(item);
         });
+        console.log(check);
         if (check === true) {
           toast.error(" Already in cart ");
         } else {
           setAdding(true);
-          await addItemToCart(user.uid, location.productid);
+          await addItemToCart(user.uid, location.productid, currentItem.name, currentItem.price);
           setAdding(false);
           toast.success("Added item to cart ");
         }
