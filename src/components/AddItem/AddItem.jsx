@@ -16,9 +16,12 @@ import { useEffect, useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { Redirect } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useHistory } from "react-router";
+
 
 function AddItem() {
   const info = useContext(UserContext);
+  const history = useHistory();
   const { user, isLoading } = info;
   const [redirect, setredirect] = useState(null);
   const [save, setSave] = useState(false);
@@ -57,11 +60,22 @@ function AddItem() {
     }
   };
 
+  const buttonConfig = {
+    backgroundColor: "orange",
+    color: "white",
+    font: "Gill Sans - Light",
+  };
+
+  const goBack = () => {
+    history.goBack();
+  }
+
   return (
     <Container>
        <Toaster />
-      <Header style={{ marginLeft: "50px" }}> Add item </Header>
+      <Header style={{ marginLeft: "50px" }} textAlign="center" > Add item </Header>
       <Form>
+      <Button icon="backward"  style={buttonConfig} onClick={() => goBack()} floated="right"  />
         <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Name
@@ -108,11 +122,7 @@ function AddItem() {
         <Divider />
         <Button
           type="submit"
-          style={{
-            backgroundColor: "orange",
-            color: "white",
-            font: "Gill Sans - Light",
-          }}
+          style={buttonConfig}
           loading = {save}
           onClick={() => saveItem()}
         >

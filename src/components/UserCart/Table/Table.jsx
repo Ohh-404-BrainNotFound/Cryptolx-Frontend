@@ -23,7 +23,7 @@ console.log(props);
                         {element.name}
                     </Table.Cell>
                     <Table.Cell>
-                        {element.price}{element.itemId}
+                        {element.price}
                     </Table.Cell>
                     <Table.Cell>
                 <Button
@@ -33,7 +33,7 @@ console.log(props);
                 />
                 </Table.Cell>
                 <Table.Cell>
-                <Link to={`/product/${element.itemId}`}>
+                <Link to={`/product/${element.id}`}>
                  <Button
                   icon="eye"
                   color="blue"

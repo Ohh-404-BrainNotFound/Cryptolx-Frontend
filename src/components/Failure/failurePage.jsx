@@ -34,7 +34,7 @@ function failurePage() {
 
   return (
     <Container>
-    <h1 style={{ marginLeft: "50px", color: "grey", font: "Gill Sans-Regular", marginTop: "20px" }}> Failure </h1>
+    <h1 style={{ marginLeft: "50px", color: "grey", font: "Gill Sans-Regular", marginTop: "20px" }}> Failure ></h1>
 
     <div className="overall">
       <div className="image">

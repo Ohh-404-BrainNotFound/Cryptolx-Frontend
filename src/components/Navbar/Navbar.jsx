@@ -39,21 +39,20 @@ const Navbar = () => {
             Products
           </Link>
         </Menu.Item>
-        <Menu.Item name="features" position="right">
-          Features
-        </Menu.Item>
         {!!user ? (
           <>
             <Menu.Item name="sign-in" position="right">
-            <Link activeClassName="current" to="/dashboard/cart">
-              <Icon name="shopping bag" /> My cart
-            </Link>
+              <Link activeClassName="current" to="/dashboard/cart">
+                <Icon name="shopping bag" /> My cart
+              </Link>
             </Menu.Item>
             <Menu.Item name="sign-in" position="right">
               <Button icon="shopping bag" content="My Orders" positive />
             </Menu.Item>
             <Menu.Item name="sign-in" position="right">
+              <Link activeClassName="current" to="/dashboard/orders">
               <Button icon="shopping bag" content="Your orders" primary />
+                </Link>
             </Menu.Item>
 
             <Menu.Item
