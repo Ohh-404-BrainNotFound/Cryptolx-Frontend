@@ -13,9 +13,6 @@ function OrderPage() {
             <Grid.Column width={8} className='left aligned' as='h1'>
               Orders
             </Grid.Column>
-            <Grid.Column width={8} className='right aligned'>
-              <Button className='primary'>Add Item</Button>
-            </Grid.Column>
           </Grid>
         </Header>
 
@@ -33,23 +30,6 @@ function OrderPage() {
                   />
                 </Container>
               </Grid.Row>
-            );
-          })}
-        </Grid>
-      </Container>
-
-      <Container>
-        <Header as='h1' style={{ marginTop: '50px' }}>
-          <h1 className='listing-heading'> Featured </h1>
-        </Header>
-        <Grid stackable columns={3}>
-          {similarItemData.map((data) => {
-            return (
-              <Grid.Column>
-                <Container fluid textAlign='center'>
-                  <Card imgSrc={data.imgSrc} />
-                </Container>
-              </Grid.Column>
             );
           })}
         </Grid>

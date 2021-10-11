@@ -48,12 +48,15 @@ const UserCart = () => {
     <>
       {user && (
         <Container style={marginTop}>
-          <Header as='h1'>All your added items are here 🤓 </Header>
+          <Header as='h1'>All your added items are here </Header>
           <Table info={items} userid={user.uid} deleteItem={deleteItem} />
           <Header as='h2'>Total: Rs</Header>
-          <Button floated='right' color='green'>
-            Proceed to checkout
-          </Button>
+          <Button
+            floated='right'
+            color='green'
+            icon='forward'
+            content='Procedd to Checkout'
+          />
         </Container>
       )}
     </>

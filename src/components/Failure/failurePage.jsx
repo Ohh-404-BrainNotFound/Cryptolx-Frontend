@@ -34,7 +34,7 @@ function failurePage() {
 
   return (
     <Container>
-    <h1 style={{ marginLeft: "50px", color: "grey", font: "Gill Sans-Regular", marginTop: "20px" }}> Failure </h1>
+    <h1 style={{ marginLeft: "50px", color: "grey", font: "Gill Sans-Regular", marginTop: "20px" }}> Failure ></h1>
 
     <div className="overall">
       <div className="image">
@@ -62,8 +62,8 @@ function failurePage() {
         {/* <h1 style={{ width: "2px", height:"2px"}}></h1> */}
 
         {/* Payment Info */}
-        <h1 style={{ marginLeft: "100px", color: "Orange", font: "Gill Sans-Regular", marginTop: "20px" }}>Payment Failed!!</h1>
-        <p style={{ marginLeft: "100px", color: "Orange", font: "Gill Sans-Regular" }}>😥😥 we don’t know what went wrong..</p>
+        <h1 style={{ marginLeft: "100px", color: "Orange", fontStyle: "Italic", font: "Gill Sans-Regular", marginTop: "20px" }}>Payment Failed!!</h1>
+        <p style={{ marginLeft: "100px", color: "Orange", fontStyle: "Italic", font: "Gill Sans-Regular" }}> We don’t know what went wrong..</p>
 
         {/* Buttons  */}
 
