@@ -125,7 +125,9 @@ const ProductPage = () => {
   };
   const buyCourse = async()=>{
     const address = creatorAddress;
-    await Account.methods.buyCourse(address).call()
+    let accounts = await web3.eth.getAccounts();
+    let placeHolderAmt = 1;
+    await Account.methods.buyCourse(address).send({ from: accounts[0], value: web3.utils.toWei(placeHolderAmt, "ether") })
   }
   const addToCart = async () => {
     try {
