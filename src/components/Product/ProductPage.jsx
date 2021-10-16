@@ -85,9 +85,9 @@ import {
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../../Services/generalServices";
-// import toast, { Toaster } from "react-hot-toast";
-// import web3 from "../../web3/web3";
-// import Account from "../../web3/account"
+import toast, { Toaster } from "react-hot-toast";
+import web3 from "../../web3/web3";
+import Account from "../../web3/account"
 import { addItemToCart, currentCartItems } from "../../Services/userServices";
 import "./ProductPage.scss";
 import { getImageUrl } from "../../Services/utils";
@@ -95,7 +95,6 @@ import Loader from "../Shared/Loader/Loader";
 import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { useHistory } from "react-router";
-import toast, { Toaster } from "react-hot-toast";
 
 const ProductPage = () => {
   const [currentItem, setCurrentItem] = useState();
@@ -115,7 +114,7 @@ const ProductPage = () => {
 
   // const [userAddress, setUserAddress] = useState("");
   // const [currentCourse, setCurrentCourse] = useState();
-  // const creatorAddress = "0xc8CAa6a432f301Ca9E96BD396C5A51d1defDB2A1";
+  const creatorAddress = "0xc8CAa6a432f301Ca9E96BD396C5A51d1defDB2A1";
 
   const fetchItemData = async () => {
     let items = await getAllItems();
@@ -124,7 +123,12 @@ const ProductPage = () => {
     getImage(item[0].data.image);
     // console.log(item[0].data);
   };
-
+  const buyCourse = async()=>{
+    const address = creatorAddress;
+    let accounts = await web3.eth.getAccounts();
+    let placeHolderAmt = 1;
+    await Account.methods.buyCourse(address).send({ from: accounts[0], value: web3.utils.toWei(placeHolderAmt, "ether") })
+  }
   const addToCart = async () => {
     try {
       if (user && !isLoading) {
@@ -144,6 +148,7 @@ const ProductPage = () => {
           await addItemToCart(user.uid, location.productid, currentItem.name, currentItem.price);
           setAdding(false);
           toast.success("Added item to cart ");
+          buyCourse();
         }
       } else {
         toast.error(" please login first ");

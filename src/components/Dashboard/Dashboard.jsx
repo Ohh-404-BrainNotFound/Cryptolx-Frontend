@@ -35,6 +35,7 @@ const Dashboard = () => {
   const redeemYourBalance = async () => {
     const accounts = await web3.eth.getAccounts();
     await Account.methods.redeemBalance().send({ from: accounts[0]});
+    fetchAccountBalance()
   }
 
   const fetchUseritems = async () => {
@@ -73,7 +74,7 @@ const Dashboard = () => {
                 <Button className="primary" icon="add" content="Add item" />
               </Link>
               <Header>Total Earning:  {balance} eth</Header>
-              <Button primary content="Redeem All Money"  onClick={() => redeemYourBalance()}  />
+              <Button primary content="Redeem All Money"  onClick={() => redeemYourBalance() }  />
             </Grid.Column>
           </Grid>
         </Header>
