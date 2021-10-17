@@ -16,16 +16,16 @@ To Solve this problem and encourage use of Blockchain in other areas, we thought
 # Tech Stack Used
 ```
 Blockchain:
-- Solidity for smart contracts
-- Ganache and mocha for testing.
-- web3 for interaction
+- Smart contracts: Solidity
+- Testing:         Ganache and mocha.
+- Interaction:     Web3
 
 Frontend:
-- Reactjs for UI library
-- Semantic UI for styling.
+- UI Library:      Reactjs
+- Styling:         Semantic-UI
 
 - Backend and database
-- Firebase for both.
+- Firebase
 ```
 
 # Running Locally
