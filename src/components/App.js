@@ -8,7 +8,7 @@ import LoginComponent from './WorkableComponents/Login/Login';
 import RegisterComponent from './Register/Register';
 import Home from './Home/Home';
 import Dashboard from './Dashboard/Dashboard';
-import orderPage from './Orders/Orders';
+import OrderPage from './Orders/Orders';
 import 'semantic-ui-css/semantic.min.css';
 import ListingPage from './Listings/Listings';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -31,7 +31,7 @@ function App() {
           <Route exact path='/dashboard/add-item' component={AddItem} />
           <Route exact path='/dashboard/edit-item/:itemid' component={EditItem} />
           <Route exact path='/listing' component={ListingPage} />
-          <Route exact path='/orders' component={orderPage} />
+          <Route exact path='/dashboard/orders' component={OrderPage} />
           <Route exact path='/dashboard/cart' component={UserCart}/>
           <Route exact path='/product/:productid' component={ProductPage} />
           <Route exact path='/failure' component={failurePage}/>

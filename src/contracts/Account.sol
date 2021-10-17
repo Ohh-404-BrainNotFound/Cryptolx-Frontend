@@ -1,7 +1,7 @@
-pragma solidity ^0.4.17;
+pragma solidity >=0.4.17;
 
 contract Account {
-    mapping(address => uint) public userMoney;
+    mapping(address=> uint) public userMoney;
 
         modifier restricted() {
             require(userMoney[msg.sender] != 0);
@@ -13,7 +13,8 @@ contract Account {
     }
 
     function redeemBalance() public restricted {
-        msg.sender.transfer(userMoney[msg.sender]);
+        //Converting this to address payable first
+        payable(msg.sender).transfer(userMoney[msg.sender]);
         userMoney[msg.sender] = 0;
     } 
     
@@ -21,7 +22,7 @@ contract Account {
         userMoney[whomCourseBuyed] = userMoney[whomCourseBuyed] + msg.value; 
     }
 
-    function getUserBalance() public returns(uint) {
+    function getUserBalance() public view returns(uint) {
         if(userMoney[msg.sender] != 0) {
             return userMoney[msg.sender];
         } else {
