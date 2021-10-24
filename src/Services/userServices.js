@@ -95,7 +95,12 @@ export const addItemToCart = async (userid, itemid, itemName, itemPrice) => {
       .collection("users")
       .doc(userid)
       .collection("cart")
-      .add({ itemId: itemid, name: itemName, price: itemPrice });
+      .add({
+        itemId: itemid,
+        name: itemName,
+        price: itemPrice,
+        userId: userid,
+      });
     return true;
   } catch (err) {
     console.log(err);
