@@ -22,7 +22,7 @@ const UserCart = () => {
   const fetchCartItems = async () => {
     let fetchedItem = await currentCartItems(user.uid);
     setItems(fetchedItem);
-    console.log(fetchedItem);
+    console.log("fetchedItem is", fetchedItem);
   };
 
   const deleteItem = async (itemid) => {
@@ -37,7 +37,8 @@ const UserCart = () => {
   const handleCheckout = async () => {
     await items.map(async (item) => {
       console.log(item);
-      // await deleteItemFromCart(item.userId, item.id);
+      if (item.userId !== undefined)
+        await deleteItemFromCart(item.userId, item.id);
     });
   };
 
@@ -62,7 +63,7 @@ const UserCart = () => {
             floated="right"
             color="green"
             icon="forward"
-            content="Procedd to Checkout"
+            content="Proceed to Checkout"
             onClick={handleCheckout}
           />
         </Container>
