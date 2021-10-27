@@ -15,7 +15,6 @@ import {
   addLabelToItem,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
-import web3 from "../../web3/web3";
 
 const UserCart = () => {
   const [items, setItems] = useState([]);
