@@ -9,6 +9,7 @@ import { UserContext } from "../../Provider/userCheck";
 import {
   currentCartItems,
   deleteItemFromCart,
+  addLabelToItem,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
 
@@ -37,8 +38,8 @@ const UserCart = () => {
   const handleCheckout = async () => {
     await items.map(async (item) => {
       console.log(item);
-      if (item.userId !== undefined)
-        await deleteItemFromCart(item.userId, item.id);
+      if (item.userId !== undefined) await addLabelToItem(item.userId, item.id);
+      // await deleteItemFromCart(item.userId, item.id);
     });
   };
 

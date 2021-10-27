@@ -147,3 +147,19 @@ export const deleteItemFromCart = async (userid, itemid) => {
     return err.message;
   }
 };
+
+export const addLabelToItem = async (userId, itemId) => {
+  try {
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("items")
+      .doc(itemId)
+      .update({
+        label: true,
+      });
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
