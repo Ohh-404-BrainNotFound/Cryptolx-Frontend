@@ -96,6 +96,7 @@ const Dashboard = () => {
                       itemid={data.id}
                       fetchItems={fetchUseritems}
                       userid={user.uid}
+                      //This will make sure that for old times those who does not have label will take false.
                       isLabel={data.data.label || false}
                     />
                   </Container>

@@ -15,7 +15,8 @@ export const addItem = async (
   price,
   description,
   id,
-  imageLocation
+  imageLocation,
+  address
 ) => {
   try {
     let fileName = getFileName();
@@ -33,6 +34,7 @@ export const addItem = async (
         description: description,
         image: fileName,
         userid: id,
+        address: address,
       })
       .then((doc) => console.log(doc));
   } catch (err) {

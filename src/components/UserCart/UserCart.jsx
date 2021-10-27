@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/Shared/Loader/Loader";
 import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
+import web3 from "../../web3/web3";
+import Account from "../../web3/account";
+
 // import { useHistory } from "react-router";
 import {
   currentCartItems,
@@ -12,6 +15,7 @@ import {
   addLabelToItem,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
+import web3 from "../../web3/web3";
 
 const UserCart = () => {
   const [items, setItems] = useState([]);
@@ -35,11 +39,18 @@ const UserCart = () => {
       console.log(err);
     }
   };
+
+  const sendMoney = async (address) => {
+    const accounts = await web3.eth.getAccounts();
+    await Account.methods.buyCourse(address).send({ from: accounts[0] });
+  };
   const handleCheckout = async () => {
     await items.map(async (item) => {
       console.log(item);
-      if (item.userId !== undefined) await addLabelToItem(item.userId, item.id);
-      // await deleteItemFromCart(item.userId, item.id);
+      if (item.userId !== undefined) {
+        await addLabelToItem(item.userId, item.id);
+        await sendMoney(item.address);
+      }
     });
   };
 
