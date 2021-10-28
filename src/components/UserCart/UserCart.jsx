@@ -1,16 +1,19 @@
-import React from 'react';
-import { Container, Header, Button, Message } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Loader from '../../components/Shared/Loader/Loader';
-import { useContext } from 'react';
-import { UserContext } from '../../Provider/userCheck';
+import React from "react";
+import { Container, Header, Button, Message } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Loader from "../../components/Shared/Loader/Loader";
+import { useContext } from "react";
+import { getTotalPrice } from "../../Services/utils";
+import { UserContext } from "../../Provider/userCheck";
+import Account from "../../web3/account";
+import web3 from "../../web3/web3";
 // import { useHistory } from "react-router";
 import {
   currentCartItems,
   deleteItemFromCart,
-} from '../../Services/userServices';
-import Table from './Table/Table';
+} from "../../Services/userServices";
+import Table from "./Table/Table";
 
 const UserCart = () => {
   const [items, setItems] = useState([]);
@@ -41,21 +44,21 @@ const UserCart = () => {
   }, [user, isLoading]);
 
   const marginTop = {
-    marginTop: '10px',
+    marginTop: "10px",
   };
 
   return (
     <>
       {user && (
         <Container style={marginTop}>
-          <Header as='h1'>All your added items are here </Header>
+          <Header as="h1">All your added items are here </Header>
           <Table info={items} userid={user.uid} deleteItem={deleteItem} />
-          <Header as='h2'>Total: Rs</Header>
+          <Header as="h2">Total: Rs {getTotalPrice(items)} </Header>
           <Button
-            floated='right'
-            color='green'
-            icon='forward'
-            content='Procedd to Checkout'
+            floated="right"
+            color="green"
+            icon="forward"
+            content="Procedd to Checkout"
           />
         </Container>
       )}

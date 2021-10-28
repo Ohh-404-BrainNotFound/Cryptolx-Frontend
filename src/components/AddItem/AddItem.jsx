@@ -18,7 +18,6 @@ import { Redirect } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useHistory } from "react-router";
 
-
 function AddItem() {
   const info = useContext(UserContext);
   const history = useHistory();
@@ -29,27 +28,35 @@ function AddItem() {
   useEffect(() => {
     console.log(user);
     if (user && !isLoading) {
-      setredirect('/');
+      setredirect("/");
     } else {
-      setredirect('/dashboard');
+      setredirect("/dashboard");
     }
   }, [user, isLoading]);
 
   const [itemName, setitemName] = useState("");
   const [productDescription, setproductDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [userWalletAddress, setUserWalletAddress] = useState("");
   const [image, setImageName] = useState("");
   const [images, setImages] = useState([]);
 
   const saveItem = async () => {
     try {
       setSave(true);
-      await addItem(itemName, price, productDescription, user.uid, image);
+      await addItem(
+        userWalletAddress,
+        itemName,
+        price,
+        productDescription,
+        user.uid,
+        image
+      );
       setSave(false);
-      toast.success('Successfully item added !!')
+      toast.success("Successfully item added !!");
     } catch (err) {
       console.log(err);
-      toast.error('Failed to add !!')
+      toast.error("Failed to add !!");
       throw new err();
     }
   };
@@ -68,14 +75,22 @@ function AddItem() {
 
   const goBack = () => {
     history.goBack();
-  }
+  };
 
   return (
     <Container>
-       <Toaster />
-      <Header style={{ marginLeft: "50px" }} textAlign="center" > Add item </Header>
+      <Toaster />
+      <Header style={{ marginLeft: "50px" }} textAlign="center">
+        {" "}
+        Add item{" "}
+      </Header>
       <Form>
-      <Button icon="backward"  style={buttonConfig} onClick={() => goBack()} floated="right"  />
+        <Button
+          icon="backward"
+          style={buttonConfig}
+          onClick={() => goBack()}
+          floated="right"
+        />
         <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Name
@@ -102,6 +117,17 @@ function AddItem() {
             }}
           />
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
+            Provide your wallet address
+          </label>
+          <input
+            type="text"
+            name="wallet-address"
+            value={userWalletAddress}
+            onChange={(e) => {
+              setUserWalletAddress(e.target.value);
+            }}
+          />
+          <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Description
           </label>
           <textarea
@@ -123,7 +149,7 @@ function AddItem() {
         <Button
           type="submit"
           style={buttonConfig}
-          loading = {save}
+          loading={save}
           onClick={() => saveItem()}
         >
           Submit

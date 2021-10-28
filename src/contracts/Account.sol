@@ -14,7 +14,7 @@ contract Account {
 
     function redeemBalance() public restricted {
         //Converting this to address payable first
-        payable(msg.sender).transfer(userMoney[msg.sender]);
+        msg.sender.transfer(userMoney[msg.sender]);
         userMoney[msg.sender] = 0;
     } 
     

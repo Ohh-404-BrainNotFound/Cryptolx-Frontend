@@ -87,7 +87,7 @@ import { useEffect, useState } from "react";
 import { getAllItems } from "../../Services/generalServices";
 import toast, { Toaster } from "react-hot-toast";
 import web3 from "../../web3/web3";
-import Account from "../../web3/account"
+import Account from "../../web3/account";
 import { addItemToCart, currentCartItems } from "../../Services/userServices";
 import "./ProductPage.scss";
 import { getImageUrl } from "../../Services/utils";
@@ -123,12 +123,7 @@ const ProductPage = () => {
     getImage(item[0].data.image);
     // console.log(item[0].data);
   };
-  const buyCourse = async()=>{
-    const address = creatorAddress;
-    let accounts = await web3.eth.getAccounts();
-    let placeHolderAmt = 1;
-    await Account.methods.buyCourse(address).send({ from: accounts[0], value: web3.utils.toWei(placeHolderAmt, "ether") })
-  }
+
   const addToCart = async () => {
     try {
       if (user && !isLoading) {
@@ -136,8 +131,10 @@ const ProductPage = () => {
         let check = false;
         console.log(item);
         item.map((item) => {
-          if (item.id === location.productid) { check = true; }
-          console.log(item.id+" "+ location.productid);
+          if (item.id === location.productid) {
+            check = true;
+          }
+          console.log(item.id + " " + location.productid);
           // console.log(item);
         });
         console.log(check);
@@ -145,10 +142,16 @@ const ProductPage = () => {
           toast.error(" Already in cart ");
         } else {
           setAdding(true);
-          await addItemToCart(user.uid, location.productid, currentItem.name, currentItem.price);
+          await addItemToCart(
+            user.uid,
+            location.productid,
+            currentItem.name,
+            currentItem.price
+          );
           setAdding(false);
           toast.success("Added item to cart ");
-          buyCourse();
+          buyThisProduct();
+          // buyCourse();
         }
       } else {
         toast.error(" please login first ");
@@ -159,12 +162,21 @@ const ProductPage = () => {
     }
   };
 
-  // const buyThisCourse = async (amt) => {
-  //   const accounts = await web3.eth.getAccounts();
-  //   setUserAddress(accounts[0]);
-  //   await Account.methods.buyCourse(creatorAddress).send({ from: accounts[0], value: web3.utils.toWei(amt, "ether") })
-  // }
-
+  const buyThisProduct = async () => {
+    try {
+      const accounts = await web3.eth.getAccounts();
+      // setUserAddress(accounts[0]);
+      await Account.methods
+        .buyCourse(currentItem.address)
+        .send({
+          from: accounts[0],
+          value: web3.utils.toWei(currentItem.price, "ether"),
+        });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+  // itemPurchased: false,
   useEffect(() => {
     fetchItemData();
   }, []);
@@ -187,7 +199,8 @@ const ProductPage = () => {
                 floated="right"
                 icon="money"
                 loading={adding}
-                content={"Add to Cart at Rs " + currentItem.price}
+                disabled={currentItem.isPurchased}
+                content={"Buy at " + currentItem.price}
                 color="red"
                 onClick={() => addToCart()}
               />
