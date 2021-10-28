@@ -41,6 +41,11 @@ const Navbar = () => {
         </Menu.Item>
         {!!user ? (
           <>
+           <Menu.Item name="sign-in" position="right">
+              <Link activeClassName="current" to="/dashboard">
+                Dashboard
+              </Link>
+            </Menu.Item>
             <Menu.Item name="sign-in" position="right">
               <Link activeClassName="current" to="/dashboard/cart">
                 <Icon name="shopping bag" /> My cart

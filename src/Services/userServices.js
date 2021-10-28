@@ -91,7 +91,7 @@ export const saveEditedItem = async (details, userid) => {
   }
 };
 
-export const addItemToCart = async (userid, itemid, itemName, itemPrice) => {
+export const addItemToCart = async (userid, itemid, itemName, itemPrice, address) => {
   try {
     await db
       .collection("users")
@@ -102,6 +102,7 @@ export const addItemToCart = async (userid, itemid, itemName, itemPrice) => {
         name: itemName,
         price: itemPrice,
         userId: userid,
+        address: address,
       });
     return true;
   } catch (err) {
@@ -119,13 +120,16 @@ export const currentCartItems = async (userid) => {
       .collection("cart")
       .get();
     console.log("CART ITEMS", userItemRef);
-    userItemRef.forEach((product) =>
+    userItemRef.forEach((product) =>{
+      console.log(product.data());
       itemid.push({
         id: product.data().itemId,
         price: product.data().price,
         name: product.data().name,
         userId: product.data().userId,
-      })
+        productDocId: product.id,
+        address: product.data().address,
+      })}
     );
     console.log(itemid);
     return itemid;
@@ -137,21 +141,26 @@ export const currentCartItems = async (userid) => {
 
 export const deleteItemFromCart = async (userid, itemid) => {
   try {
-    console.log("this is called " + itemid + " " + userid);
-    await db
+    // console.log("this is called " + itemid + " " + userid)
+    console.log("this is a userid", userid);
+    console.log("this is a doc id", itemid);
+    let delRef = await db
       .collection("users")
       .doc(userid)
       .collection("cart")
       .doc(itemid)
-      .delete();
+      .delete()
+      .then((doc) => console.log("ITEM DETELED",doc));
+      console.log("this is delRef", delRef);
   } catch (err) {
-    console.log(err.message);
+    console.log("error from del cart",err.message);
     return err.message;
   }
 };
 
 export const addLabelToItem = async (userId, itemId) => {
   try {
+    console.log("this is label", itemId);
     await db
       .collection("users")
       .doc(userId)

@@ -31,17 +31,19 @@ const UserCart = () => {
 
   const deleteItem = async (itemid) => {
     try {
-      console.log(itemid);
+      console.log("this is", itemid + "and this is", user.uid);
       await deleteItemFromCart(user.uid, itemid);
-      fetchCartItems();
     } catch (err) {
       console.log(err);
     }
+    fetchCartItems();
   };
 
   const sendMoney = async (address) => {
     const accounts = await web3.eth.getAccounts();
-    await Account.methods.buyCourse(address).send({ from: accounts[0] });
+    console.log("this is address",address  +" and this is acc" + accounts[0]);
+    // also specify how much value need to be paid and to whom need to be paid
+    await Account.methods.buyCourse(address).send({ from: accounts[0], value: web3.utils.toWei("1", "ether") });
   };
   const handleCheckout = async () => {
     await items.map(async (item) => {

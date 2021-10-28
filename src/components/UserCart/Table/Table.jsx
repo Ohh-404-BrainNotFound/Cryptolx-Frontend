@@ -25,9 +25,7 @@ const TableComponent = (props) => {
                   icon="trash"
                   color="red"
                   onClick={() => {
-                    alert("derleteitem clicked", element.id);
-                    console.log("element", element);
-                    props.deleteItem(element.id);
+                    return props.deleteItem(element.productDocId);
                   }}
                 />
               </Table.Cell>
