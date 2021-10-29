@@ -1,6 +1,6 @@
 pragma solidity >=0.4.17;
 
-contract Account {
+contract Ballot {
     mapping(address=> uint) public userMoney;
 
         modifier restricted() {

@@ -14,12 +14,18 @@ const ProductCard = (props) => {
 
   useEffect(() => {
     getImage();
-  },[])
+  }, [])
 
   return (
     <Card>
+      {(props.data.isPurchased !== undefined) ?
+        (props.data.isPurchased) ? <Label color="red" floating >
+          {props.info.discount} %
+        </Label> : null : null
+      }
+
       <img
-        src={!!image ? image : "/images/item.png" }
+        src={!!image ? image : "/images/item.png"}
         style={{ height: "300px", width: "290px" }}
         alt="card"
       />
