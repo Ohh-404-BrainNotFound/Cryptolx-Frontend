@@ -39,18 +39,20 @@ const UserCart = () => {
     fetchCartItems();
   };
 
-  const sendMoney = async (address) => {
+  const sendMoney = async (address, price) => {
     const accounts = await web3.eth.getAccounts();
-    console.log("this is address",address  +" and this is acc" + accounts[0]);
+    console.log("this is address", address + " and this is acc" + accounts[0]);
     // also specify how much value need to be paid and to whom need to be paid
-    await Account.methods.buyCourse(address).send({ from: accounts[0], value: web3.utils.toWei("1", "ether") });
+    await Account.methods
+      .buyCourse(address)
+      .send({ from: accounts[0], value: web3.utils.toWei(price, "ether") });
   };
   const handleCheckout = async () => {
     await items.map(async (item) => {
       console.log(item);
       if (item.userId !== undefined) {
         await addLabelToItem(item.userId, item.id);
-        await sendMoney(item.address);
+        await sendMoney(item.address, item.price);
       }
     });
   };
