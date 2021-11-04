@@ -13,6 +13,7 @@ import {
   currentCartItems,
   deleteItemFromCart,
   addLabelToItem,
+  addItemToUserOrder,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
 
@@ -63,6 +64,12 @@ const UserCart = () => {
       }
       await sendMoney(item.address, item.price);
       await deleteItem(item.productDocId);
+      await addItemToUserOrder({
+        itemName: item.name,
+        price: item.price,
+        userId: item.userId,
+        address: item.address,
+      });
       // await deleteSingleItem(item.productDocId);
     });
     // fetchCartItems();

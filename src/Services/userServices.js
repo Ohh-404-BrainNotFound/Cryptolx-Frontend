@@ -91,7 +91,13 @@ export const saveEditedItem = async (details, userid) => {
   }
 };
 
-export const addItemToCart = async (userid, itemid, itemName, itemPrice, address) => {
+export const addItemToCart = async (
+  userid,
+  itemid,
+  itemName,
+  itemPrice,
+  address
+) => {
   try {
     await db
       .collection("users")
@@ -120,7 +126,7 @@ export const currentCartItems = async (userid) => {
       .collection("cart")
       .get();
     console.log("CART ITEMS", userItemRef);
-    userItemRef.forEach((product) =>{
+    userItemRef.forEach((product) => {
       console.log(product.data());
       itemid.push({
         id: product.data().itemId,
@@ -129,8 +135,8 @@ export const currentCartItems = async (userid) => {
         userId: product.data().userId,
         productDocId: product.id,
         address: product.data().address,
-      })}
-    );
+      });
+    });
     console.log(itemid);
     return itemid;
   } catch (err) {
@@ -150,10 +156,10 @@ export const deleteItemFromCart = async (userid, itemid) => {
       .collection("cart")
       .doc(itemid)
       .delete()
-      .then((doc) => console.log("ITEM DETELED",doc));
-      console.log("this is delRef", delRef);
+      .then((doc) => console.log("ITEM DETELED", doc));
+    console.log("this is delRef", delRef);
   } catch (err) {
-    console.log("error from del cart",err.message);
+    console.log("error from del cart", err.message);
     return err.message;
   }
 };
@@ -172,5 +178,48 @@ export const addLabelToItem = async (userId, itemId) => {
   } catch (error) {
     console.log(error.message);
     return error.message;
+  }
+};
+
+export const addItemToUserOrder = async (
+  itemName,
+  price,
+
+  userId,
+
+  address
+) => {
+  try {
+    let fileName = getFileName();
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("orders")
+      .add({
+        name: itemName,
+        price: price,
+        image: fileName,
+        userid: userId,
+        address: address,
+      })
+      .then((doc) => console.log(doc));
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const getUserOrderItems = async (userId) => {
+  try {
+    let items = [];
+    let itemsRef = await db
+      .collection("users")
+      .doc(userId)
+      .collection("orders")
+      .get();
+    itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
+    return items;
+  } catch (err) {
+    console.log(err);
   }
 };
