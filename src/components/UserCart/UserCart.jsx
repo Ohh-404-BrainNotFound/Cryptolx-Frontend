@@ -36,9 +36,17 @@ const UserCart = () => {
     } catch (err) {
       console.log(err);
     }
-    fetchCartItems();
+    // fetchCartItems();
   };
 
+  const deleteSingleItem = async (itemid) => {
+    try {
+      console.log("Inside deleteSingleItem", itemid);
+      await deleteItemFromCart(user.uid, itemid);
+    } catch (e) {
+      console.log("Got an error while deleting from cart", e);
+    }
+  };
   const sendMoney = async (address, price) => {
     const accounts = await web3.eth.getAccounts();
     console.log("this is address", address + " and this is acc" + accounts[0]);
@@ -49,12 +57,15 @@ const UserCart = () => {
   };
   const handleCheckout = async () => {
     await items.map(async (item) => {
-      console.log(item);
-      if (item.userId !== undefined) {
+      console.log("INSIDE MAP", item);
+      if (item.userId !== undefined && item.userId !== "") {
         await addLabelToItem(item.userId, item.id);
-        await sendMoney(item.address, item.price);
       }
+      await sendMoney(item.address, item.price);
+      await deleteItem(item.productDocId);
+      // await deleteSingleItem(item.productDocId);
     });
+    // fetchCartItems();
   };
 
   useEffect(() => {
