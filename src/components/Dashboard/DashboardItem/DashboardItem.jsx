@@ -35,11 +35,9 @@ function DashboardItem({
   const LabelExampleCorner = () => (
     <Grid columns={2}>
       <Grid.Column>
-        <Segment raised>
           <Label as="a" color="red" ribbon>
             Sold Out!!
           </Label>
-        </Segment>
       </Grid.Column>
     </Grid>
   );

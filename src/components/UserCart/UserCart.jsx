@@ -37,7 +37,7 @@ const UserCart = () => {
     } catch (err) {
       console.log(err);
     }
-    // fetchCartItems();
+    fetchCartItems();
   };
 
   const deleteSingleItem = async (itemid) => {
@@ -62,14 +62,15 @@ const UserCart = () => {
       if (item.userId !== undefined && item.userId !== "") {
         await addLabelToItem(item.userId, item.id);
       }
-      await sendMoney(item.address, item.price);
+      console.log("this is adding item");
+      await addItemToUserOrder(
+        item.name,
+        item.price,
+        item.userId,
+        item.address,
+      );
       await deleteItem(item.productDocId);
-      await addItemToUserOrder({
-        itemName: item.name,
-        price: item.price,
-        userId: item.userId,
-        address: item.address,
-      });
+      await sendMoney(item.address, item.price);
       // await deleteSingleItem(item.productDocId);
     });
     // fetchCartItems();
@@ -97,7 +98,7 @@ const UserCart = () => {
             color="green"
             icon="forward"
             content="Proceed to Checkout"
-            onClick={handleCheckout}
+            onClick={() => handleCheckout()}
           />
         </Container>
       )}
