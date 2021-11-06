@@ -1,4 +1,4 @@
-pragma solidity >=0.4.17;
+pragma solidity ^0.4.17;
 
 contract Account {
     mapping(address=> uint) public userMoney;
