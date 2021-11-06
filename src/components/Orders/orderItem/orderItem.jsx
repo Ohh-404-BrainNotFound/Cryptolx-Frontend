@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List } from "semantic-ui-react";
 import "./orderItem.scss";
+import { getImageUrl } from "../../../Services/utils";
 function orderItem({ imgSrc, name, price, description, date }) {
+  const [image, setImage] = useState("");
+
+  const getImage = async () => {
+    let imageLocation = await getImageUrl("itemimage", imgSrc);
+    setImage(imageLocation);
+  };
+  useEffect(() => {
+    getImage();
+  }, []);
   return (
     <div className="item_container">
       <Segment>
         <Grid className="item_segment">
           <Grid.Column width={4}>
-            <Image src={imgSrc} />
+            <Image src={image ? image : "/images/crypto.png"} />
           </Grid.Column>
 
           <Grid.Column width={8} className="item_desciption">
