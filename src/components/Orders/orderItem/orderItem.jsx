@@ -1,14 +1,14 @@
 import React from "react";
 import { Image, Grid, Icon, Segment, List } from "semantic-ui-react";
 import "./orderItem.scss";
-function orderItem({ imgSrc, name, price, location, date }) {
+function orderItem({ imgSrc, name, price, description, date }) {
   return (
     <div className="item_container">
       <Segment>
         <Grid className="item_segment">
-          {/* <Grid.Column width={4}>
+          <Grid.Column width={4}>
             <Image src={imgSrc} />
-          </Grid.Column> */}
+          </Grid.Column>
 
           <Grid.Column width={8} className="item_desciption">
             <List>
@@ -19,7 +19,7 @@ function orderItem({ imgSrc, name, price, location, date }) {
                 {price}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                {location}
+                {description}
               </List.Item>
               <List.Item as="span" className="span_description_item">
                 {date}

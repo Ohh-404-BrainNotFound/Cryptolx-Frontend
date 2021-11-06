@@ -73,7 +73,9 @@ const ProductPage = () => {
             location.productid,
             currentItem.name,
             currentItem.price,
-            currentItem.address
+            currentItem.address,
+            currentItem.description,
+            image
           );
           setAdding(false);
           toast.success("Added item to cart ");

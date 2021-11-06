@@ -96,7 +96,9 @@ export const addItemToCart = async (
   itemid,
   itemName,
   itemPrice,
-  address
+  address,
+  description,
+  imgSrc
 ) => {
   try {
     await db
@@ -109,6 +111,8 @@ export const addItemToCart = async (
         price: itemPrice,
         userId: userid,
         address: address,
+        description: description,
+        imgSrc: imgSrc,
       });
     return true;
   } catch (err) {
@@ -135,6 +139,8 @@ export const currentCartItems = async (userid) => {
         userId: product.data().userId,
         productDocId: product.id,
         address: product.data().address,
+        description: product.data().description,
+        image: product.data().imgSrc,
       });
     });
     console.log(itemid);
@@ -181,8 +187,23 @@ export const addLabelToItem = async (userId, itemId) => {
   }
 };
 
-export const addItemToUserOrder = async (itemName, price, userId, address) => {
-  console.log("this is called", itemName, price, userId, address);
+export const addItemToUserOrder = async (
+  itemName,
+  price,
+  userId,
+  address,
+  description,
+  image
+) => {
+  console.log(
+    "this is called",
+    itemName,
+    price,
+    userId,
+    address,
+    description,
+    image
+  );
   try {
     let fileName = getFileName();
     await db
@@ -195,6 +216,8 @@ export const addItemToUserOrder = async (itemName, price, userId, address) => {
         image: fileName,
         userid: userId,
         address: address,
+        description: description,
+        image: image,
       })
       .then((doc) => console.log(doc));
   } catch (error) {

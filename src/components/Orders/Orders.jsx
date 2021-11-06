@@ -51,10 +51,12 @@ function OrderPage() {
               <Grid.Row>
                 <Container>
                   <OrderItem
-                    imgSrc={""}
+                    imgSrc={
+                      DATA.image !== "" ? DATA.image : "/images/crypto.png"
+                    }
                     name={DATA.name}
                     price={DATA.price}
-                    location={DATA.location}
+                    description={DATA.description}
                     date={DATA.date}
                   />
                 </Container>

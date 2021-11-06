@@ -67,7 +67,9 @@ const UserCart = () => {
         item.name,
         item.price,
         item.userId,
-        item.address
+        item.address,
+        item.description,
+        item.image
       );
       await deleteItem(item.productDocId);
       await sendMoney(item.address, item.price);
