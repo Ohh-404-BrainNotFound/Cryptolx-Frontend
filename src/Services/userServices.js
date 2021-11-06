@@ -181,12 +181,8 @@ export const addLabelToItem = async (userId, itemId) => {
   }
 };
 
-export const addItemToUserOrder = async ({
-  itemName,
-  price,
-  userId,
-  address,
-}) => {
+export const addItemToUserOrder = async (itemName, price, userId, address) => {
+  console.log("this is called", itemName, price, userId, address);
   try {
     let fileName = getFileName();
     await db

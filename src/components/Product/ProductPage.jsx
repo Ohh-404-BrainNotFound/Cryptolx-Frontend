@@ -77,8 +77,6 @@ const ProductPage = () => {
           );
           setAdding(false);
           toast.success("Added item to cart ");
-          buyThisProduct();
-          // buyCourse();
         }
       } else {
         toast.error(" please login first ");
@@ -125,7 +123,7 @@ const ProductPage = () => {
                 icon="money"
                 loading={adding}
                 disabled={currentItem.isPurchased}
-                content={"Buy at " + currentItem.price}
+                content={"Add to cart Price: " + currentItem.price}
                 color="red"
                 onClick={() => addToCart()}
               />
