@@ -181,14 +181,12 @@ export const addLabelToItem = async (userId, itemId) => {
   }
 };
 
-export const addItemToUserOrder = async (
+export const addItemToUserOrder = async ({
   itemName,
   price,
-
   userId,
-
-  address
-) => {
+  address,
+}) => {
   try {
     let fileName = getFileName();
     await db

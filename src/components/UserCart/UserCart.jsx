@@ -37,7 +37,7 @@ const UserCart = () => {
     } catch (err) {
       console.log(err);
     }
-    // fetchCartItems();
+    fetchCartItems();
   };
 
   const deleteSingleItem = async (itemid) => {
@@ -62,17 +62,16 @@ const UserCart = () => {
       if (item.userId !== undefined && item.userId !== "") {
         await addLabelToItem(item.userId, item.id);
       }
-      await sendMoney(item.address, item.price);
-      await deleteItem(item.productDocId);
       await addItemToUserOrder({
         itemName: item.name,
         price: item.price,
         userId: item.userId,
         address: item.address,
       });
-      // await deleteSingleItem(item.productDocId);
+      await deleteSingleItem(item.productDocId);
+      await sendMoney(item.address, item.price);
     });
-    // fetchCartItems();
+    fetchCartItems();
   };
 
   useEffect(() => {
