@@ -213,7 +213,6 @@ export const addItemToUserOrder = async (
       .add({
         name: itemName,
         price: price,
-        image: fileName,
         userid: userId,
         address: address,
         description: description,
@@ -233,6 +232,50 @@ export const getUserOrderItems = async (userId) => {
       .collection("users")
       .doc(userId)
       .collection("orders")
+      .get();
+
+    itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
+    console.log("ITEMSREF", items);
+    return items;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const addItemToSoldItems = async (
+  itemName,
+  price,
+  userId,
+  address,
+  description,
+  image
+) => {
+  try {
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("sold")
+      .add({
+        name: itemName,
+        price: price,
+        userid: userId,
+        address: address,
+        description: description,
+        image: image,
+      });
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const getSoldItems = async (userId) => {
+  try {
+    let items = [];
+    let itemsRef = await db
+      .collection("users")
+      .doc(userId)
+      .collection("sold")
       .get();
 
     itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));

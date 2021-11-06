@@ -21,6 +21,7 @@ import {
   deleteItemFromCart,
   addLabelToItem,
   addItemToUserOrder,
+  addItemToSoldItems,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
 
@@ -72,6 +73,14 @@ const UserCart = () => {
       }
       console.log("this is adding item");
       await addItemToUserOrder(
+        item.name,
+        item.price,
+        item.userId,
+        item.address,
+        item.description,
+        item.image
+      );
+      await addItemToSoldItems(
         item.name,
         item.price,
         item.userId,
