@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, Header, Button, Message } from "semantic-ui-react";
+import {
+  Container,
+  Header,
+  Button,
+  Message,
+  Modal,
+  Icon,
+} from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../../components/Shared/Loader/Loader";
@@ -22,6 +29,7 @@ const UserCart = () => {
   //Info is basically just used to check in if the user is logged in or not.
   const info = useContext(UserContext);
   const { user, isLoading } = info;
+  const [open, setOpen] = useState(false);
   // const history = useHistory();
 
   const fetchCartItems = async () => {
@@ -95,13 +103,48 @@ const UserCart = () => {
           <Header as="h1">All your added items are here </Header>
           <Table info={items} userid={user.uid} deleteItem={deleteItem} />
           <Header as="h2">Total: Rs</Header>
-          <Button
-            floated="right"
-            color="green"
-            icon="forward"
-            content="Proceed to Checkout"
-            onClick={() => handleCheckout()}
-          />
+
+          <Modal
+            basic
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            size="small"
+            trigger={
+              <Button
+                floated="right"
+                color="green"
+                icon="forward"
+                content="Proceed to Checkout"
+              />
+            }
+          >
+            <Header icon>
+              <Icon name="archive" />
+              Do you want to checkout your cart?
+            </Header>
+            <Modal.Content>
+              <p>
+                Your items will be deleted and you will have to perform payment
+                through Metamask!!
+              </p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button basic color="red" inverted onClick={() => setOpen(false)}>
+                <Icon name="remove" /> No
+              </Button>
+              <Button
+                color="green"
+                inverted
+                onClick={() => {
+                  setOpen(false);
+                  handleCheckout();
+                }}
+              >
+                <Icon name="checkmark" /> Yes
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </Container>
       )}
     </>
