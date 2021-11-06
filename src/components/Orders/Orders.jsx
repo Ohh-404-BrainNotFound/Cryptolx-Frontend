@@ -4,9 +4,9 @@ import OrderItem from "./orderItem/orderItem";
 import { UserContext } from "../../Provider/userCheck";
 import Card from "./similarElement/similarElement";
 import { Redirect } from "react-router";
+import Loader from "../Shared/Loader/Loader";
 import { getUserOrderItems } from "../../Services/userServices";
 // const orderData = require('../../data/ordersData.json');
-const similarItemData = require("../../data/similarItems.json");
 function OrderPage() {
   const info = useContext(UserContext);
   const { user, isLoading } = info;
@@ -18,7 +18,7 @@ function OrderPage() {
     setLoading(true);
     let items = await getUserOrderItems(user.uid);
     setLoading(false);
-    console.log(items);
+    console.log("order items are ", items);
     setOrderData(items);
     console.log(items);
     console.log(user);
@@ -32,8 +32,8 @@ function OrderPage() {
         fetchUseritems();
       }
     }
-  }, []);
-  return (
+  }, [user, isLoading]);
+  return !loading ? (
     <div>
       <Container>
         <Header>
@@ -46,15 +46,16 @@ function OrderPage() {
 
         <Grid>
           {orderData.map((data, index) => {
+            const DATA = data.data;
             return (
               <Grid.Row>
                 <Container>
                   <OrderItem
-                    imgSrc={data.imgSrc}
-                    name={data.name}
-                    price={data.price}
-                    location={data.location}
-                    date={data.date}
+                    imgSrc={""}
+                    name={DATA.name}
+                    price={DATA.price}
+                    location={DATA.location}
+                    date={DATA.date}
                   />
                 </Container>
               </Grid.Row>
@@ -63,6 +64,8 @@ function OrderPage() {
         </Grid>
       </Container>
     </div>
+  ) : (
+    <Loader />
   );
 }
 

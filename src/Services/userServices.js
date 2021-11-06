@@ -211,7 +211,9 @@ export const getUserOrderItems = async (userId) => {
       .doc(userId)
       .collection("orders")
       .get();
+
     itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
+    console.log("ITEMSREF", items);
     return items;
   } catch (err) {
     console.log(err);
