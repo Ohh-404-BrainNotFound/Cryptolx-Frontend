@@ -10,14 +10,17 @@ function SoldItem({ imgSrc, name, price, description, date }) {
     setImage(imageLocation);
   };
   useEffect(() => {
-    getImage();
+    async function call() {
+      await getImage();
+    }
+    call();
   }, []);
   return (
     <div className="item_container">
       <Segment>
         <Grid className="item_segment">
           <Grid.Column width={4}>
-            <Image src={image ? image : "/images/crypto.png"} />
+            <Image src={image ? image : "/images/item.png"} />
           </Grid.Column>
 
           <Grid.Column width={8} className="item_desciption">
@@ -35,11 +38,6 @@ function SoldItem({ imgSrc, name, price, description, date }) {
                 {date}
               </List.Item>
             </List>
-          </Grid.Column>
-
-          <Grid.Column width={4} className="right aligned item_icons">
-            <Icon name="edit" size="big"></Icon>
-            <Icon name="trash alternate" size="big"></Icon>
           </Grid.Column>
         </Grid>
       </Segment>
