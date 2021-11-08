@@ -6,6 +6,8 @@ import {
   Message,
   Modal,
   Icon,
+  Input,
+  Grid,
 } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -29,8 +31,10 @@ const UserCart = () => {
   const [items, setItems] = useState([]);
   //Info is basically just used to check in if the user is logged in or not.
   const info = useContext(UserContext);
-  const { user, isLoading } = info;
+  const { user, isLoading, shippingAddress } = info;
   const [open, setOpen] = useState(false);
+  const [shipping, setShipping] = useState("");
+  const [totalMoney, setTotalMoney] = useState(0);
   // const history = useHistory();
 
   const fetchCartItems = async () => {
@@ -94,12 +98,24 @@ const UserCart = () => {
     });
     fetchCartItems();
   };
-
+  const getMoney = async () => {
+    // console.log("Items in getMOney", items);
+    await items.map(async (item) => {
+      // console.log("TYPEOFPRICE", typeof parseInt(item.price));
+      setTotalMoney((prev) => {
+        return prev + parseInt(item.price);
+      });
+    });
+  };
   useEffect(() => {
     if (user && !isLoading) {
       fetchCartItems();
     }
   }, [user, isLoading]);
+
+  useEffect(() => {
+    getMoney();
+  }, [items]);
 
   const marginTop = {
     marginTop: "10px",
@@ -111,7 +127,7 @@ const UserCart = () => {
         <Container style={marginTop}>
           <Header as="h1">All your added items are here </Header>
           <Table info={items} userid={user.uid} deleteItem={deleteItem} />
-          <Header as="h2">Total: Rs</Header>
+          <Header as="h2">Total-Ether: {totalMoney}</Header>
 
           <Modal
             basic
@@ -138,6 +154,15 @@ const UserCart = () => {
                 through Metamask!!
               </p>
             </Modal.Content>
+            <Input
+              fluid
+              placeholder="Add your shipping address!!"
+              value={shipping}
+              onChange={(e) => {
+                setShipping(e.target.value);
+              }}
+            />
+
             <Modal.Actions>
               <Button basic color="red" inverted onClick={() => setOpen(false)}>
                 <Icon name="remove" /> No
@@ -146,8 +171,12 @@ const UserCart = () => {
                 color="green"
                 inverted
                 onClick={() => {
-                  setOpen(false);
-                  handleCheckout();
+                  if (shipping === "")
+                    alert("Please enter shipping address first");
+                  else {
+                    setOpen(false);
+                    handleCheckout();
+                  }
                 }}
               >
                 <Icon name="checkmark" /> Yes
