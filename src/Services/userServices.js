@@ -312,8 +312,9 @@ export const getShippingAddress = async (userId) => {
       .collection("address")
       .get();
     address.forEach((userAdd) => {
-      shippingAddress = userAdd;
+      shippingAddress = userAdd.data().shippingAddress;
     });
+    console.log("address is", address);
     return shippingAddress;
   } catch (error) {
     console.log(error.message);

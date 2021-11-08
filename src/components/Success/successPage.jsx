@@ -27,6 +27,7 @@ function successPage() {
 
   const getAddress = async () => {
     const shippingAddress = await getShippingAddress(user.uid);
+    console.log("shipping address is", shippingAddress);
     setAddress(shippingAddress);
   };
   useEffect(() => {
@@ -40,120 +41,124 @@ function successPage() {
   }, [user, isLoading]);
 
   return (
-    <Container>
-      <h1
-        style={{
-          marginLeft: "50px",
-          color: "grey",
-          font: "Gill Sans-Regular",
-          marginTop: "20px",
-        }}
-      >
-        Success
-      </h1>
-
-      <div className="overall">
-        <div className="image">
-          <img
-            style={{ marginTop: "100px", marginLeft: "100px" }}
-            src={"/images/succ.png"}
-            style={{ height: "300px", width: "310px" }}
-            className="cross-image"
-            alt="card"
-          />
-        </div>
-
-        <div className="info">
+    <>
+      {user && (
+        <Container>
           <h1
             style={{
-              marginLeft: "100px",
-              color: "Black",
+              marginLeft: "50px",
+              color: "grey",
               font: "Gill Sans-Regular",
               marginTop: "20px",
             }}
           >
-            Generic Product name
+            Success
           </h1>
-          <h4
-            style={{
-              marginLeft: "100px",
-              color: "grey",
-              font: "Gill Sans-Regular",
-              marginTop: "10px",
-            }}
-          >
-            Generic Product info will be presented here
-          </h4>
 
-          {/* Divider */}
-          {/* <h1 style={{ width: "2px", height:"2px"}}></h1> */}
+          <div className="overall">
+            <div className="image">
+              <img
+                style={{ marginTop: "100px", marginLeft: "100px" }}
+                src={"/images/succ.png"}
+                style={{ height: "300px", width: "310px" }}
+                className="cross-image"
+                alt="card"
+              />
+            </div>
 
-          {/* User Information */}
+            <div className="info">
+              {/* <h1
+                style={{
+                  marginLeft: "100px",
+                  color: "Black",
+                  font: "Gill Sans-Regular",
+                  marginTop: "20px",
+                }}
+              >
+                Generic Product name
+              </h1>
+              <h4
+                style={{
+                  marginLeft: "100px",
+                  color: "grey",
+                  font: "Gill Sans-Regular",
+                  marginTop: "10px",
+                }}
+              >
+                Generic Product info will be presented here
+              </h4> */}
 
-          <h3
-            style={{
-              marginLeft: "100px",
-              color: "Black",
-              font: "Gill Sans-Light",
-            }}
-          >
-            {" "}
-            Divyam Solanki
-          </h3>
-          <h5
-            style={{
-              marginLeft: "100px",
-              color: "grey",
-              font: "Gill Sans-Light",
-              marginTop: "0px",
-            }}
-          >
-            {" "}
-            143, C Block, Hawa Magri, Sector 12, Udaipur Rajasthan{" "}
-          </h5>
+              {/* Divider */}
+              {/* <h1 style={{ width: "2px", height:"2px"}}></h1> */}
 
-          {/* Divider */}
-          {/* <h1 style={{ width: "2px", height:"2px"}}></h1> */}
+              {/* User Information */}
 
-          {/* Payment Info */}
-          <h1
-            style={{
-              marginLeft: "100px",
-              color: "Orange",
-              font: "Gill Sans-Regular",
-              fontStyle: "Italic",
-              marginTop: "20px",
-            }}
-          >
-            Payment Processed!!
-          </h1>
-          <p
-            style={{
-              marginLeft: "100px",
-              color: "Orange",
-              fontStyle: "Italic",
-              font: "Gill Sans-Regular",
-            }}
-          >
-            Will reach you in 5-7 working days
-          </p>
+              <h3
+                style={{
+                  marginLeft: "100px",
+                  color: "Black",
+                  font: "Gill Sans-Light",
+                }}
+              >
+                {" "}
+                {user.displayName}
+              </h3>
+              <h5
+                style={{
+                  marginLeft: "100px",
+                  color: "grey",
+                  font: "Gill Sans-Light",
+                  marginTop: "0px",
+                }}
+              >
+                {" "}
+                {address}
+              </h5>
 
-          {/* Buttons  */}
+              {/* Divider */}
+              {/* <h1 style={{ width: "2px", height:"2px"}}></h1> */}
 
-          <Button
-            style={{
-              backgroundColor: "Maroon",
-              color: "white",
-              font: "Gill Sans - Light",
-              marginLeft: "100px",
-              marginTop: "15px",
-            }}
-          >
-            Continue Shopping, Your shipping address is {address}
-          </Button>
-        </div>
-      </div>
-    </Container>
+              {/* Payment Info */}
+              <h1
+                style={{
+                  marginLeft: "100px",
+                  color: "Orange",
+                  font: "Gill Sans-Regular",
+                  fontStyle: "Italic",
+                  marginTop: "20px",
+                }}
+              >
+                Payment Processed!!
+              </h1>
+              <p
+                style={{
+                  marginLeft: "100px",
+                  color: "Orange",
+                  fontStyle: "Italic",
+                  font: "Gill Sans-Regular",
+                }}
+              >
+                Will reach you in 5-7 working days
+              </p>
+
+              {/* Buttons  */}
+
+              <Button
+                style={{
+                  backgroundColor: "Maroon",
+                  color: "white",
+                  font: "Gill Sans - Light",
+                  marginLeft: "100px",
+                  marginTop: "15px",
+                }}
+              >
+                Continue Shopping
+              </Button>
+            </div>
+          </div>
+        </Container>
+      )}
+    </>
   );
 }
 
