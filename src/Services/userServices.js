@@ -285,3 +285,38 @@ export const getSoldItems = async (userId) => {
     console.log(err);
   }
 };
+
+export const setShippingAddress = async (userId, shippingAddress) => {
+  try {
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("address")
+      .add({
+        shippingAddress: shippingAddress,
+      });
+
+    console.log("SHIPPING SAVED SUCCESSFULLY", shippingAddress);
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const getShippingAddress = async (userId) => {
+  try {
+    let shippingAddress;
+    let address = await db
+      .collection("users")
+      .doc(userId)
+      .collection("address")
+      .get();
+    address.forEach((userAdd) => {
+      shippingAddress = userAdd;
+    });
+    return shippingAddress;
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};

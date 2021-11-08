@@ -16,6 +16,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import web3 from "../../web3/web3";
 import Account from "../../web3/account";
+import { Redirect } from "react-router-dom";
 
 // import { useHistory } from "react-router";
 import {
@@ -24,6 +25,7 @@ import {
   addLabelToItem,
   addItemToUserOrder,
   addItemToSoldItems,
+  setShippingAddress,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
 
@@ -35,6 +37,7 @@ const UserCart = () => {
   const [open, setOpen] = useState(false);
   const [shipping, setShipping] = useState("");
   const [totalMoney, setTotalMoney] = useState(0);
+  const [redirect, setredirect] = useState(null);
   // const history = useHistory();
 
   const fetchCartItems = async () => {
@@ -97,6 +100,7 @@ const UserCart = () => {
       // await deleteSingleItem(item.productDocId);
     });
     fetchCartItems();
+    setredirect("/success");
   };
   const getMoney = async () => {
     // console.log("Items in getMOney", items);
@@ -174,6 +178,8 @@ const UserCart = () => {
                   if (shipping === "")
                     alert("Please enter shipping address first");
                   else {
+                    console.log("SHipping in cart", shipping);
+                    setShippingAddress(user.uid, shipping);
                     setOpen(false);
                     handleCheckout();
                   }
