@@ -33,11 +33,10 @@ const UserCart = () => {
   const [items, setItems] = useState([]);
   //Info is basically just used to check in if the user is logged in or not.
   const info = useContext(UserContext);
-  const { user, isLoading, shippingAddress } = info;
+  const { user, isLoading } = info;
   const [open, setOpen] = useState(false);
   const [shipping, setShipping] = useState("");
   const [totalMoney, setTotalMoney] = useState(0);
-  const [redirect, setredirect] = useState(null);
   // const history = useHistory();
 
   const fetchCartItems = async () => {
@@ -100,7 +99,7 @@ const UserCart = () => {
       // await deleteSingleItem(item.productDocId);
     });
     fetchCartItems();
-    setredirect("/success");
+    window.location.href = "/success";
   };
   const getMoney = async () => {
     // console.log("Items in getMOney", items);

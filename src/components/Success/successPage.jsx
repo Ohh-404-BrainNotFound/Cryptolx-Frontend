@@ -33,9 +33,9 @@ function successPage() {
     console.log(user);
     if (user && !isLoading) {
       setredirect("/");
+      getAddress();
     } else {
       setredirect("/success");
-      getAddress();
     }
   }, [user, isLoading]);
 
