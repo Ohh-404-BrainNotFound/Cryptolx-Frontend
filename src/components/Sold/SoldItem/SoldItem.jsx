@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List } from "semantic-ui-react";
-import "./orderItem.scss";
+import "./SoldItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function orderItem({ imgSrc, name, price, description, date }) {
+function SoldItem({ imgSrc, name, price, description, date }) {
   const [image, setImage] = useState("");
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
-    console.log("INSIDE getimage function");
     setImage(imageLocation);
   };
   useEffect(() => {
-    getImage();
+    async function call() {
+      await getImage();
+    }
+    call();
   }, []);
   return (
     <div className="item_container">
       <Segment>
         <Grid className="item_segment">
           <Grid.Column width={4}>
-            <Image src={!!image ? image : "/images/item.png"} />
+            <Image src={image ? image : "/images/item.png"} />
           </Grid.Column>
 
           <Grid.Column width={8} className="item_desciption">
@@ -43,4 +45,4 @@ function orderItem({ imgSrc, name, price, description, date }) {
   );
 }
 
-export default orderItem;
+export default SoldItem;

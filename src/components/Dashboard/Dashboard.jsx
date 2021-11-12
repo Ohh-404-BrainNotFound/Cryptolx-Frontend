@@ -27,9 +27,11 @@ const Dashboard = () => {
   const [balance, setBalance] = useState(0);
 
   const fetchAccountBalance = async () => {
-    const accounts = await web3.eth.getAccounts();
-    let balanceOf = await Account.methods.userMoney(accounts[0]).call();
-    setBalance(Number(balanceOf).toFixed() / 1000000000000000000);
+    if (window.web3 !== "" && window.web3 !== undefined) {
+      const accounts = await web3.eth.getAccounts();
+      let balanceOf = await Account.methods.userMoney(accounts[0]).call();
+      setBalance(Number(balanceOf).toFixed() / 1000000000000000000);
+    }
   };
 
   const redeemYourBalance = async () => {

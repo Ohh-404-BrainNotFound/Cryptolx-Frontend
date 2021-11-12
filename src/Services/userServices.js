@@ -91,7 +91,15 @@ export const saveEditedItem = async (details, userid) => {
   }
 };
 
-export const addItemToCart = async (userid, itemid, itemName, itemPrice, address) => {
+export const addItemToCart = async (
+  userid,
+  itemid,
+  itemName,
+  itemPrice,
+  address,
+  description,
+  imgSrc
+) => {
   try {
     await db
       .collection("users")
@@ -103,6 +111,8 @@ export const addItemToCart = async (userid, itemid, itemName, itemPrice, address
         price: itemPrice,
         userId: userid,
         address: address,
+        description: description,
+        imgSrc: imgSrc,
       });
     return true;
   } catch (err) {
@@ -120,7 +130,7 @@ export const currentCartItems = async (userid) => {
       .collection("cart")
       .get();
     console.log("CART ITEMS", userItemRef);
-    userItemRef.forEach((product) =>{
+    userItemRef.forEach((product) => {
       console.log(product.data());
       itemid.push({
         id: product.data().itemId,
@@ -129,8 +139,10 @@ export const currentCartItems = async (userid) => {
         userId: product.data().userId,
         productDocId: product.id,
         address: product.data().address,
-      })}
-    );
+        description: product.data().description,
+        image: product.data().imgSrc,
+      });
+    });
     console.log(itemid);
     return itemid;
   } catch (err) {
@@ -150,10 +162,10 @@ export const deleteItemFromCart = async (userid, itemid) => {
       .collection("cart")
       .doc(itemid)
       .delete()
-      .then((doc) => console.log("ITEM DETELED",doc));
-      console.log("this is delRef", delRef);
+      .then((doc) => console.log("ITEM DETELED", doc));
+    console.log("this is delRef", delRef);
   } catch (err) {
-    console.log("error from del cart",err.message);
+    console.log("error from del cart", err.message);
     return err.message;
   }
 };
@@ -169,6 +181,141 @@ export const addLabelToItem = async (userId, itemId) => {
       .update({
         label: true,
       });
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const addItemToUserOrder = async (
+  itemName,
+  price,
+  userId,
+  address,
+  description,
+  image
+) => {
+  console.log(
+    "this is called",
+    itemName,
+    price,
+    userId,
+    address,
+    description,
+    image
+  );
+  try {
+    let fileName = getFileName();
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("orders")
+      .add({
+        name: itemName,
+        price: price,
+        userid: userId,
+        address: address,
+        description: description,
+        image: image,
+      })
+      .then((doc) => console.log(doc));
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const getUserOrderItems = async (userId) => {
+  try {
+    let items = [];
+    let itemsRef = await db
+      .collection("users")
+      .doc(userId)
+      .collection("orders")
+      .get();
+
+    itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
+    console.log("ITEMSREF", items);
+    return items;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const addItemToSoldItems = async (
+  itemName,
+  price,
+  userId,
+  address,
+  description,
+  image
+) => {
+  try {
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("sold")
+      .add({
+        name: itemName,
+        price: price,
+        userid: userId,
+        address: address,
+        description: description,
+        image: image,
+      });
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const getSoldItems = async (userId) => {
+  try {
+    let items = [];
+    let itemsRef = await db
+      .collection("users")
+      .doc(userId)
+      .collection("sold")
+      .get();
+
+    itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
+    console.log("ITEMSREF", items);
+    return items;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const setShippingAddress = async (userId, shippingAddress) => {
+  try {
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("address")
+      .add({
+        shippingAddress: shippingAddress,
+      });
+
+    console.log("SHIPPING SAVED SUCCESSFULLY", shippingAddress);
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const getShippingAddress = async (userId) => {
+  try {
+    let shippingAddress;
+    let address = await db
+      .collection("users")
+      .doc(userId)
+      .collection("address")
+      .get();
+    address.forEach((userAdd) => {
+      shippingAddress = userAdd.data().shippingAddress;
+    });
+    console.log("address is", address);
+    return shippingAddress;
   } catch (error) {
     console.log(error.message);
     return error.message;

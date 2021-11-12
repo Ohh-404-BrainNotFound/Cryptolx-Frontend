@@ -41,7 +41,7 @@ const Navbar = () => {
         </Menu.Item>
         {!!user ? (
           <>
-           <Menu.Item name="sign-in" position="right">
+            <Menu.Item name="sign-in" position="right">
               <Link activeClassName="current" to="/dashboard">
                 Dashboard
               </Link>
@@ -52,12 +52,14 @@ const Navbar = () => {
               </Link>
             </Menu.Item>
             <Menu.Item name="sign-in" position="right">
-              <Button icon="shopping bag" content="My Orders" positive />
+              <Link activeClassName="current" to="/dashboard/sold">
+                <Button icon="shopping bag" content="My Orders" positive />
+              </Link>
             </Menu.Item>
             <Menu.Item name="sign-in" position="right">
               <Link activeClassName="current" to="/dashboard/orders">
-              <Button icon="shopping bag" content="Your orders" primary />
-                </Link>
+                <Button icon="shopping bag" content="Your orders" primary />
+              </Link>
             </Menu.Item>
 
             <Menu.Item

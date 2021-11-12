@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Grid, Header, Button } from "semantic-ui-react";
-import OrderItem from "./orderItem/orderItem";
+import SoldItem from "./SoldItem/SoldItem";
 import { UserContext } from "../../Provider/userCheck";
-import Card from "./similarElement/similarElement";
 import { Redirect } from "react-router";
 import Loader from "../Shared/Loader/Loader";
-import { getUserOrderItems } from "../../Services/userServices";
+import { getSoldItems } from "../../Services/userServices";
 // const orderData = require('../../data/ordersData.json');
 function OrderPage() {
   const info = useContext(UserContext);
@@ -16,7 +15,7 @@ function OrderPage() {
 
   const fetchUseritems = async () => {
     setLoading(true);
-    let items = await getUserOrderItems(user.uid);
+    let items = await getSoldItems(user.uid);
     setLoading(false);
     console.log("order items are ", items);
     setOrderData(items);
@@ -50,7 +49,7 @@ function OrderPage() {
             return (
               <Grid.Row>
                 <Container>
-                  <OrderItem
+                  <SoldItem
                     imgSrc={
                       DATA.image !== "" ? DATA.image : "/images/crypto.png"
                     }
