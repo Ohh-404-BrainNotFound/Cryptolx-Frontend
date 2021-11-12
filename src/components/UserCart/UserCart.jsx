@@ -10,7 +10,8 @@ import {
   Grid,
 } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import Loader from "../../components/Shared/Loader/Loader";
 import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
@@ -37,8 +38,12 @@ const UserCart = () => {
   const [open, setOpen] = useState(false);
   const [shipping, setShipping] = useState("");
   const [totalMoney, setTotalMoney] = useState(0);
+  const myRef = useRef();
   // const history = useHistory();
 
+  const sleep = async (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
   const fetchCartItems = async () => {
     let fetchedItem = await currentCartItems(user.uid);
     setItems(fetchedItem);
@@ -98,8 +103,13 @@ const UserCart = () => {
       await sendMoney(item.address, item.price);
       // await deleteSingleItem(item.productDocId);
     });
+    setTotalMoney(0);
     fetchCartItems();
-    window.location.href = "/success";
+    await sleep(10000);
+    // console.log(new Date());
+    // alert("After 5 sec");
+    // console.log(new Date());
+    myRef.current.click();
   };
   const getMoney = async () => {
     // console.log("Items in getMOney", items);
@@ -128,6 +138,14 @@ const UserCart = () => {
     <>
       {user && (
         <Container style={marginTop}>
+          <Link
+            style={{ visibility: "hidden" }}
+            ref={myRef}
+            activeClassName="current"
+            to="/success"
+          >
+            Success
+          </Link>
           <Header as="h1">All your added items are here </Header>
           <Table info={items} userid={user.uid} deleteItem={deleteItem} />
           <Header as="h2">Total-Ether: {totalMoney}</Header>
