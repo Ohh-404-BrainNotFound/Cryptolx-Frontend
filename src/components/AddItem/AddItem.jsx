@@ -37,20 +37,20 @@ function AddItem() {
   const [itemName, setitemName] = useState("");
   const [productDescription, setproductDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [userWalletAddress, setUserWalletAddress] = useState("");
   const [image, setImageName] = useState("");
+  const [address, setAddress] = useState("");
   const [images, setImages] = useState([]);
 
   const saveItem = async () => {
     try {
       setSave(true);
       await addItem(
-        userWalletAddress,
         itemName,
         price,
         productDescription,
         user.uid,
-        image
+        image,
+        address
       );
       setSave(false);
       toast.success("Successfully item added !!");
@@ -117,17 +117,6 @@ function AddItem() {
             }}
           />
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
-            Provide your wallet address
-          </label>
-          <input
-            type="text"
-            name="wallet-address"
-            value={userWalletAddress}
-            onChange={(e) => {
-              setUserWalletAddress(e.target.value);
-            }}
-          />
-          <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Description
           </label>
           <textarea
@@ -136,6 +125,19 @@ function AddItem() {
             value={productDescription}
             onChange={(e) => {
               setproductDescription(e.target.value);
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label style={{ color: "grey", font: "Gill Sans-Light" }}>
+            Enter your account address
+          </label>
+          <input
+            type="text"
+            name="account-address"
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value);
             }}
           />
         </Form.Field>

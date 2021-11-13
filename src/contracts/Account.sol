@@ -1,6 +1,6 @@
 pragma solidity ^0.4.17;
 
-contract Account {
+contract Ballot {
     mapping(address=> uint) public userMoney;
 
         modifier restricted() {
@@ -14,7 +14,7 @@ contract Account {
 
     function redeemBalance() public restricted {
         //Converting this to address payable first
-        msg.sender.transfer(userMoney[msg.sender]);
+        payable(msg.sender).transfer(userMoney[msg.sender]);
         userMoney[msg.sender] = 0;
     } 
     

@@ -14,8 +14,8 @@ import { getUserAddedItems, deleteItem } from "../../Services/userServices";
 import Loader from "../Shared/Loader/Loader";
 // import { NavLink } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import web3 from "../../web3/web3"
-import Account from "../../web3/account"
+import web3 from "../../web3/web3";
+import Account from "../../web3/account";
 
 const Dashboard = () => {
   const info = useContext(UserContext);
@@ -27,16 +27,18 @@ const Dashboard = () => {
   const [balance, setBalance] = useState(0);
 
   const fetchAccountBalance = async () => {
-    const accounts = await web3.eth.getAccounts();
-    let balanceOf = await Account.methods.userMoney(accounts[0]).call();
-    setBalance(Number(balanceOf).toFixed()/1000000000000000000);
-  }
+    if (window.web3 !== "" && window.web3 !== undefined) {
+      const accounts = await web3.eth.getAccounts();
+      let balanceOf = await Account.methods.userMoney(accounts[0]).call();
+      setBalance(Number(balanceOf).toFixed() / 1000000000000000000);
+    }
+  };
 
   const redeemYourBalance = async () => {
     const accounts = await web3.eth.getAccounts();
-    await Account.methods.redeemBalance().send({ from: accounts[0]});
-    fetchAccountBalance()
-  }
+    await Account.methods.redeemBalance().send({ from: accounts[0] });
+    fetchAccountBalance();
+  };
 
   const fetchUseritems = async () => {
     setLoading(true);
@@ -69,12 +71,16 @@ const Dashboard = () => {
             </Grid.Column>
             <Grid.Column width={8} className="right aligned">
               <Link to="/dashboard/add-item">
-              {/* <Link to="/success"> */}
-              {/* <Link to="/failure"> */}
+                {/* <Link to="/success"> */}
+                {/* <Link to="/failure"> */}
                 <Button className="primary" icon="add" content="Add item" />
               </Link>
-              <Header>Total Earning:  {balance} eth</Header>
-              <Button primary content="Redeem All Money"  onClick={() => redeemYourBalance() }  />
+              <Header>Total Earning: {balance} eth</Header>
+              <Button
+                primary
+                content="Redeem All Money"
+                onClick={() => redeemYourBalance()}
+              />
             </Grid.Column>
           </Grid>
         </Header>
@@ -92,6 +98,8 @@ const Dashboard = () => {
                       itemid={data.id}
                       fetchItems={fetchUseritems}
                       userid={user.uid}
+                      //This will make sure that for old times those who does not have label will take false.
+                      isLabel={data.data.label || false}
                     />
                   </Container>
                 </Grid.Row>
