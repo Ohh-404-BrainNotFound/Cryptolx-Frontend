@@ -119,7 +119,7 @@ const ProductPage = () => {
               alt="card"
             />
             <Header as="h1">
-              {currentItem.name}
+              Name: {currentItem.name}
               <Button
                 floated="right"
                 icon="money"
@@ -131,8 +131,8 @@ const ProductPage = () => {
               />
             </Header>
             <Divider />
-            <Header as="h2">About the Item</Header>
-            <p>{currentItem.description}</p>
+            <Header as="h2">About the Item:</Header>
+          <p>{currentItem.description}</p>
             <Divider />
           </Segment>
         </Container>

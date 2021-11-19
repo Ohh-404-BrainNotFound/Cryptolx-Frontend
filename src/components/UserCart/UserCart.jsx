@@ -8,6 +8,7 @@ import {
   Icon,
   Input,
   Grid,
+  TextArea,
 } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -138,6 +139,7 @@ const UserCart = () => {
     <>
       {user && (
         <Container style={marginTop}>
+          {items.length > 0 ? <>
           <Link
             style={{ visibility: "hidden" }}
             ref={myRef}
@@ -146,6 +148,7 @@ const UserCart = () => {
           >
             Success
           </Link>
+          
           <Header as="h1">All your added items are here </Header>
           <Table info={items} userid={user.uid} deleteItem={deleteItem} />
           <Header as="h2">Total-Ether: {totalMoney}</Header>
@@ -183,7 +186,6 @@ const UserCart = () => {
                 setShipping(e.target.value);
               }}
             />
-
             <Modal.Actions>
               <Button basic color="red" inverted onClick={() => setOpen(false)}>
                 <Icon name="remove" /> No
@@ -205,7 +207,9 @@ const UserCart = () => {
                 <Icon name="checkmark" /> Yes
               </Button>
             </Modal.Actions>
-          </Modal>
+          </Modal> </> : 
+         <Header> No items in your cart right now !!</Header> 
+          }
         </Container>
       )}
     </>

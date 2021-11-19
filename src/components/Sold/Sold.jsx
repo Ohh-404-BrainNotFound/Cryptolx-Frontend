@@ -38,7 +38,10 @@ function OrderPage() {
         <Header>
           <Grid>
             <Grid.Column width={8} className="left aligned" as="h1">
-              Orders
+              Items sold by you:
+            </Grid.Column>
+            <Grid.Column width={8} className="right aligned" as="h1">
+              Total Earned: 
             </Grid.Column>
           </Grid>
         </Header>

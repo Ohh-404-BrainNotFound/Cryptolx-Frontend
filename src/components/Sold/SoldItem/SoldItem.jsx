@@ -26,16 +26,19 @@ function SoldItem({ imgSrc, name, price, description, date }) {
           <Grid.Column width={8} className="item_desciption">
             <List>
               <List.Item as="h2" className="heading_desciption_item">
-                {name}
+               Name: {name}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                {price}
+               Product Price: {price}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                {description}
+               About: {description}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                {date}
+                Date of purchasing: {date}
+              </List.Item>
+              <List.Item as="span" className="span_description_item">
+                About Buyer: {date}
               </List.Item>
             </List>
           </Grid.Column>

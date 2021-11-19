@@ -39,7 +39,7 @@ function OrderPage() {
         <Header>
           <Grid>
             <Grid.Column width={8} className="left aligned" as="h1">
-              Orders
+              Items ordered by you:
             </Grid.Column>
           </Grid>
         </Header>
