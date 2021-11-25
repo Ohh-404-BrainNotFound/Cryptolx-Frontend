@@ -54,16 +54,13 @@ function DashboardItem({
           <Grid.Column width={8} className="item_desciption">
             <List>
               <List.Item as="h2" className="heading_desciption_item">
-                {name}
+                Product Name: {name}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                {price}
+                Product Price: {price} ethereum
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                {location}
-              </List.Item>
-              <List.Item as="span" className="span_description_item">
-                {data}
+                About: {data}
               </List.Item>
             </List>
           </Grid.Column>
