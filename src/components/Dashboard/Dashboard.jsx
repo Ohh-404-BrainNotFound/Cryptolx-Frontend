@@ -28,9 +28,13 @@ const Dashboard = () => {
 
   const fetchAccountBalance = async () => {
     if (window.web3 !== "" && window.web3 !== undefined) {
-      const accounts = await web3.eth.getAccounts();
-      let balanceOf = await Account.methods.userMoney(accounts[0]).call();
-      setBalance(Number(balanceOf).toFixed() / 1000000000000000000);
+      try {
+        const accounts = await web3.eth.getAccounts();
+        let balanceOf = await Account.methods.userMoney(accounts[0]).call();
+        setBalance(Number(balanceOf).toFixed() / 1000000000000000000);
+      } catch(err) {
+        console.log("this is error", err.message)
+      }
     }
   };
 
