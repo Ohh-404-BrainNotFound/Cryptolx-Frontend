@@ -35,6 +35,7 @@ export const addItem = async (
         image: fileName,
         userid: id,
         address: address,
+        ownerId: id,
       })
       .then((doc) => console.log(doc));
   } catch (err) {

@@ -33,6 +33,8 @@ function OrderPage() {
       }
     }
   }, [user, isLoading]);
+
+  
   return !loading ? (
     <div>
       <Container>
