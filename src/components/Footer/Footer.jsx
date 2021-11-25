@@ -31,14 +31,10 @@ function Footer() {
               <List className='animated'>
                 {/* <List.Item className='hidden'>I am Hidden</List.Item> */}
                 <List.Item as='span'>
-                  <Link activeClassName="current" to="/failure">
                   Privacy
-                  </Link>
                 </List.Item>
                 <List.Item as='span'>
-                <Link activeClassName="current" to="/success">
                   Terms of Use
-                </Link>
                 </List.Item>
                 <List.Item as='span'>Crypto</List.Item>
               </List>
@@ -47,9 +43,9 @@ function Footer() {
               <Header className='hidden'>I am Hidden</Header>
               <List className='animated'>
                 {/* <List.Item className='hidden'>I am Hidden</List.Item> */}
-                <List.Item as='a'>Facebook</List.Item>
-                <List.Item as='a'>Twitter</List.Item>
-                <List.Item as='a'>Instagram</List.Item>
+                <List.Item as='span'>Facebook</List.Item>
+                <List.Item as='span'>Twitter</List.Item>
+                <List.Item as='span'>Instagram</List.Item>
               </List>
             </Grid.Column>
           </Grid>
