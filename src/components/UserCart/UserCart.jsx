@@ -94,11 +94,13 @@ const UserCart = () => {
       await addItemToSoldItems(
         item.name,
         item.price,
-        item.userId,
+        item.ownerId,
+        // item.userId,
         item.address,
         item.description,
         item.image
       );
+
       await deleteItem(item.productDocId);
       await sendMoney(item.address, item.price);
       // await deleteSingleItem(item.productDocId);
