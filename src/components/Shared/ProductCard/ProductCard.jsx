@@ -37,7 +37,7 @@ const ProductCard = (props) => {
           {/* {props.data.description.length > 40
             ? props.data.description.slice(0, 30) + "..."
             : props.data.description} */}
-           sellar: 
+           seller: 
             <p>
             {(props.data.info ? props.data.info : "no info")}
               </p> 
