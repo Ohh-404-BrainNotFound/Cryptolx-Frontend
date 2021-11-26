@@ -4,7 +4,8 @@ import SoldItem from "./SoldItem/SoldItem";
 import { UserContext } from "../../Provider/userCheck";
 import { Redirect } from "react-router";
 import Loader from "../Shared/Loader/Loader";
-import { getSoldItems } from "../../Services/userServices";
+import { getSoldItems, updateOrderTrack } from "../../Services/userServices";
+import toast, { Toaster } from "react-hot-toast";
 // const orderData = require('../../data/ordersData.json');
 function OrderPage() {
   const info = useContext(UserContext);
@@ -32,10 +33,23 @@ function OrderPage() {
       }
     }
   }, [user, isLoading]);
+
+  const updateOrderStatus = async (productId, userId, status, soldProductId) => {
+    try {
+      console.log(productId, userId, status)
+      await updateOrderTrack(productId, userId, status, soldProductId, user.uid);
+      toast.success("Updated Order Status")
+    } catch(err) {
+      toast.error("failed to update");
+      console.log(err.message)
+    }
+  }
+
   return !loading ? (
     <div>
       <Container>
         <Header>
+          <Toaster />
           <Grid>
             <Grid.Column width={8} className="left aligned" as="h1">
               Items sold by you:
@@ -49,6 +63,7 @@ function OrderPage() {
         <Grid>
           {orderData.map((data, index) => {
             const DATA = data.data;
+            console.log("this is data", data)
             return (
               <Grid.Row>
                 <Container>
@@ -56,10 +71,15 @@ function OrderPage() {
                     imgSrc={
                       DATA.image !== "" ? DATA.image : "/images/crypto.png"
                     }
+                    soldProductId  = {data.id}
                     name={DATA.name}
                     price={DATA.price}
                     description={DATA.description}
                     date={DATA.date}
+                    productId = { DATA.productId}
+                    userId = {DATA.userid}
+                    updateOrderStatus = {updateOrderStatus}
+                    status = {(DATA.status) ? DATA.status : "no status"}
                   />
                 </Container>
               </Grid.Row>

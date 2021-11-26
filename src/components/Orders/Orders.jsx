@@ -9,6 +9,12 @@ import { getUserOrderItems } from "../../Services/userServices";
 // const orderData = require('../../data/ordersData.json');
 function OrderPage() {
 
+  const statusOptions = [
+    {key:1 , text: "dispatced", value: "dispatched"},
+    {key:2 , text: "processing", value: "processing"},
+    {key:3 , text: "delivered", value: "delivered"},
+]
+
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [loading, setLoading] = useState(false);
@@ -59,6 +65,7 @@ function OrderPage() {
                     price={DATA.price}
                     description={DATA.description}
                     date={DATA.date}
+                    status = {DATA.status ? DATA.status :  "no status"}
                   />
                 </Container>
               </Grid.Row>
