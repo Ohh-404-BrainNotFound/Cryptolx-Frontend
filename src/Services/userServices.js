@@ -74,7 +74,7 @@ export const deleteItem = async (userid, itemid) => {
   }
 };
 
-export const saveEditedItem = async (details, userid) => {
+export const saveEditedItem = async (details, userid, description) => {
   try {
     console.log(userid + " ");
     console.log(details);
@@ -86,7 +86,7 @@ export const saveEditedItem = async (details, userid) => {
       .update({
         name: details.name,
         price: details.price,
-        description: details.description,
+        description: description,
       });
   } catch (err) {
     console.log(err);
