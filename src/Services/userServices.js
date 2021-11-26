@@ -33,8 +33,10 @@ export const addItem = async (
         price: price,
         description: description,
         image: fileName,
+        // this is sellar's id
         userid: id,
         address: address,
+        ownerId: id,
       })
       .then((doc) => console.log(doc));
   } catch (err) {
@@ -98,7 +100,8 @@ export const addItemToCart = async (
   itemPrice,
   address,
   description,
-  imgSrc
+  imgSrc,
+  sellarid
 ) => {
   try {
     await db
@@ -113,6 +116,7 @@ export const addItemToCart = async (
         address: address,
         description: description,
         imgSrc: imgSrc,
+        sellarid: sellarid
       });
     return true;
   } catch (err) {
@@ -141,6 +145,7 @@ export const currentCartItems = async (userid) => {
         address: product.data().address,
         description: product.data().description,
         image: product.data().imgSrc,
+        sellarId: product.data().sellarid
       });
     });
     console.log(itemid);
@@ -190,6 +195,7 @@ export const addLabelToItem = async (userId, itemId) => {
 export const addItemToUserOrder = async (
   itemName,
   price,
+  // this is customer user id
   userId,
   address,
   description,
@@ -245,6 +251,7 @@ export const getUserOrderItems = async (userId) => {
 export const addItemToSoldItems = async (
   itemName,
   price,
+  // this is sellar user id
   userId,
   address,
   description,
