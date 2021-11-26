@@ -16,6 +16,8 @@ const ProductCard = (props) => {
     getImage();
   }, [])
 
+
+
   return (
     <Card>
       {(props.data.isPurchased !== undefined) ?
@@ -32,9 +34,15 @@ const ProductCard = (props) => {
       <Card.Content>
         <Card.Header>{props.data.name} </Card.Header>
         <Card.Description>
-          {props.data.description.length > 40
+          {/* {props.data.description.length > 40
             ? props.data.description.slice(0, 30) + "..."
-            : props.data.description}
+            : props.data.description} */}
+            sellar: xyz
+{/*             
+          <div
+            className="preview"
+            dangerouslySetInnerHTML={createMarkup(props.data.description)}
+          ></div> */}
         </Card.Description>
         <Card.Description>
           <span>Ξ{props.data.price}</span>
