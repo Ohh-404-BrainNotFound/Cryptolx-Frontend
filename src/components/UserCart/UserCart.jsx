@@ -144,7 +144,6 @@ const UserCart = () => {
     <>
       {user && (
         <Container style={marginTop}>
-          {items.length > 0 ? <>
           <Link
             style={{ visibility: "hidden" }}
             ref={myRef}
@@ -153,68 +152,75 @@ const UserCart = () => {
           >
             Success
           </Link>
-          
-          <Header as="h1">All your added items are here </Header>
-          <Table info={items} userid={user.uid} deleteItem={deleteItem} />
-          <Header as="h2">Total-Ether: {totalMoney}</Header>
-
-          <Modal
-            basic
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            size="small"
-            trigger={
-              <Button
-                floated="right"
-                color="green"
-                icon="forward"
-                content="Proceed to Checkout"
-              />
-            }
-          >
-            <Header icon>
-              <Icon name="archive" />
-              Do you want to checkout your cart?
-            </Header>
-            <Modal.Content>
-              <p>
-                Your items will be deleted and you will have to perform payment
-                through Metamask!!
-              </p>
-            </Modal.Content>
-            <Input
-              fluid
-              placeholder="Add your shipping address!!"
-              value={shipping}
-              onChange={(e) => {
-                setShipping(e.target.value);
-              }}
-            />
-            <Modal.Actions>
-              <Button basic color="red" inverted onClick={() => setOpen(false)}>
-                <Icon name="remove" /> No
-              </Button>
-              <Button
-                color="green"
-                inverted
-                onClick={() => {
-                  if (shipping === "")
-                    alert("Please enter shipping address first");
-                  else {
-                    console.log("SHipping in cart", shipping);
-                    setShippingAddress(user.uid, shipping);
-                    setOpen(false);
-                    handleCheckout();
-                  }
-                }}
+          {items.length > 0 ? (
+            <>
+              <Header as="h1">All your added items are here </Header>
+              <Table info={items} userid={user.uid} deleteItem={deleteItem} />
+              <Header as="h2">Total-Ether: {totalMoney}</Header>
+              <Modal
+                basic
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                size="small"
+                trigger={
+                  <Button
+                    floated="right"
+                    color="green"
+                    icon="forward"
+                    content="Proceed to Checkout"
+                  />
+                }
               >
-                <Icon name="checkmark" /> Yes
-              </Button>
-            </Modal.Actions>
-          </Modal> </> : 
-         <Header> No items in your cart right now !!</Header> 
-          }
+                <Header icon>
+                  <Icon name="archive" />
+                  Do you want to checkout your cart?
+                </Header>
+                <Modal.Content>
+                  <p>
+                    Your items will be deleted and you will have to perform
+                    payment through Metamask!!
+                  </p>
+                </Modal.Content>
+                <Input
+                  fluid
+                  placeholder="Add your shipping address!!"
+                  value={shipping}
+                  onChange={(e) => {
+                    setShipping(e.target.value);
+                  }}
+                />
+                <Modal.Actions>
+                  <Button
+                    basic
+                    color="red"
+                    inverted
+                    onClick={() => setOpen(false)}
+                  >
+                    <Icon name="remove" /> No
+                  </Button>
+                  <Button
+                    color="green"
+                    inverted
+                    onClick={() => {
+                      if (shipping === "")
+                        alert("Please enter shipping address first");
+                      else {
+                        console.log("SHipping in cart", shipping);
+                        setShippingAddress(user.uid, shipping);
+                        setOpen(false);
+                        handleCheckout();
+                      }
+                    }}
+                  >
+                    <Icon name="checkmark" /> Yes
+                  </Button>
+                </Modal.Actions>
+              </Modal>{" "}
+            </>
+          ) : (
+            <Header> No items in your cart right now !!</Header>
+          )}
         </Container>
       )}
     </>
