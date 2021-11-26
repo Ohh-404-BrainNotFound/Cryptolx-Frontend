@@ -75,11 +75,13 @@ function OrderPage() {
                     name={DATA.name}
                     price={DATA.price}
                     description={DATA.description}
-                    date={DATA.date}
+                    date = {DATA.date ? DATA.date : "no date"}
                     productId = { DATA.productId}
                     userId = {DATA.userid}
                     updateOrderStatus = {updateOrderStatus}
                     status = {(DATA.status) ? DATA.status : "no status"}
+                    info = {DATA.info ? DATA.info : "no info"}
+                    index = {index}
                   />
                 </Container>
               </Grid.Row>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Label } from "semantic-ui-react";
+import { Card, Label, Header } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import { getImageUrl } from "../../../Services/utils";
 
@@ -37,12 +37,10 @@ const ProductCard = (props) => {
           {/* {props.data.description.length > 40
             ? props.data.description.slice(0, 30) + "..."
             : props.data.description} */}
-            sellar: xyz
-{/*             
-          <div
-            className="preview"
-            dangerouslySetInnerHTML={createMarkup(props.data.description)}
-          ></div> */}
+           sellar: 
+            <p>
+            {(props.data.info ? props.data.info : "no info")}
+              </p> 
         </Card.Description>
         <Card.Description>
           <span>Ξ{props.data.price}</span>

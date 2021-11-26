@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./SoldItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function SoldItem({ imgSrc, soldProductId, name, price, description, date, productId, userId, updateOrderStatus, status }) {
+function SoldItem({ imgSrc, soldProductId, name, price, description, date, productId, userId, updateOrderStatus, status, info, index }) {
   const statusOptions = [
     {key:1 , text: "dispatced", value: "dispatched"},
     {key:2 , text: "processing", value: "processing"},
@@ -25,7 +25,7 @@ function SoldItem({ imgSrc, soldProductId, name, price, description, date, produ
   }
   return (
     <div className="item_container">
-      <h3> Order Status:</h3>
+      <h3> Update Order {index} Status:</h3>
       <Dropdown 
         clearable
         options = {statusOptions}
@@ -55,7 +55,7 @@ function SoldItem({ imgSrc, soldProductId, name, price, description, date, produ
                 Date of purchasing: {date}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                About Buyer: {date}
+                About Buyer: {info}
               </List.Item>
             </List>
           </Grid.Column>

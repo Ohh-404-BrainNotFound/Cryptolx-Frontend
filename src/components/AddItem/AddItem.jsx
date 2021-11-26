@@ -72,7 +72,8 @@ const convertContentToHTML = () => {
         convertedContent,
         user.uid,
         image,
-        address
+        address,
+        `${user.displayName}(${user.email})`        
       );
       setSave(false);
       toast.success("Successfully item added !!");

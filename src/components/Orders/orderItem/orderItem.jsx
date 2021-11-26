@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./orderItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function orderItem({ imgSrc, name, price, description, date, status }) {
+function orderItem({ imgSrc, name, price, description, date, status, info }) {
 
   const statusOptions = [
     {key:1 , text: "dispatced", value: "dispatched"},
@@ -22,7 +22,7 @@ function orderItem({ imgSrc, name, price, description, date, status }) {
   }, []);
   return (
     <div className="item_container">
-      <h3> Update Order Status:</h3>
+      <h3> Status:</h3>
       <Dropdown 
         clearable
         options = {statusOptions}
@@ -46,11 +46,11 @@ function orderItem({ imgSrc, name, price, description, date, status }) {
               <List.Item as="span" className="span_description_item">
                Product Price: {price}
               </List.Item>
-              {/* <List.Item as="span" className="span_description_item">
-               About: {description}
-              </List.Item> */}
               <List.Item as="span" className="span_description_item">
-               Date of ordering: 
+               Date of ordering: {date}
+              </List.Item>
+              <List.Item as="span" className="span_description_item">
+               Sellar: {info}
               </List.Item>
             </List>
           </Grid.Column>

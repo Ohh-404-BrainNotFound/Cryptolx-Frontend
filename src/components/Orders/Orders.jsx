@@ -64,8 +64,9 @@ function OrderPage() {
                     name={DATA.name}
                     price={DATA.price}
                     description={DATA.description}
-                    date={DATA.date}
+                    date = {DATA.date ? DATA.date : "no date"}                  
                     status = {DATA.status ? DATA.status :  "no status"}
+                    info = {DATA.info ? DATA.info : "no info"}
                   />
                 </Container>
               </Grid.Row>

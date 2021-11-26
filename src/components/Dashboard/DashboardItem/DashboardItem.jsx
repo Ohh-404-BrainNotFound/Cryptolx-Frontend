@@ -61,13 +61,14 @@ function DashboardItem({
           <Grid.Column width={8} className="item_desciption">
             <List>
               <List.Item as="h2" className="heading_desciption_item">
-                Product Name: {name}
+                Product Name:  {name} 
               </List.Item>
               <List.Item as="span" className="span_description_item">
                 Product Price: {price} ethereum
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                About: 
+                About:
+                <br /> <br />
                 <div
             className="preview"
             dangerouslySetInnerHTML={createMarkup(data)}

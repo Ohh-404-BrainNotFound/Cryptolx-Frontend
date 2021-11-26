@@ -101,7 +101,9 @@ const UserCart = () => {
         item.image,
         // this is product id
         item.id,
-        fullDate
+        fullDate,
+        // this is sellar information
+        item.info
       );
       await addItemToSoldItems(
         item.name,
@@ -116,7 +118,10 @@ const UserCart = () => {
         user.uid,
         // this is product id
         item.id,
-        fullDate
+        fullDate,
+        //this is buyer information
+        `${user.displayName}(${user.email})`
+        // item.info
       );
 
       await deleteItem(item.productDocId);

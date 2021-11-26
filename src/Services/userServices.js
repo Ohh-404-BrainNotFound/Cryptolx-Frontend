@@ -16,7 +16,8 @@ export const addItem = async (
   description,
   id,
   imageLocation,
-  address
+  address,
+  sellar
 ) => {
   try {
     let fileName = getFileName();
@@ -37,6 +38,7 @@ export const addItem = async (
         userid: id,
         address: address,
         ownerId: id,
+        info: sellar
       })
       .then((doc) => console.log(doc));
   } catch (err) {
@@ -125,7 +127,8 @@ export const addItemToCart = async (
   address,
   description,
   imgSrc,
-  sellarid
+  sellarid,
+  info
 ) => {
   try {
     await db
@@ -140,7 +143,8 @@ export const addItemToCart = async (
         address: address,
         description: description,
         imgSrc: imgSrc,
-        sellarid: sellarid
+        sellarid: sellarid,
+        info: info
       });
     return true;
   } catch (err) {
@@ -170,6 +174,7 @@ export const currentCartItems = async (userid) => {
         description: product.data().description,
         image: product.data().imgSrc,
         sellarId: product.data().sellarid,
+        info: product.data().info
       });
     });
     console.log(itemid);
@@ -225,7 +230,8 @@ export const addItemToUserOrder = async (
   description,
   image,
   productId,
-  date
+  date,
+  info
 ) => {
   console.log(
     "this is called",
@@ -251,7 +257,8 @@ export const addItemToUserOrder = async (
         description: description,
         image: image,
         productId: productId,
-        date: date
+        date: date,
+        info: info
       })
       .then((doc) => console.log(doc));
   } catch (error) {
@@ -287,7 +294,8 @@ export const addItemToSoldItems = async (
   image,
   buyerId,
   productId,
-  date
+  date,
+  info
 ) => {
   try {
     await db
@@ -303,7 +311,8 @@ export const addItemToSoldItems = async (
         image: image,
         buyerId: buyerId,
         productId: productId,
-        date: date
+        date: date,
+        info: info
       });
   } catch (error) {
     console.log(error.message);

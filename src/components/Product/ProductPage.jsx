@@ -48,7 +48,7 @@ const ProductPage = () => {
     let item = items.filter((data) => data.id === productid);
     setCurrentItem(item[0].data);
     getImage(item[0].data.image);
-    // console.log(item[0].data);
+    console.log(item[0].data);
   };
 
   const createMarkup = (html) => {
@@ -83,7 +83,8 @@ const ProductPage = () => {
             currentItem.address,
             currentItem.description,
             currentItem.image,
-            currentItem.userid
+            currentItem.userid,
+            currentItem.info ? currentItem.info : "no info"
           );
           setAdding(false);
           toast.success("Added item to cart ");
@@ -145,6 +146,10 @@ const ProductPage = () => {
             dangerouslySetInnerHTML={createMarkup(currentItem.description)}
           ></div>
             <Divider />
+            <Header as="h2">
+              Sellar Info: 
+              </Header>
+            <p>{currentItem.info ? currentItem.info : "no info provided"}</p>
           </Segment>
         </Container>
       ) : (
