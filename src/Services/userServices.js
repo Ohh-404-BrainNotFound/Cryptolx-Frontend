@@ -199,7 +199,8 @@ export const addItemToUserOrder = async (
   userId,
   address,
   description,
-  image
+  image,
+  date
 ) => {
   console.log(
     "this is called",
@@ -223,6 +224,7 @@ export const addItemToUserOrder = async (
         address: address,
         description: description,
         image: image,
+        date: date
       })
       .then((doc) => console.log(doc));
   } catch (error) {

@@ -85,6 +85,12 @@ const UserCart = () => {
       }
       console.log("this is adding item");
       // sellarId to get the sellar id
+      let date = new Date()
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      
+      let fullDate = `${day}-${month}-${year}.`;
       await addItemToUserOrder(
         item.name,
         item.price,
@@ -92,7 +98,8 @@ const UserCart = () => {
         user.uid,
         item.address,
         item.description,
-        item.image
+        item.image,
+        fullDate
       );
       await addItemToSoldItems(
         item.name,
@@ -102,7 +109,8 @@ const UserCart = () => {
         // item.userId,
         item.address,
         item.description,
-        item.image
+        item.image,
+        fullDate
       );
 
       await deleteItem(item.productDocId);
