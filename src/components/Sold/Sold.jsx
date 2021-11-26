@@ -45,6 +45,14 @@ function OrderPage() {
     }
   }
 
+  const getTotalPrice = (orders) => {
+    let value = 0
+    orders.map((order, index) => {
+      value += parseInt(order.price);
+    })
+    return value
+  }
+
   return !loading ? (
     <div>
       <Container>
@@ -52,10 +60,11 @@ function OrderPage() {
           <Toaster />
           <Grid>
             <Grid.Column width={8} className="left aligned" as="h1">
-              Items sold by you:
+              Orders you received:
             </Grid.Column>
             <Grid.Column width={8} className="right aligned" as="h1">
-              Total Earned: 
+              Total Earned:
+              {getTotalPrice(orderData)}
             </Grid.Column>
           </Grid>
         </Header>
@@ -82,6 +91,7 @@ function OrderPage() {
                     status = {(DATA.status) ? DATA.status : "no status"}
                     info = {DATA.info ? DATA.info : "no info"}
                     index = {index}
+                    address = {DATA.deliver ? DATA.deliver : "no address provided"}
                   />
                 </Container>
               </Grid.Row>

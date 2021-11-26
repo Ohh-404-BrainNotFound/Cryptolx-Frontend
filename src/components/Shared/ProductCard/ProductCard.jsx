@@ -20,9 +20,9 @@ const ProductCard = (props) => {
 
   return (
     <Card>
-      {(props.data.isPurchased !== undefined) ?
-        (props.data.isPurchased) ? <Label color="red" floating >
-          {props.info.discount} %
+      {(props.data.label !== undefined) ?
+        (props.data.label) ? <Label color="red" floating >
+          Sold
         </Label> : null : null
       }
 

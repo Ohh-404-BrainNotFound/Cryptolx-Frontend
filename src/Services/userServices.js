@@ -295,7 +295,8 @@ export const addItemToSoldItems = async (
   buyerId,
   productId,
   date,
-  info
+  info,
+  area
 ) => {
   try {
     await db
@@ -312,7 +313,8 @@ export const addItemToSoldItems = async (
         buyerId: buyerId,
         productId: productId,
         date: date,
-        info: info
+        info: info,
+        deliver: area
       });
   } catch (error) {
     console.log(error.message);

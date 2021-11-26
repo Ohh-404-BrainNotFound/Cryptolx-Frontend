@@ -124,7 +124,8 @@ const UserCart = () => {
         item.id,
         fullDate,
         //this is buyer information
-        `${user.displayName}(${user.email})`
+        `${user.displayName}(${user.email})`,
+        convertedContent
         // item.info
       );
 

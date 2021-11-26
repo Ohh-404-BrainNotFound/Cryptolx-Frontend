@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./SoldItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function SoldItem({ imgSrc, soldProductId, name, price, description, date, productId, userId, updateOrderStatus, status, info, index }) {
+import DOMPurify from "dompurify";
+function SoldItem({ imgSrc, soldProductId, name, price, description, date, productId, userId, updateOrderStatus, status, info, index, address }) {
   const statusOptions = [
     {key:1 , text: "dispatced", value: "dispatched"},
     {key:2 , text: "processing", value: "processing"},
     {key:3 , text: "delivered", value: "delivered"},
 ]
   const [image, setImage] = useState("");
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
@@ -56,6 +62,15 @@ function SoldItem({ imgSrc, soldProductId, name, price, description, date, produ
               </List.Item>
               <List.Item as="span" className="span_description_item">
                 About Buyer: {info}
+              </List.Item>
+              <List.Item as="span" className="span_description_item">
+                Address:
+                <br />
+                <br />
+                <div
+            className="preview"
+            dangerouslySetInnerHTML={createMarkup(address)}
+          ></div>
               </List.Item>
             </List>
           </Grid.Column>

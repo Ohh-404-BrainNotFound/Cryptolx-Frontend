@@ -74,20 +74,24 @@ const ProductPage = () => {
         if (check === true) {
           toast.error(" Already in cart ");
         } else {
-          setAdding(true);
-          await addItemToCart(
-            user.uid,
-            location.productid,
-            currentItem.name,
-            currentItem.price,
-            currentItem.address,
-            currentItem.description,
-            currentItem.image,
-            currentItem.userid,
-            currentItem.info ? currentItem.info : "no info"
-          );
-          setAdding(false);
-          toast.success("Added item to cart ");
+          if(currentItem.label === undefined || currentItem.label === false) {
+            setAdding(true);
+            await addItemToCart(
+              user.uid,
+              location.productid,
+              currentItem.name,
+              currentItem.price,
+              currentItem.address,
+              currentItem.description,
+              currentItem.image,
+              currentItem.userid,
+              currentItem.info ? currentItem.info : "no info"
+            );
+            setAdding(false);
+            toast.success("Added item to cart ");
+          } else {
+            toast.error("Sorry item sold out")
+          } 
         }
       } else {
         toast.error(" please login first ");
