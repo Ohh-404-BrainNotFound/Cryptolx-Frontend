@@ -22,15 +22,17 @@ function orderItem({ imgSrc, name, price, description, date }) {
   }, []);
   return (
     <div className="item_container">
-      <Segment>
+      <h3> Update Order Status:</h3>
       <Dropdown 
-                      clearable
-                      options = {statusOptions}
-                      // placeholder={data.status}
-                      selection
-                      // onChange ={(e, info) => handleStatus(e, info, data.id, data.userid)}
-                    //   onChange={(e, dat) => updateStatus( dat.name, data.id, data.userid)}
-                      />
+        clearable
+        options = {statusOptions}
+        disabled
+    // placeholder={data.status}
+        selection
+    // onChange ={(e, info) => handleStatus(e, info, data.id, data.userid)}
+    // onChange={(e, dat) => updateStatus( dat.name, data.id, data.userid)}
+     />
+          <Segment>
         <Grid className="item_segment">
           <Grid.Column width={4}>
             <Image src={!!image ? image : "/images/item.png"} />
