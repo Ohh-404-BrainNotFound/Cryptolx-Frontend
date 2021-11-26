@@ -10,6 +10,7 @@ import {
   Grid,
   TextArea,
 } from "semantic-ui-react";
+import "./UserCart.scss"
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
@@ -19,7 +20,10 @@ import { UserContext } from "../../Provider/userCheck";
 import web3 from "../../web3/web3";
 import Account from "../../web3/account";
 import { Redirect } from "react-router-dom";
-
+import { EditorState } from "draft-js";
+import { convertToHTML } from "draft-convert";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { useHistory } from "react-router";
 import {
   currentCartItems,
@@ -158,6 +162,24 @@ const UserCart = () => {
   const marginTop = {
     marginTop: "10px",
   };
+  
+  const [editorState, setEditorState] = useState(() =>
+  EditorState.createEmpty()
+);
+
+const [convertedContent, setConvertedContent] = useState(null);
+
+const handleEditorChange = (state) => {
+  setEditorState(state);
+  convertContentToHTML();
+};
+
+const convertContentToHTML = () => {
+  const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+  setConvertedContent(currentContentAsHTML);
+  console.log(convertedContent);
+};
+
 
   return (
     <>
@@ -202,14 +224,23 @@ const UserCart = () => {
                 through Metamask!!
               </p>
             </Modal.Content>
-            <Input
+              <label>Provide your address: </label>
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={handleEditorChange}
+                wrapperClassName="wrapper-class  wrapper-class-new"
+                // style={{ height: "50vh" }}
+                editorClassName="editor-class editor-class-new"
+                toolbarClassName="toolbar-class toolbar-class-new"
+              />
+            {/* <Input
               fluid
               placeholder="Add your shipping address!!"
               value={shipping}
               onChange={(e) => {
                 setShipping(e.target.value);
               }}
-            />
+            /> */}
             <Modal.Actions>
               <Button basic color="red" inverted onClick={() => setOpen(false)}>
                 <Icon name="remove" /> No
@@ -222,7 +253,9 @@ const UserCart = () => {
                     alert("Please enter shipping address first");
                   else {
                     console.log("SHipping in cart", shipping);
-                    setShippingAddress(user.uid, shipping);
+                    // setShippingAddress(user.uid, shipping);
+                    setShippingAddress(user.uid, convertedContent);
+                  
                     setOpen(false);
                     handleCheckout();
                   }
