@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container, Grid, Header, Button } from "semantic-ui-react";
+import { Container, Grid, Header, Button, Dropdown } from "semantic-ui-react";
 import OrderItem from "./orderItem/orderItem";
 import { UserContext } from "../../Provider/userCheck";
 import Card from "./similarElement/similarElement";
@@ -8,6 +8,13 @@ import Loader from "../Shared/Loader/Loader";
 import { getUserOrderItems } from "../../Services/userServices";
 // const orderData = require('../../data/ordersData.json');
 function OrderPage() {
+
+  const statusOptions = [
+    {key:1 , text: "dispatced", value: "dispatched"},
+    {key:2 , text: "processing", value: "processing"},
+    {key:3 , text: "delivered", value: "delivered"},
+]
+
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [loading, setLoading] = useState(false);
