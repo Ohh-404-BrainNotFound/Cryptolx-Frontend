@@ -21,6 +21,7 @@ import Loader from "../Shared/Loader/Loader";
 import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { useHistory } from "react-router";
+import DOMPurify from "dompurify";
 
 const ProductPage = () => {
   const [currentItem, setCurrentItem] = useState();
@@ -50,6 +51,12 @@ const ProductPage = () => {
     // console.log(item[0].data);
   };
 
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
+
   const addToCart = async () => {
     try {
       if (user && !isLoading) {
@@ -75,7 +82,8 @@ const ProductPage = () => {
             currentItem.price,
             currentItem.address,
             currentItem.description,
-            currentItem.image
+            currentItem.image,
+            currentItem.userid
           );
           setAdding(false);
           toast.success("Added item to cart ");
@@ -132,7 +140,10 @@ const ProductPage = () => {
             </Header>
             <Divider />
             <Header as="h2">About the Item:</Header>
-          <p>{currentItem.description}</p>
+          <div
+            className="preview"
+            dangerouslySetInnerHTML={createMarkup(currentItem.description)}
+          ></div>
             <Divider />
           </Segment>
         </Container>

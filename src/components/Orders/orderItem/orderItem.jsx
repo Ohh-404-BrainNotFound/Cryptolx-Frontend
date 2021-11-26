@@ -46,9 +46,9 @@ function orderItem({ imgSrc, name, price, description, date }) {
               <List.Item as="span" className="span_description_item">
                Product Price: {price}
               </List.Item>
-              <List.Item as="span" className="span_description_item">
+              {/* <List.Item as="span" className="span_description_item">
                About: {description}
-              </List.Item>
+              </List.Item> */}
               <List.Item as="span" className="span_description_item">
                Date of ordering: 
               </List.Item>

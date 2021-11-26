@@ -84,10 +84,12 @@ const UserCart = () => {
         await addLabelToItem(item.userId, item.id);
       }
       console.log("this is adding item");
+      // sellarId to get the sellar id
       await addItemToUserOrder(
         item.name,
         item.price,
-        item.userId,
+        // item.userId,
+        user.uid,
         item.address,
         item.description,
         item.image
@@ -95,11 +97,14 @@ const UserCart = () => {
       await addItemToSoldItems(
         item.name,
         item.price,
-        item.userId,
+        item.sellarId,
+        // item.ownerId,
+        // item.userId,
         item.address,
         item.description,
         item.image
       );
+
       await deleteItem(item.productDocId);
       await sendMoney(item.address, item.price);
       // await deleteSingleItem(item.productDocId);

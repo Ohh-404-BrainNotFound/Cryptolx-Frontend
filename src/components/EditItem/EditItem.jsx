@@ -11,6 +11,11 @@ import {
 } from "semantic-ui-react";
 import { Redirect } from "react-router";
 import "./EditItem.scss";
+import { stateFromHTML } from 'draft-js-import-html'
+import { EditorState, ContentState, convertFromHTML } from "draft-js";
+import { convertToHTML } from "draft-convert";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { saveEditedItem } from "../../Services/userServices";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -31,6 +36,27 @@ const EditItem = (props) => {
     history.goBack();
   }
 
+  const [editorState, setEditorState] = useState(() =>
+  EditorState.createEmpty()
+);  
+
+    // useEffect(() => {
+
+    // },[])
+
+const [convertedContent, setConvertedContent] = useState(null);
+
+const handleEditorChange = (state) => {
+  setEditorState(state);
+  convertContentToHTML();
+};
+
+const convertContentToHTML = () => {
+  const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+  setConvertedContent(currentContentAsHTML);
+  console.log(convertedContent);
+};
+
   useEffect(() => {
     if (props) {
       setItem({
@@ -39,6 +65,14 @@ const EditItem = (props) => {
         price: props.location.obj.price,
         description: props.location.obj.description,
       });
+      // let  EditorState.createWithContent(contentState)
+      let contentState = stateFromHTML(item.description);
+      // EditorState.createWithContent(contentState)
+      setEditorState(EditorState.createWithContent(
+        ContentState.createFromBlockArray(
+          convertFromHTML(props.location.obj.description)
+        )
+      ))
     } else {
       setRedirect("/dashboard");
     }
@@ -47,7 +81,7 @@ const EditItem = (props) => {
   const saveEditedDetails = async () => {
     try {
       setLoading(true);
-      await saveEditedItem(item, props.location.obj.userid);
+      await saveEditedItem(item, props.location.obj.userid, convertedContent);
       setLoading(false);
       toast.success("Successfully item updated !!");
     } catch (err) {
@@ -103,7 +137,7 @@ const EditItem = (props) => {
             onChange={(e) => editItem(e)}
           />
         </Form.Field>
-        <Form.Field>
+        {/* <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans - Light" }}>
             Product Detail
           </label>
@@ -112,9 +146,20 @@ const EditItem = (props) => {
             name="description"
             onChange={(e) => editItem(e)}
           >
-            {" "}
-          </textarea>
-        </Form.Field>
+          </textarea> */}
+        {/* </Form.Field> */}
+        <Form.Field>
+              <label>Describe your Product </label>
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={handleEditorChange}
+                wrapperClassName="wrapper-class"
+                // style={{ height: "50vh" }}
+                editorClassName="editor-class"
+                toolbarClassName="toolbar-class"
+              />
+            </Form.Field>
+
         <Divider />
         <Button
           class="ui button"
