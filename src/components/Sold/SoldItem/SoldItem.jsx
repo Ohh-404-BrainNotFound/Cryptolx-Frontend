@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./SoldItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function SoldItem({ imgSrc, name, price, description, date }) {
+function SoldItem({ imgSrc, soldProductId, name, price, description, date, productId, userId, updateOrderStatus, status }) {
   const statusOptions = [
     {key:1 , text: "dispatced", value: "dispatched"},
     {key:2 , text: "processing", value: "processing"},
@@ -20,15 +20,18 @@ function SoldItem({ imgSrc, name, price, description, date }) {
     }
     call();
   }, []);
+  const handleStatus = async (e, info, productId, userId) => {
+    await updateOrderStatus(productId, userId, info.value, soldProductId)
+  }
   return (
     <div className="item_container">
       <h3> Order Status:</h3>
       <Dropdown 
         clearable
         options = {statusOptions}
-            // placeholder={data.status}
+        placeholder={status}
         selection
-    // onChange ={(e, info) => handleStatus(e, info, data.id, data.userid)}
+        onChange ={(e, info) => handleStatus(e, info, productId, userId)}
     // onChange={(e, dat) => updateStatus( dat.name, data.id, data.userid)}
      />
       <Segment>

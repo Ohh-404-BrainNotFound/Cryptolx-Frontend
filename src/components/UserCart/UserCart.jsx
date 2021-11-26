@@ -92,7 +92,9 @@ const UserCart = () => {
         user.uid,
         item.address,
         item.description,
-        item.image
+        item.image,
+        // this is product id
+        item.id
       );
       await addItemToSoldItems(
         item.name,
@@ -102,7 +104,11 @@ const UserCart = () => {
         // item.userId,
         item.address,
         item.description,
-        item.image
+        item.image,
+        // this is user id
+        user.uid,
+        // this is product id
+        item.id        
       );
 
       await deleteItem(item.productDocId);

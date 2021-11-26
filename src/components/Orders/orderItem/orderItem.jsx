@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./orderItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function orderItem({ imgSrc, name, price, description, date }) {
+function orderItem({ imgSrc, name, price, description, date, status }) {
 
   const statusOptions = [
     {key:1 , text: "dispatced", value: "dispatched"},
@@ -27,7 +27,7 @@ function orderItem({ imgSrc, name, price, description, date }) {
         clearable
         options = {statusOptions}
         disabled
-    // placeholder={data.status}
+        placeholder={status}
         selection
     // onChange ={(e, info) => handleStatus(e, info, data.id, data.userid)}
     // onChange={(e, dat) => updateStatus( dat.name, data.id, data.userid)}
