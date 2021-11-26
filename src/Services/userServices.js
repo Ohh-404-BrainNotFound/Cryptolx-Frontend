@@ -92,6 +92,30 @@ export const saveEditedItem = async (details, userid, description) => {
     console.log(err);
   }
 };
+                                               // this user id is of buyer
+export const updateOrderTrack = async (productId, userId, status, soldProductId, sellarId) => {
+  try {
+    console.log(productId, userId, status)
+    let updateRef = await db.collection("users").doc(userId).collection("orders").get();
+    updateRef.forEach(async (item) => { 
+      console.log(item.data());
+      if(item.data().productId === productId) {
+        //updating in buyer collection
+        await db.collection("users").doc(userId).collection("orders").doc(item.id).update({
+          status: status
+        })
+        //updating in sellar collection
+        console.log("sellar route", sellarId + " "+ soldProductId)
+        await db.collection("users").doc(sellarId).collection("sold").doc(soldProductId).update({
+          status: status
+        })
+        return 
+      }
+    });
+  } catch(err) {
+    console.log(err.message)
+  }
+}
 
 export const addItemToCart = async (
   userid,
@@ -145,7 +169,7 @@ export const currentCartItems = async (userid) => {
         address: product.data().address,
         description: product.data().description,
         image: product.data().imgSrc,
-        sellarId: product.data().sellarid
+        sellarId: product.data().sellarid,
       });
     });
     console.log(itemid);
@@ -200,6 +224,7 @@ export const addItemToUserOrder = async (
   address,
   description,
   image,
+  productId,
   date
 ) => {
   console.log(
@@ -209,7 +234,8 @@ export const addItemToUserOrder = async (
     userId,
     address,
     description,
-    image
+    image,
+    productId
   );
   try {
     let fileName = getFileName();
@@ -224,6 +250,7 @@ export const addItemToUserOrder = async (
         address: address,
         description: description,
         image: image,
+        productId: productId,
         date: date
       })
       .then((doc) => console.log(doc));
@@ -257,7 +284,10 @@ export const addItemToSoldItems = async (
   userId,
   address,
   description,
-  image
+  image,
+  buyerId,
+  productId,
+  date
 ) => {
   try {
     await db
@@ -271,6 +301,9 @@ export const addItemToSoldItems = async (
         address: address,
         description: description,
         image: image,
+        buyerId: buyerId,
+        productId: productId,
+        date: date
       });
   } catch (error) {
     console.log(error.message);

@@ -99,6 +99,8 @@ const UserCart = () => {
         item.address,
         item.description,
         item.image,
+        // this is product id
+        item.id,
         fullDate
       );
       await addItemToSoldItems(
@@ -110,6 +112,10 @@ const UserCart = () => {
         item.address,
         item.description,
         item.image,
+        // this is user id
+        user.uid,
+        // this is product id
+        item.id,
         fullDate
       );
 
