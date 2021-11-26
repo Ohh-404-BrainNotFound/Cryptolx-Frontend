@@ -132,7 +132,7 @@ const ProductPage = () => {
               alt="card"
             />
             <Header as="h1">
-              Name: {currentItem.name}
+              {currentItem.name}
               <Button
                 floated="right"
                 icon="money"

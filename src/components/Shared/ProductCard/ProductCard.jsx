@@ -34,9 +34,6 @@ const ProductCard = (props) => {
       <Card.Content>
         <Card.Header>{props.data.name} </Card.Header>
         <Card.Description>
-          {/* {props.data.description.length > 40
-            ? props.data.description.slice(0, 30) + "..."
-            : props.data.description} */}
            seller: 
             <p>
             {(props.data.info ? props.data.info : "no info")}
