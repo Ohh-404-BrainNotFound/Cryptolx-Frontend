@@ -4,6 +4,7 @@ import "./DashboardItem.scss";
 import { deleteItem } from "../../../Services/userServices";
 import { getImageUrl } from "../../../Services/utils";
 import { Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 function DashboardItem({
   imgSrc,
@@ -21,6 +22,12 @@ function DashboardItem({
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
     setImage(imageLocation);
+  };
+
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
   };
 
   const deleteAddedItem = async () => {
@@ -54,13 +61,18 @@ function DashboardItem({
           <Grid.Column width={8} className="item_desciption">
             <List>
               <List.Item as="h2" className="heading_desciption_item">
-                Product Name: {name}
+                Product Name:  {name} 
               </List.Item>
               <List.Item as="span" className="span_description_item">
                 Product Price: {price} ethereum
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                About: {data}
+                About:
+                <br /> <br />
+                <div
+            className="preview"
+            dangerouslySetInnerHTML={createMarkup(data)}
+          ></div>
               </List.Item>
             </List>
           </Grid.Column>

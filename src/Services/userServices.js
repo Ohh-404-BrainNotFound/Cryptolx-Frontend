@@ -16,7 +16,8 @@ export const addItem = async (
   description,
   id,
   imageLocation,
-  address
+  address,
+  sellar
 ) => {
   try {
     let fileName = getFileName();
@@ -37,6 +38,7 @@ export const addItem = async (
         userid: id,
         address: address,
         ownerId: id,
+        info: sellar
       })
       .then((doc) => console.log(doc));
   } catch (err) {
@@ -74,7 +76,7 @@ export const deleteItem = async (userid, itemid) => {
   }
 };
 
-export const saveEditedItem = async (details, userid) => {
+export const saveEditedItem = async (details, userid, description) => {
   try {
     console.log(userid + " ");
     console.log(details);
@@ -86,12 +88,36 @@ export const saveEditedItem = async (details, userid) => {
       .update({
         name: details.name,
         price: details.price,
-        description: details.description,
+        description: description,
       });
   } catch (err) {
     console.log(err);
   }
 };
+                                               // this user id is of buyer
+export const updateOrderTrack = async (productId, userId, status, soldProductId, sellarId) => {
+  try {
+    console.log(productId, userId, status)
+    let updateRef = await db.collection("users").doc(userId).collection("orders").get();
+    updateRef.forEach(async (item) => { 
+      console.log(item.data());
+      if(item.data().productId === productId) {
+        //updating in buyer collection
+        await db.collection("users").doc(userId).collection("orders").doc(item.id).update({
+          status: status
+        })
+        //updating in sellar collection
+        console.log("sellar route", sellarId + " "+ soldProductId)
+        await db.collection("users").doc(sellarId).collection("sold").doc(soldProductId).update({
+          status: status
+        })
+        return 
+      }
+    });
+  } catch(err) {
+    console.log(err.message)
+  }
+}
 
 export const addItemToCart = async (
   userid,
@@ -101,7 +127,8 @@ export const addItemToCart = async (
   address,
   description,
   imgSrc,
-  sellarid
+  sellarid,
+  info
 ) => {
   try {
     await db
@@ -116,7 +143,8 @@ export const addItemToCart = async (
         address: address,
         description: description,
         imgSrc: imgSrc,
-        sellarid: sellarid
+        sellarid: sellarid,
+        info: info
       });
     return true;
   } catch (err) {
@@ -145,7 +173,8 @@ export const currentCartItems = async (userid) => {
         address: product.data().address,
         description: product.data().description,
         image: product.data().imgSrc,
-        sellarId: product.data().sellarid
+        sellarId: product.data().sellarid,
+        info: product.data().info
       });
     });
     console.log(itemid);
@@ -199,7 +228,10 @@ export const addItemToUserOrder = async (
   userId,
   address,
   description,
-  image
+  image,
+  productId,
+  date,
+  info
 ) => {
   console.log(
     "this is called",
@@ -208,7 +240,8 @@ export const addItemToUserOrder = async (
     userId,
     address,
     description,
-    image
+    image,
+    productId
   );
   try {
     let fileName = getFileName();
@@ -223,6 +256,9 @@ export const addItemToUserOrder = async (
         address: address,
         description: description,
         image: image,
+        productId: productId,
+        date: date,
+        info: info
       })
       .then((doc) => console.log(doc));
   } catch (error) {
@@ -255,7 +291,12 @@ export const addItemToSoldItems = async (
   userId,
   address,
   description,
-  image
+  image,
+  buyerId,
+  productId,
+  date,
+  info,
+  area
 ) => {
   try {
     await db
@@ -269,6 +310,11 @@ export const addItemToSoldItems = async (
         address: address,
         description: description,
         image: image,
+        buyerId: buyerId,
+        productId: productId,
+        date: date,
+        info: info,
+        deliver: area
       });
   } catch (error) {
     console.log(error.message);

@@ -11,6 +11,10 @@ import {
   Container,
 } from "semantic-ui-react";
 import "./AddItem.scss";
+import { EditorState } from "draft-js";
+import { convertToHTML } from "draft-convert";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { addItem } from "../../Services/userServices";
 import { useEffect, useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
@@ -24,6 +28,24 @@ function AddItem() {
   const { user, isLoading } = info;
   const [redirect, setredirect] = useState(null);
   const [save, setSave] = useState(false);
+
+  const [editorState, setEditorState] = useState(() =>
+  EditorState.createEmpty()
+);
+
+const [convertedContent, setConvertedContent] = useState(null);
+
+const handleEditorChange = (state) => {
+  setEditorState(state);
+  convertContentToHTML();
+};
+
+const convertContentToHTML = () => {
+  const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+  setConvertedContent(currentContentAsHTML);
+  console.log(convertedContent);
+};
+
 
   useEffect(() => {
     console.log(user);
@@ -47,10 +69,11 @@ function AddItem() {
       await addItem(
         itemName,
         price,
-        productDescription,
+        convertedContent,
         user.uid,
         image,
-        address
+        address,
+        `${user.displayName}(${user.email})`        
       );
       setSave(false);
       toast.success("Successfully item added !!");
@@ -116,7 +139,7 @@ function AddItem() {
               setPrice(e.target.value);
             }}
           />
-          <label style={{ color: "grey", font: "Gill Sans-Light" }}>
+          {/* <label style={{ color: "grey", font: "Gill Sans-Light" }}>
             Product Description
           </label>
           <textarea
@@ -126,7 +149,18 @@ function AddItem() {
             onChange={(e) => {
               setproductDescription(e.target.value);
             }}
-          />
+          /> */}
+          <Form.Field>
+              <label>Describe your Product </label>
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={handleEditorChange}
+                wrapperClassName="wrapper-class"
+                // style={{ height: "50vh" }}
+                editorClassName="editor-class"
+                toolbarClassName="toolbar-class"
+              />
+            </Form.Field>
         </Form.Field>
         <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>

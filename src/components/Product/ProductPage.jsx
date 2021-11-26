@@ -21,6 +21,7 @@ import Loader from "../Shared/Loader/Loader";
 import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { useHistory } from "react-router";
+import DOMPurify from "dompurify";
 
 const ProductPage = () => {
   const [currentItem, setCurrentItem] = useState();
@@ -47,7 +48,13 @@ const ProductPage = () => {
     let item = items.filter((data) => data.id === productid);
     setCurrentItem(item[0].data);
     getImage(item[0].data.image);
-    // console.log(item[0].data);
+    console.log(item[0].data);
+  };
+
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
   };
 
   const addToCart = async () => {
@@ -67,19 +74,24 @@ const ProductPage = () => {
         if (check === true) {
           toast.error(" Already in cart ");
         } else {
-          setAdding(true);
-          await addItemToCart(
-            user.uid,
-            location.productid,
-            currentItem.name,
-            currentItem.price,
-            currentItem.address,
-            currentItem.description,
-            currentItem.image,
-            currentItem.userid
-          );
-          setAdding(false);
-          toast.success("Added item to cart ");
+          if(currentItem.label === undefined || currentItem.label === false) {
+            setAdding(true);
+            await addItemToCart(
+              user.uid,
+              location.productid,
+              currentItem.name,
+              currentItem.price,
+              currentItem.address,
+              currentItem.description,
+              currentItem.image,
+              currentItem.userid,
+              currentItem.info ? currentItem.info : "no info"
+            );
+            setAdding(false);
+            toast.success("Added item to cart ");
+          } else {
+            toast.error("Sorry item sold out")
+          } 
         }
       } else {
         toast.error(" please login first ");
@@ -120,7 +132,7 @@ const ProductPage = () => {
               alt="card"
             />
             <Header as="h1">
-              Name: {currentItem.name}
+              {currentItem.name}
               <Button
                 floated="right"
                 icon="money"
@@ -133,8 +145,15 @@ const ProductPage = () => {
             </Header>
             <Divider />
             <Header as="h2">About the Item:</Header>
-          <p>{currentItem.description}</p>
+          <div
+            className="preview"
+            dangerouslySetInnerHTML={createMarkup(currentItem.description)}
+          ></div>
             <Divider />
+            <Header as="h2">
+              Sellar Info: 
+              </Header>
+            <p>{currentItem.info ? currentItem.info : "no info provided"}</p>
           </Segment>
         </Container>
       ) : (

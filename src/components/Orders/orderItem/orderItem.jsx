@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Image, Grid, Icon, Segment, List } from "semantic-ui-react";
+import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./orderItem.scss";
 import { getImageUrl } from "../../../Services/utils";
-function orderItem({ imgSrc, name, price, description, date }) {
+function orderItem({ imgSrc, name, price, description, date, status, info }) {
+
+  const statusOptions = [
+    {key:1 , text: "dispatced", value: "dispatched"},
+    {key:2 , text: "processing", value: "processing"},
+    {key:3 , text: "delivered", value: "delivered"},
+]
+
   const [image, setImage] = useState("");
 
   const getImage = async () => {
@@ -15,7 +22,17 @@ function orderItem({ imgSrc, name, price, description, date }) {
   }, []);
   return (
     <div className="item_container">
-      <Segment>
+      <h3> Status:</h3>
+      <Dropdown 
+        clearable
+        options = {statusOptions}
+        disabled
+        placeholder={status}
+        selection
+    // onChange ={(e, info) => handleStatus(e, info, data.id, data.userid)}
+    // onChange={(e, dat) => updateStatus( dat.name, data.id, data.userid)}
+     />
+          <Segment>
         <Grid className="item_segment">
           <Grid.Column width={4}>
             <Image src={!!image ? image : "/images/item.png"} />
@@ -30,10 +47,10 @@ function orderItem({ imgSrc, name, price, description, date }) {
                Product Price: {price}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-               About: {description}
+               Date of ordering: {date}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-               Date of ordering: 
+               Sellar: {info}
               </List.Item>
             </List>
           </Grid.Column>

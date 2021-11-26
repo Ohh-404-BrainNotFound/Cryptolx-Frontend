@@ -16,6 +16,8 @@ import { useEffect, useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { Redirect } from "react-router-dom";
 import { getShippingAddress } from "../../Services/userServices";
+import DOMPurify from "dompurify";
+
 
 function successPage() {
   console.log("Here we are");
@@ -39,6 +41,11 @@ function successPage() {
       setredirect("/success");
     }
   }, [user, isLoading]);
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
 
   return (
     <>
@@ -103,17 +110,21 @@ function successPage() {
                 {" "}
                 {user.displayName}
               </h3>
-              <h5
+              {/* <h5
+                
+              >
+                {address} */}
+                <div
                 style={{
                   marginLeft: "100px",
                   color: "grey",
                   font: "Gill Sans-Light",
                   marginTop: "0px",
                 }}
-              >
-                {" "}
-                {address}
-              </h5>
+            className="preview"
+            dangerouslySetInnerHTML={createMarkup(address)}
+          ></div>
+              {/* </h5> */}
 
               {/* Divider */}
               {/* <h1 style={{ width: "2px", height:"2px"}}></h1> */}

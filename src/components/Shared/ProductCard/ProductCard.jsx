@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Label } from "semantic-ui-react";
+import { Card, Label, Header } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import { getImageUrl } from "../../../Services/utils";
 
@@ -16,11 +16,13 @@ const ProductCard = (props) => {
     getImage();
   }, [])
 
+
+
   return (
     <Card>
-      {(props.data.isPurchased !== undefined) ?
-        (props.data.isPurchased) ? <Label color="red" floating >
-          {props.info.discount} %
+      {(props.data.label !== undefined) ?
+        (props.data.label) ? <Label color="red" floating >
+          Sold
         </Label> : null : null
       }
 
@@ -32,9 +34,10 @@ const ProductCard = (props) => {
       <Card.Content>
         <Card.Header>{props.data.name} </Card.Header>
         <Card.Description>
-          {props.data.description.length > 40
-            ? props.data.description.slice(0, 30) + "..."
-            : props.data.description}
+           seller: 
+            <p>
+            {(props.data.info ? props.data.info : "no info")}
+              </p> 
         </Card.Description>
         <Card.Description>
           <span>Ξ{props.data.price}</span>
