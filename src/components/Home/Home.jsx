@@ -30,7 +30,7 @@ const Home = () => {
         <div className="intro-section-info">
           <div className="intro-section-info-text">
             <h1> Buy and sell with crypto Now at your finger tips !! </h1>
-            <h3> Tried and tested platform  </h3>
+            <h3> Feasible and Easy to use  </h3>
           </div>
           <div className="intro-section-info-btn">
             <Button primary size="large">
