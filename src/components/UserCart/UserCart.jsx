@@ -130,7 +130,7 @@ const UserCart = () => {
         convertedContent
         // item.info
       );
-
+      await addLabelToItem(item.sellarId, item.id);
       await deleteItem(item.productDocId);
       await sendMoney(item.address, item.price);
       // await deleteSingleItem(item.productDocId);
