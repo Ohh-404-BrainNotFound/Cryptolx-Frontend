@@ -146,7 +146,7 @@ const UserCart = () => {
     await items.map(async (item) => {
       // console.log("TYPEOFPRICE", typeof parseInt(item.price));
       setTotalMoney((prev) => {
-        return prev + parseInt(item.price);
+        return (prev + parseFloat(item.price)).toPrecision(6)
       });
     });
   };
@@ -250,7 +250,7 @@ const convertContentToHTML = () => {
                 color="green"
                 inverted
                 onClick={() => {
-                  if (shipping === "")
+                  if (convertedContent === "")
                     alert("Please enter shipping address first");
                   else {
                     console.log("SHipping in cart", shipping);
