@@ -48,7 +48,7 @@ function OrderPage() {
   const getTotalPrice = (orders) => {
     let value = 0
     orders.map((order, index) => {
-      value += parseInt(order.price);
+      value += parseFloat(order.price).toPrecision(6);
     })
     return value
   }
