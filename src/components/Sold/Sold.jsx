@@ -48,9 +48,11 @@ function OrderPage() {
   const getTotalPrice = (orders) => {
     let value = 0
     orders.map((order, index) => {
-      value += parseFloat(order.price).toPrecision(6);
+      value += parseFloat(order.data.price)
+      console.log(order.data.price)
     })
-    return value
+    console.log("this is value", value)
+    return value.toPrecision(6);
   }
 
   return !loading ? (
@@ -63,8 +65,8 @@ function OrderPage() {
               Orders you received:
             </Grid.Column>
             <Grid.Column width={8} className="right aligned" as="h1">
-              Total Earned:
-              {getTotalPrice(orderData)}
+              Total value:
+              {getTotalPrice(orderData)} eth
             </Grid.Column>
           </Grid>
         </Header>
