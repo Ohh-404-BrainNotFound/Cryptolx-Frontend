@@ -44,6 +44,7 @@ const UserCart = () => {
   const [shipping, setShipping] = useState("");
   const [totalMoney, setTotalMoney] = useState(0);
   const [isLoader, setIsLoading] = useState(false);
+  const [convertedContent, setConvertedContent] = useState(null);
   const myRef = useRef();
   // const history = useHistory();
 
@@ -172,8 +173,6 @@ const UserCart = () => {
     EditorState.createEmpty()
   );
 
-  const [convertedContent, setConvertedContent] = useState(null);
-
   const handleEditorChange = (state) => {
     setEditorState(state);
     convertContentToHTML();
@@ -193,10 +192,15 @@ const UserCart = () => {
         user && (
           <Container style={marginTop}>
             <Link
+              to={{
+                pathname: "/success",
+                obj: {
+                  shippingAddress: convertedContent,
+                },
+              }}
               style={{ visibility: "hidden" }}
               ref={myRef}
               activeClassName="current"
-              to="/success"
             >
               Success
             </Link>
@@ -266,7 +270,6 @@ const UserCart = () => {
                           console.log("SHipping in cart", shipping);
                           // setShippingAddress(user.uid, shipping);
                           setShippingAddress(user.uid, convertedContent);
-
                           setOpen(false);
                           handleCheckout();
                         }

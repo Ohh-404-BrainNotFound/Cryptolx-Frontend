@@ -14,12 +14,11 @@ import "./successPage.scss";
 // import { addItem } from "../../Services/userServices";
 import { useEffect, useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { getShippingAddress } from "../../Services/userServices";
 import DOMPurify from "dompurify";
 
-
-function successPage() {
+function successPage(props) {
   console.log("Here we are");
   const info = useContext(UserContext);
   const { user, isLoading } = info;
@@ -28,9 +27,10 @@ function successPage() {
   const [address, setAddress] = useState("");
 
   const getAddress = async () => {
-    const shippingAddress = await getShippingAddress(user.uid);
-    console.log("shipping address is", shippingAddress);
-    setAddress(shippingAddress);
+    setAddress(props.location.obj.shippingAddress);
+    // const shippingAddress = await getShippingAddress(user.uid);
+    // console.log("shipping address is", shippingAddress);
+    // setAddress(shippingAddress);
   };
   useEffect(() => {
     console.log(user);
@@ -114,16 +114,16 @@ function successPage() {
                 
               >
                 {address} */}
-                <div
+              <div
                 style={{
                   marginLeft: "100px",
                   color: "grey",
                   font: "Gill Sans-Light",
                   marginTop: "0px",
                 }}
-            className="preview"
-            dangerouslySetInnerHTML={createMarkup(address)}
-          ></div>
+                className="preview"
+                dangerouslySetInnerHTML={createMarkup(address)}
+              ></div>
               {/* </h5> */}
 
               {/* Divider */}
@@ -163,7 +163,9 @@ function successPage() {
                   marginTop: "15px",
                 }}
               >
-                Continue Shopping
+                <Link to="/listing" activeClassName="current">
+                  Continue Shopping
+                </Link>
               </Button>
             </div>
           </div>
