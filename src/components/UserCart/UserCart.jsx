@@ -10,7 +10,7 @@ import {
   Grid,
   TextArea,
 } from "semantic-ui-react";
-import "./UserCart.scss"
+import "./UserCart.scss";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
@@ -43,6 +43,7 @@ const UserCart = () => {
   const [open, setOpen] = useState(false);
   const [shipping, setShipping] = useState("");
   const [totalMoney, setTotalMoney] = useState(0);
+  const [isLoader, setIsLoading] = useState(false);
   const myRef = useRef();
   // const history = useHistory();
 
@@ -89,11 +90,11 @@ const UserCart = () => {
       }
       console.log("this is adding item");
       // sellarId to get the sellar id
-      let date = new Date()
+      let date = new Date();
       let day = date.getDate();
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
-      
+
       let fullDate = `${day}-${month}-${year}.`;
       await addItemToUserOrder(
         item.name,
@@ -135,11 +136,14 @@ const UserCart = () => {
     });
     setTotalMoney(0);
     fetchCartItems();
+    setIsLoading(true);
     await sleep(10000);
+    setIsLoading(false);
     // console.log(new Date());
     // alert("After 5 sec");
     // console.log(new Date());
-    myRef.current.click();
+
+    if (myRef !== null && myRef.current !== null) myRef.current.click();
   };
   const getMoney = async () => {
     // console.log("Items in getMOney", items);
@@ -163,78 +167,79 @@ const UserCart = () => {
   const marginTop = {
     marginTop: "10px",
   };
-  
+
   const [editorState, setEditorState] = useState(() =>
-  EditorState.createEmpty()
-);
+    EditorState.createEmpty()
+  );
 
-const [convertedContent, setConvertedContent] = useState(null);
+  const [convertedContent, setConvertedContent] = useState(null);
 
-const handleEditorChange = (state) => {
-  setEditorState(state);
-  convertContentToHTML();
-};
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    convertContentToHTML();
+  };
 
-const convertContentToHTML = () => {
-  const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
-  setConvertedContent(currentContentAsHTML);
-  console.log(convertedContent);
-};
-
+  const convertContentToHTML = () => {
+    const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+    setConvertedContent(currentContentAsHTML);
+    console.log(convertedContent);
+  };
 
   return (
     <>
-      {user && (
-        <Container style={marginTop}>
-          {items.length > 0 ? <>
-          <Link
-            style={{ visibility: "hidden" }}
-            ref={myRef}
-            activeClassName="current"
-            to="/success"
-          >
-            Success
-          </Link>
-          
-          <Header as="h1">All your added items are here </Header>
-          <Table info={items} userid={user.uid} deleteItem={deleteItem} />
-          <Header as="h2">Total-Ether: {totalMoney}</Header>
-
-          <Modal
-            basic
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            size="small"
-            trigger={
-              <Button
-                floated="right"
-                color="green"
-                icon="forward"
-                content="Proceed to Checkout"
-              />
-            }
-          >
-            <Header icon>
-              <Icon name="archive" />
-              Do you want to checkout your cart?
-            </Header>
-            <Modal.Content>
-              <p>
-                Your items will be deleted and you will have to perform payment
-                through Metamask!!
-              </p>
-            </Modal.Content>
-              <label>Provide your address: </label>
-              <Editor
-                editorState={editorState}
-                onEditorStateChange={handleEditorChange}
-                wrapperClassName="wrapper-class  wrapper-class-new"
-                // style={{ height: "50vh" }}
-                editorClassName="editor-class editor-class-new"
-                toolbarClassName="toolbar-class toolbar-class-new"
-              />
-            {/* <Input
+      {isLoader ? (
+        <Loader />
+      ) : (
+        user && (
+          <Container style={marginTop}>
+            <Link
+              style={{ visibility: "hidden" }}
+              ref={myRef}
+              activeClassName="current"
+              to="/success"
+            >
+              Success
+            </Link>
+            {items.length > 0 ? (
+              <>
+                <Header as="h1">All your added items are here </Header>
+                <Table info={items} userid={user.uid} deleteItem={deleteItem} />
+                <Header as="h2">Total-Ether: {totalMoney}</Header>
+                <Modal
+                  basic
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                  open={open}
+                  size="small"
+                  trigger={
+                    <Button
+                      floated="right"
+                      color="green"
+                      icon="forward"
+                      content="Proceed to Checkout"
+                    />
+                  }
+                >
+                  <Header icon>
+                    <Icon name="archive" />
+                    Do you want to checkout your cart?
+                  </Header>
+                  <Modal.Content>
+                    <p>
+                      Your items will be deleted and you will have to perform
+                      payment through Metamask!!
+                    </p>
+                  </Modal.Content>
+                  <label>Provide your address: </label>
+                  <Editor
+                    editorState={editorState}
+                    onEditorStateChange={handleEditorChange}
+                    wrapperClassName="wrapper-class  wrapper-class-new"
+                    // style={{ height: "50vh" }}
+                    editorClassName="editor-class editor-class-new"
+                    toolbarClassName="toolbar-class toolbar-class-new"
+                  />
+                  {/* <Input
               fluid
               placeholder="Add your shipping address!!"
               value={shipping}
@@ -242,33 +247,41 @@ const convertContentToHTML = () => {
                 setShipping(e.target.value);
               }}
             /> */}
-            <Modal.Actions>
-              <Button basic color="red" inverted onClick={() => setOpen(false)}>
-                <Icon name="remove" /> No
-              </Button>
-              <Button
-                color="green"
-                inverted
-                onClick={() => {
-                  if (shipping === "")
-                    alert("Please enter shipping address first");
-                  else {
-                    console.log("SHipping in cart", shipping);
-                    // setShippingAddress(user.uid, shipping);
-                    setShippingAddress(user.uid, convertedContent);
-                  
-                    setOpen(false);
-                    handleCheckout();
-                  }
-                }}
-              >
-                <Icon name="checkmark" /> Yes
-              </Button>
-            </Modal.Actions>
-          </Modal> </> : 
-         <Header> No items in your cart right now !!</Header> 
-          }
-        </Container>
+                  <Modal.Actions>
+                    <Button
+                      basic
+                      color="red"
+                      inverted
+                      onClick={() => setOpen(false)}
+                    >
+                      <Icon name="remove" /> No
+                    </Button>
+                    <Button
+                      color="green"
+                      inverted
+                      onClick={() => {
+                        if (convertedContent === "")
+                          alert("Please enter shipping address first");
+                        else {
+                          console.log("SHipping in cart", shipping);
+                          // setShippingAddress(user.uid, shipping);
+                          setShippingAddress(user.uid, convertedContent);
+
+                          setOpen(false);
+                          handleCheckout();
+                        }
+                      }}
+                    >
+                      <Icon name="checkmark" /> Yes
+                    </Button>
+                  </Modal.Actions>
+                </Modal>{" "}
+              </>
+            ) : (
+              <Header> No items in your cart right now !!</Header>
+            )}
+          </Container>
+        )
       )}
     </>
   );

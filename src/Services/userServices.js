@@ -38,7 +38,7 @@ export const addItem = async (
         userid: id,
         address: address,
         ownerId: id,
-        info: sellar
+        info: sellar,
       })
       .then((doc) => console.log(doc));
   } catch (err) {
@@ -94,30 +94,50 @@ export const saveEditedItem = async (details, userid, description) => {
     console.log(err);
   }
 };
-                                               // this user id is of buyer
-export const updateOrderTrack = async (productId, userId, status, soldProductId, sellarId) => {
+// this user id is of buyer
+export const updateOrderTrack = async (
+  productId,
+  userId,
+  status,
+  soldProductId,
+  sellarId
+) => {
   try {
-    console.log(productId, userId, status)
-    let updateRef = await db.collection("users").doc(userId).collection("orders").get();
-    updateRef.forEach(async (item) => { 
+    console.log(productId, userId, status);
+    let updateRef = await db
+      .collection("users")
+      .doc(userId)
+      .collection("orders")
+      .get();
+    updateRef.forEach(async (item) => {
       console.log(item.data());
-      if(item.data().productId === productId) {
+      if (item.data().productId === productId) {
         //updating in buyer collection
-        await db.collection("users").doc(userId).collection("orders").doc(item.id).update({
-          status: status
-        })
+        await db
+          .collection("users")
+          .doc(userId)
+          .collection("orders")
+          .doc(item.id)
+          .update({
+            status: status,
+          });
         //updating in sellar collection
-        console.log("sellar route", sellarId + " "+ soldProductId)
-        await db.collection("users").doc(sellarId).collection("sold").doc(soldProductId).update({
-          status: status
-        })
-        return 
+        console.log("sellar route", sellarId + " " + soldProductId);
+        await db
+          .collection("users")
+          .doc(sellarId)
+          .collection("sold")
+          .doc(soldProductId)
+          .update({
+            status: status,
+          });
+        return;
       }
     });
-  } catch(err) {
-    console.log(err.message)
+  } catch (err) {
+    console.log(err.message);
   }
-}
+};
 
 export const addItemToCart = async (
   userid,
@@ -131,21 +151,17 @@ export const addItemToCart = async (
   info
 ) => {
   try {
-    await db
-      .collection("users")
-      .doc(userid)
-      .collection("cart")
-      .add({
-        itemId: itemid,
-        name: itemName,
-        price: itemPrice,
-        userId: userid,
-        address: address,
-        description: description,
-        imgSrc: imgSrc,
-        sellarid: sellarid,
-        info: info
-      });
+    await db.collection("users").doc(userid).collection("cart").add({
+      itemId: itemid,
+      name: itemName,
+      price: itemPrice,
+      userId: userid,
+      address: address,
+      description: description,
+      imgSrc: imgSrc,
+      sellarid: sellarid,
+      info: info,
+    });
     return true;
   } catch (err) {
     console.log(err);
@@ -174,7 +190,7 @@ export const currentCartItems = async (userid) => {
         description: product.data().description,
         image: product.data().imgSrc,
         sellarId: product.data().sellarid,
-        info: product.data().info
+        info: product.data().info,
       });
     });
     console.log(itemid);
@@ -258,7 +274,7 @@ export const addItemToUserOrder = async (
         image: image,
         productId: productId,
         date: date,
-        info: info
+        info: info,
       })
       .then((doc) => console.log(doc));
   } catch (error) {
@@ -299,23 +315,19 @@ export const addItemToSoldItems = async (
   area
 ) => {
   try {
-    await db
-      .collection("users")
-      .doc(userId)
-      .collection("sold")
-      .add({
-        name: itemName,
-        price: price,
-        userid: userId,
-        address: address,
-        description: description,
-        image: image,
-        buyerId: buyerId,
-        productId: productId,
-        date: date,
-        info: info,
-        deliver: area
-      });
+    await db.collection("users").doc(userId).collection("sold").add({
+      name: itemName,
+      price: price,
+      userid: userId,
+      address: address,
+      description: description,
+      image: image,
+      buyerId: buyerId,
+      productId: productId,
+      date: date,
+      info: info,
+      deliver: area,
+    });
   } catch (error) {
     console.log(error.message);
     return error.message;
@@ -341,13 +353,10 @@ export const getSoldItems = async (userId) => {
 
 export const setShippingAddress = async (userId, shippingAddress) => {
   try {
-    await db
-      .collection("users")
-      .doc(userId)
-      .collection("address")
-      .add({
-        shippingAddress: shippingAddress,
-      });
+    console.log("Inside setShippingAddress", userId, shippingAddress);
+    await db.collection("users").doc(userId).collection("address").update({
+      shippingAddress: shippingAddress,
+    });
 
     console.log("SHIPPING SAVED SUCCESSFULLY", shippingAddress);
   } catch (error) {
