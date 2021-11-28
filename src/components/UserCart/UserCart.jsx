@@ -151,7 +151,7 @@ const UserCart = () => {
     await items.map(async (item) => {
       // console.log("TYPEOFPRICE", typeof parseInt(item.price));
       setTotalMoney((prev) => {
-        return prev + parseInt(item.price);
+        return (prev + parseFloat(item.price)).toPrecision(6)
       });
     });
   };
