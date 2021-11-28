@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Image, Grid, Icon, Segment, List, Label } from "semantic-ui-react";
+import {
+  Image,
+  Grid,
+  Icon,
+  Segment,
+  List,
+  Label,
+  Modal,
+  Button,
+} from "semantic-ui-react";
 import "./DashboardItem.scss";
 import { deleteItem } from "../../../Services/userServices";
 import { getImageUrl } from "../../../Services/utils";
@@ -18,6 +27,7 @@ function DashboardItem({
   isLabel,
 }) {
   const [image, setImage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
@@ -35,6 +45,10 @@ function DashboardItem({
     fetchItems();
   };
 
+  async function handleDelete() {
+    await deleteAddedItem();
+    setOpen(false);
+  }
   useEffect(() => {
     getImage();
   }, []);
@@ -42,9 +56,9 @@ function DashboardItem({
   const LabelExampleCorner = () => (
     <Grid columns={2}>
       <Grid.Column>
-          <Label as="a" color="red" ribbon>
-            Sold Out!!
-          </Label>
+        <Label as="a" color="red" ribbon>
+          Sold Out!!
+        </Label>
       </Grid.Column>
     </Grid>
   );
@@ -61,7 +75,7 @@ function DashboardItem({
           <Grid.Column width={8} className="item_desciption">
             <List>
               <List.Item as="h2" className="heading_desciption_item">
-                Product Name:  {name} 
+                Product Name: {name}
               </List.Item>
               <List.Item as="span" className="span_description_item">
                 Product Price: {price} ethereum
@@ -70,9 +84,9 @@ function DashboardItem({
                 About:
                 <br /> <br />
                 <div
-            className="preview"
-            dangerouslySetInnerHTML={createMarkup(data)}
-          ></div>
+                  className="preview"
+                  dangerouslySetInnerHTML={createMarkup(data)}
+                ></div>
               </List.Item>
             </List>
           </Grid.Column>
@@ -99,10 +113,32 @@ function DashboardItem({
               <Icon name="edit" size="big"></Icon>
             </Link>
             <Icon
+              style={{ cursor: "pointer" }}
               name="trash alternate"
-              onClick={() => deleteAddedItem()}
+              onClick={() => setOpen(true)}
               size="big"
             ></Icon>
+            <Modal
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+            >
+              <Modal.Header>
+                Are you sure, You want to delete this item?
+              </Modal.Header>
+              <Modal.Actions>
+                <Button color="black" onClick={() => setOpen(false)}>
+                  Nope
+                </Button>
+                <Button
+                  content="Yes, I am sure!"
+                  labelPosition="right"
+                  icon="checkmark"
+                  onClick={handleDelete}
+                  positive
+                />
+              </Modal.Actions>
+            </Modal>
           </Grid.Column>
         </Grid>
       </Segment>
