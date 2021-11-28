@@ -35,8 +35,9 @@ function OrderPage() {
 
   const updateOrderStatus = async (productId, userId, status, soldProductId) => {
     try {
-   
+      
       await updateOrderTrack(productId, userId, status, soldProductId, user.uid);
+      console.log(productId, userId, status, soldProductId, user.uid)
       toast.success("Updated Order Status")
     } catch(err) {
       toast.error("failed to update");
@@ -87,7 +88,7 @@ function OrderPage() {
                     description={DATA.description}
                     date = {DATA.date ? DATA.date : "no date"}
                     productId = { DATA.productId}
-                    userId = {DATA.userid}
+                    userId = {DATA.buyerId}
                     updateOrderStatus = {updateOrderStatus}
                     status = {(DATA.status) ? DATA.status : "no status"}
                     info = {DATA.info ? DATA.info : "no info"}

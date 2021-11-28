@@ -108,10 +108,12 @@ export const updateOrderTrack = async (
       .doc(userId)
       .collection("orders")
       .get();
+      console.log("reached")
     updateRef.forEach(async (item) => {
-   
+   console.log(item)
       if (item.data().productId === productId) {
         //updating in buyer collection
+        console.log("this is buyer", userId, item.id)
         await db
           .collection("users")
           .doc(userId)
@@ -121,7 +123,7 @@ export const updateOrderTrack = async (
             status: status,
           });
         //updating in sellar collection
-       
+       console.log("this is sellar id", sellarId, soldProductId)
         await db
           .collection("users")
           .doc(sellarId)
