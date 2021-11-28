@@ -36,6 +36,7 @@ const ProductPage = () => {
 
   const getImage = async (imageName) => {
     let imageLocation = await getImageUrl("itemimage", imageName);
+    console.log("Image location is", imageLocation);
     setImage(imageLocation);
   };
 
@@ -74,7 +75,7 @@ const ProductPage = () => {
         if (check === true) {
           toast.error(" Already in cart ");
         } else {
-          if(currentItem.label === undefined || currentItem.label === false) {
+          if (currentItem.label === undefined || currentItem.label === false) {
             setAdding(true);
             await addItemToCart(
               user.uid,
@@ -90,11 +91,11 @@ const ProductPage = () => {
             setAdding(false);
             toast.success("Added item to cart ");
           } else {
-            toast.error("Sorry item sold out")
-          } 
+            toast.error("Sorry item sold out");
+          }
         }
       } else {
-        toast.error(" please login first ");
+        toast.error(" You have to login first in order to buy items");
       }
     } catch (err) {
       console.log(err);
@@ -145,14 +146,12 @@ const ProductPage = () => {
             </Header>
             <Divider />
             <Header as="h2">About the Item:</Header>
-          <div
-            className="preview"
-            dangerouslySetInnerHTML={createMarkup(currentItem.description)}
-          ></div>
+            <div
+              className="preview"
+              dangerouslySetInnerHTML={createMarkup(currentItem.description)}
+            ></div>
             <Divider />
-            <Header as="h2">
-              Sellar Info: 
-              </Header>
+            <Header as="h2">Sellar Info:</Header>
             <p>{currentItem.info ? currentItem.info : "no info provided"}</p>
           </Segment>
         </Container>
