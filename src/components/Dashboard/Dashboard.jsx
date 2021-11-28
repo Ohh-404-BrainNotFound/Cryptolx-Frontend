@@ -32,8 +32,8 @@ const Dashboard = () => {
         const accounts = await web3.eth.getAccounts();
         let balanceOf = await Account.methods.userMoney(accounts[0]).call();
         setBalance(Number(balanceOf).toFixed() / 1000000000000000000);
-      } catch(err) {
-        console.log("this is error", err.message)
+      } catch (err) {
+        console.log("this is error", err.message);
       }
     }
   };
@@ -94,17 +94,19 @@ const Dashboard = () => {
               return (
                 <Grid.Row>
                   <Container className="red">
-                    <DashboardItem
-                      imgSrc={data.data.image}
-                      name={data.data.name}
-                      price={data.data.price}
-                      data={data.data.description}
-                      itemid={data.id}
-                      fetchItems={fetchUseritems}
-                      userid={user.uid}
-                      //This will make sure that for old times those who does not have label will take false.
-                      isLabel={data.data.label || false}
-                    />
+                    {user && (
+                      <DashboardItem
+                        imgSrc={data.data.image}
+                        name={data.data.name}
+                        price={data.data.price}
+                        data={data.data.description}
+                        itemid={data.id}
+                        fetchItems={fetchUseritems}
+                        userid={user.uid}
+                        //This will make sure that for old times those who does not have label will take false.
+                        isLabel={data.data.label || false}
+                      />
+                    )}
                   </Container>
                 </Grid.Row>
               );
