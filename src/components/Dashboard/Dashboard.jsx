@@ -40,7 +40,7 @@ const Dashboard = () => {
 
   const redeemYourBalance = async () => {
     const accounts = await web3.eth.getAccounts();
-    await Account.methods.redeemBalance().send({ from: accounts[0], type: "0x2"});
+    await Account.methods.redeemBalance().send({ from: accounts[0] });
     fetchAccountBalance();
   };
 
