@@ -54,7 +54,6 @@ const handleEditorChange = (state) => {
 const convertContentToHTML = () => {
   const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
   setConvertedContent(currentContentAsHTML);
-  console.log(convertedContent);
 };
 
   useEffect(() => {

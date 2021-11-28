@@ -19,7 +19,7 @@ import { getShippingAddress } from "../../Services/userServices";
 import DOMPurify from "dompurify";
 
 function successPage(props) {
-  console.log("Here we are");
+
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [redirect, setredirect] = useState(null);
@@ -28,9 +28,6 @@ function successPage(props) {
 
   const getAddress = async () => {
     setAddress(props.location.obj.shippingAddress);
-    // const shippingAddress = await getShippingAddress(user.uid);
-    // console.log("shipping address is", shippingAddress);
-    // setAddress(shippingAddress);
   };
   useEffect(() => {
     console.log(user);

@@ -23,7 +23,6 @@ function failurePage() {
   const [save, setSave] = useState(false);
 
   useEffect(() => {
-    console.log(user);
     if (user && !isLoading) {
       setredirect('/');
     } else {

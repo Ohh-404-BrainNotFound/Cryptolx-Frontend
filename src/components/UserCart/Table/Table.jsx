@@ -3,7 +3,7 @@ import { Table, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const TableComponent = (props) => {
-  console.log(props);
+
   return (
     <div>
       <Table celled>

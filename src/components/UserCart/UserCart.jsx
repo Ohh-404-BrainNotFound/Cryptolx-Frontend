@@ -54,12 +54,10 @@ const UserCart = () => {
   const fetchCartItems = async () => {
     let fetchedItem = await currentCartItems(user.uid);
     setItems(fetchedItem);
-    console.log("fetchedItem is", fetchedItem);
   };
 
   const deleteItem = async (itemid) => {
     try {
-      console.log("this is", itemid + "and this is", user.uid);
       await deleteItemFromCart(user.uid, itemid);
     } catch (err) {
       console.log(err);
@@ -69,7 +67,6 @@ const UserCart = () => {
 
   const deleteSingleItem = async (itemid) => {
     try {
-      console.log("Inside deleteSingleItem", itemid);
       await deleteItemFromCart(user.uid, itemid);
     } catch (e) {
       console.log("Got an error while deleting from cart", e);
@@ -77,19 +74,17 @@ const UserCart = () => {
   };
   const sendMoney = async (address, price) => {
     const accounts = await web3.eth.getAccounts();
-    console.log("this is address", address + " and this is acc" + accounts[0]);
-    // also specify how much value need to be paid and to whom need to be paid
+
     await Account.methods
       .buyCourse(address)
       .send({ from: accounts[0], value: web3.utils.toWei(price, "ether") });
   };
   const handleCheckout = async () => {
     await items.map(async (item) => {
-      console.log("INSIDE MAP", item);
       if (item.userId !== undefined && item.userId !== "") {
         await addLabelToItem(item.userId, item.id);
       }
-      console.log("this is adding item");
+
       // sellarId to get the sellar id
       let date = new Date();
       let day = date.getDate();
@@ -140,18 +135,12 @@ const UserCart = () => {
     setIsLoading(true);
     await sleep(10000);
     setIsLoading(false);
-    // console.log(new Date());
-    // alert("After 5 sec");
-    // console.log(new Date());
-
     if (myRef !== null && myRef.current !== null) myRef.current.click();
   };
   const getMoney = async () => {
-    // console.log("Items in getMOney", items);
     await items.map(async (item) => {
-      // console.log("TYPEOFPRICE", typeof parseInt(item.price));
       setTotalMoney((prev) => {
-        return (prev + parseFloat(item.price)).toPrecision(6)
+        return (prev + parseFloat(item.price)).toPrecision(6);
       });
     });
   };
@@ -181,7 +170,6 @@ const UserCart = () => {
   const convertContentToHTML = () => {
     const currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(currentContentAsHTML);
-    console.log(convertedContent);
   };
 
   return (
@@ -267,8 +255,6 @@ const UserCart = () => {
                         if (convertedContent === "")
                           alert("Please enter shipping address first");
                         else {
-                          console.log("SHipping in cart", shipping);
-                          // setShippingAddress(user.uid, shipping);
                           setShippingAddress(user.uid, convertedContent);
                           setOpen(false);
                           handleCheckout();

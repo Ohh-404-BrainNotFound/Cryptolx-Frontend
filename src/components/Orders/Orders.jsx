@@ -25,10 +25,7 @@ function OrderPage() {
     setLoading(true);
     let items = await getUserOrderItems(user.uid);
     setLoading(false);
-    console.log("order items are ", items);
     setOrderData(items);
-    console.log(items);
-    console.log(user);
   };
 
   useEffect(() => {

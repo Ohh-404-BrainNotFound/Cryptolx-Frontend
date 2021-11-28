@@ -5,7 +5,6 @@ import "firebase/auth";
 import { initializeApp } from "../Services/init";
 
 initializeApp();
-console.log("fireabse", firebase);
 const auth = firebase.auth();
 
 export const UserContext = createContext({

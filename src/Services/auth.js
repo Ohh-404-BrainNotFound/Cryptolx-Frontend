@@ -1,8 +1,8 @@
-import 'firebase/auth';
-import { initializeApp } from './init';
-import firebase from 'firebase/app';
-import '@firebase/database';
-import 'firebase/firestore';
+import "firebase/auth";
+import { initializeApp } from "./init";
+import firebase from "firebase/app";
+import "@firebase/database";
+import "firebase/firestore";
 
 initializeApp();
 const auth = firebase.auth();
@@ -11,13 +11,10 @@ var user;
 const db = firebase.firestore();
 
 const saveUser = async ({ email, uid, displayName }) => {
-  await db
-    .collection('users')
-    .doc(uid)
-    .set({
-      displayName,
-      email,
-    });
+  await db.collection("users").doc(uid).set({
+    displayName,
+    email,
+  });
 };
 
 export const signInWithGoogle = () => {
@@ -49,10 +46,7 @@ export const signInWithGoogle = () => {
 };
 
 export const isUser = async (id) => {
-  const userRef = await db
-    .collection('user')
-    .doc(id)
-    .get();
+  const userRef = await db.collection("user").doc(id).get();
   return userRef.exists;
 };
 
@@ -62,11 +56,9 @@ export const signOut = () => {
     .auth()
     .signOut()
     .then(() => {
-      console.log('Sign out successfully');
       return true;
     })
     .catch((error) => {
-      console.log('Error Occured While signing out!!');
       console.log(error.message);
       return false;
     });

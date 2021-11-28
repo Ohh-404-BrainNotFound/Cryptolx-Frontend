@@ -36,7 +36,6 @@ const ProductPage = () => {
 
   const getImage = async (imageName) => {
     let imageLocation = await getImageUrl("itemimage", imageName);
-    console.log("Image location is", imageLocation);
     setImage(imageLocation);
   };
 
@@ -49,7 +48,6 @@ const ProductPage = () => {
     let item = items.filter((data) => data.id === productid);
     setCurrentItem(item[0].data);
     getImage(item[0].data.image);
-    console.log(item[0].data);
   };
 
   const createMarkup = (html) => {
@@ -63,15 +61,13 @@ const ProductPage = () => {
       if (user && !isLoading) {
         let item = await currentCartItems(user.uid);
         let check = false;
-        console.log(item);
         item.map((item) => {
           if (item.id === location.productid) {
             check = true;
           }
-          console.log(item.id + " " + location.productid);
-          // console.log(item);
+       
         });
-        console.log(check);
+       
         if (check === true) {
           toast.error(" Already in cart ");
         } else {

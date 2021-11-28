@@ -1,48 +1,43 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { initializeApp } from './init';
-import '@firebase/storage';
-import '@firebase/database'
+import firebase from "firebase/app";
+import "firebase/auth";
+import { initializeApp } from "./init";
+import "@firebase/storage";
+import "@firebase/database";
 import "firebase/firestore";
-import { getImageUrl } from "../Services/utils"
+import { getImageUrl } from "../Services/utils";
 
 initializeApp();
 
 const db = firebase.firestore();
 
 export const getAllItems = async () => {
-    try {
-        let items = [];
-        let creatorsId = [];
-        console.log(" this is called ");
-        let creatorsRef = await db.collection("users").get();
-        console.log("this si creator ref ", creatorsRef);
-        creatorsRef.forEach(async creator => {
-          creatorsId.push(creator.id);
-        //   console.log("this is id ",creator.data());
-        })
+  try {
+    let items = [];
+    let creatorsId = [];
 
-        // console.log(creatorsRef.id);
+    let creatorsRef = await db.collection("users").get();
 
-        console.log("this is array ", creatorsId);
-        for (let i = 0; i < creatorsId.length; i++) {
-          let id = creatorsId[i];
-          console.log("ID IS ",id)
-          let dbRef = await db.collection("users").doc(id).collection("items").get();
-          dbRef.forEach(async (item) => {
-            console.log(item);
-            // console.log(course.id);
-            // console.log(course.data());
-            // let imageUrl = await getImageUrl("itemimage", item.data().image); 
-            items.push({ data: item.data(), id: item.id });
-            console.log(" this is item ", item);
-          })
-        }
+    creatorsRef.forEach(async (creator) => {
+      creatorsId.push(creator.id);
+    });
 
-        console.log(" this is items obj ", items);
-        return items;
+    for (let i = 0; i < creatorsId.length; i++) {
+      let id = creatorsId[i];
+
+      let dbRef = await db
+        .collection("users")
+        .doc(id)
+        .collection("items")
+        .get();
+      dbRef.forEach(async (item) => {
+        items.push({ data: item.data(), id: item.id });
+      
+      });
+    }
+
     
-      } catch (err) {
-        console.log(err);
-      }
-}
+    return items;
+  } catch (err) {
+    console.log(err);
+  }
+};

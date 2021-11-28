@@ -22,7 +22,7 @@ export const addItem = async (
   try {
     let fileName = getFileName();
     if (imageLocation) {
-      console.log(imageLocation);
+
       await handleUpload(imageLocation, fileName, "itemimage");
     }
     await db
@@ -63,7 +63,7 @@ export const getUserAddedItems = async (userid) => {
 
 export const deleteItem = async (userid, itemid) => {
   try {
-    console.log("this is called " + itemid + " " + userid);
+   
     await db
       .collection("users")
       .doc(userid)
@@ -78,8 +78,7 @@ export const deleteItem = async (userid, itemid) => {
 
 export const saveEditedItem = async (details, userid, description) => {
   try {
-    console.log(userid + " ");
-    console.log(details);
+ 
     await db
       .collection("users")
       .doc(userid)
@@ -103,14 +102,14 @@ export const updateOrderTrack = async (
   sellarId
 ) => {
   try {
-    console.log(productId, userId, status);
+    
     let updateRef = await db
       .collection("users")
       .doc(userId)
       .collection("orders")
       .get();
     updateRef.forEach(async (item) => {
-      console.log(item.data());
+   
       if (item.data().productId === productId) {
         //updating in buyer collection
         await db
@@ -122,7 +121,7 @@ export const updateOrderTrack = async (
             status: status,
           });
         //updating in sellar collection
-        console.log("sellar route", sellarId + " " + soldProductId);
+       
         await db
           .collection("users")
           .doc(sellarId)
@@ -177,9 +176,9 @@ export const currentCartItems = async (userid) => {
       .doc(userid)
       .collection("cart")
       .get();
-    console.log("CART ITEMS", userItemRef);
+    
     userItemRef.forEach((product) => {
-      console.log(product.data());
+      
       itemid.push({
         id: product.data().itemId,
         price: product.data().price,
@@ -193,7 +192,7 @@ export const currentCartItems = async (userid) => {
         info: product.data().info,
       });
     });
-    console.log(itemid);
+   
     return itemid;
   } catch (err) {
     console.log(err);
@@ -203,17 +202,12 @@ export const currentCartItems = async (userid) => {
 
 export const deleteItemFromCart = async (userid, itemid) => {
   try {
-    // console.log("this is called " + itemid + " " + userid)
-    console.log("this is a userid", userid);
-    console.log("this is a doc id", itemid);
     let delRef = await db
       .collection("users")
       .doc(userid)
       .collection("cart")
       .doc(itemid)
       .delete()
-      .then((doc) => console.log("ITEM DETELED", doc));
-    console.log("this is delRef", delRef);
   } catch (err) {
     console.log("error from del cart", err.message);
     return err.message;
@@ -222,7 +216,7 @@ export const deleteItemFromCart = async (userid, itemid) => {
 
 export const addLabelToItem = async (userId, itemId) => {
   try {
-    console.log("this is label", itemId);
+   
     await db
       .collection("users")
       .doc(userId)
@@ -293,7 +287,7 @@ export const getUserOrderItems = async (userId) => {
       .get();
 
     itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
-    console.log("ITEMSREF", items);
+ 
     return items;
   } catch (err) {
     console.log(err);
@@ -344,7 +338,7 @@ export const getSoldItems = async (userId) => {
       .get();
 
     itemsRef.forEach((item) => items.push({ data: item.data(), id: item.id }));
-    console.log("ITEMSREF", items);
+ 
     return items;
   } catch (err) {
     console.log(err);
@@ -353,12 +347,11 @@ export const getSoldItems = async (userId) => {
 
 export const setShippingAddress = async (userId, shippingAddress) => {
   try {
-    console.log("Inside setShippingAddress", userId, shippingAddress);
+
     await db.collection("users").doc(userId).collection("address").update({
       shippingAddress: shippingAddress,
     });
 
-    console.log("SHIPPING SAVED SUCCESSFULLY", shippingAddress);
   } catch (error) {
     console.log(error.message);
     return error.message;
@@ -376,7 +369,7 @@ export const getShippingAddress = async (userId) => {
     address.forEach((userAdd) => {
       shippingAddress = userAdd.data().shippingAddress;
     });
-    console.log("address is", address);
+   
     return shippingAddress;
   } catch (error) {
     console.log(error.message);

@@ -48,10 +48,7 @@ const Dashboard = () => {
     setLoading(true);
     let items = await getUserAddedItems(user.uid);
     setLoading(false);
-    console.log(items);
     setUserAddedItems(items);
-    console.log(items);
-    console.log(user);
   };
 
   useEffect(() => {

@@ -18,10 +18,9 @@ function OrderPage() {
     setLoading(true);
     let items = await getSoldItems(user.uid);
     setLoading(false);
-    console.log("order items are ", items);
+   
     setOrderData(items);
-    console.log(items);
-    console.log(user);
+   
   };
 
   useEffect(() => {
@@ -36,7 +35,7 @@ function OrderPage() {
 
   const updateOrderStatus = async (productId, userId, status, soldProductId) => {
     try {
-      console.log(productId, userId, status)
+   
       await updateOrderTrack(productId, userId, status, soldProductId, user.uid);
       toast.success("Updated Order Status")
     } catch(err) {
@@ -49,9 +48,9 @@ function OrderPage() {
     let value = 0
     orders.map((order, index) => {
       value += parseFloat(order.data.price)
-      console.log(order.data.price)
+     
     })
-    console.log("this is value", value)
+    
     return value.toPrecision(6);
   }
 
@@ -74,7 +73,7 @@ function OrderPage() {
         <Grid>
           {orderData.map((data, index) => {
             const DATA = data.data;
-            console.log("this is data", data)
+           
             return (
               <Grid.Row>
                 <Container>

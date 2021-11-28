@@ -15,7 +15,6 @@ const ListingPage = () => {
     let data = await getAllItems();
     setLoading(false);
     setProducts(data);
-    console.log("this is the data", data);
   };
 
   useEffect(() => {
