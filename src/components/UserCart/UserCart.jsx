@@ -133,7 +133,7 @@ const UserCart = () => {
     setTotalMoney(0);
     fetchCartItems();
     setIsLoading(true);
-    await sleep(10000);
+    await sleep(20000);
     setIsLoading(false);
     if (myRef !== null && myRef.current !== null) myRef.current.click();
   };
