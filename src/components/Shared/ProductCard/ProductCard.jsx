@@ -2,10 +2,20 @@ import React from "react";
 import { Card, Label, Header } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import { getImageUrl } from "../../../Services/utils";
+import { getEthPrice } from "../../../Services/generalServices";
 
 const ProductCard = (props) => {
 
   const [image, setImage] = useState("");
+  const [ethPrice, setEthPrice] = useState(0)
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthPrice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", props.data.image);
@@ -40,7 +50,7 @@ const ProductCard = (props) => {
               </p> 
         </Card.Description>
         <Card.Description>
-          <span>Ξ{props.data.price}</span>
+          <span>Ξ{parseFloat(props.data.price/ethPrice).toPrecision(6)}</span>
         </Card.Description>
       </Card.Content>
     </Card>

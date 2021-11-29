@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./orderItem.scss";
 import { getImageUrl } from "../../../Services/utils";
+import { getEthPrice } from '../../../Services/generalServices'
 function orderItem({ imgSrc, name, price, description, date, status, info }) {
 
   const statusOptions = [
@@ -9,6 +10,16 @@ function orderItem({ imgSrc, name, price, description, date, status, info }) {
     {key:2 , text: "processing", value: "processing"},
     {key:3 , text: "delivered", value: "delivered"},
 ]
+const [ethPrice, setEthPrice] = useState(0)
+
+const getPrice = async () => {
+  let price = await getEthPrice();
+  setEthPrice(price)
+}
+
+useEffect(() => {
+  getPrice()
+},[])
 
   const [image, setImage] = useState("");
 
@@ -44,7 +55,7 @@ function orderItem({ imgSrc, name, price, description, date, status, info }) {
                 Product Name: {name}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-               Product Price: {price}
+               Product Price: {parseFloat(price/ethPrice).toPrecision(6)}
               </List.Item>
               <List.Item as="span" className="span_description_item">
                Date of ordering: {date}

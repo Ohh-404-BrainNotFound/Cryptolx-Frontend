@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { getEthPrice } from "../../../Services/generalServices";
+
 
 const TableComponent = (props) => {
+  const [ethPrice, setEthPrice] = useState(0);
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthPrice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   return (
     <div>
@@ -19,7 +30,7 @@ const TableComponent = (props) => {
           {props.info.map((element, index) => (
             <Table.Row>
               <Table.Cell>{element.name}</Table.Cell>
-              <Table.Cell>{element.price}</Table.Cell>
+              <Table.Cell>{parseFloat(element.price / ethPrice).toPrecision(6) }</Table.Cell>
               <Table.Cell>
                 <Button
                   icon="trash"

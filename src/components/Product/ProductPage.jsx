@@ -22,6 +22,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Provider/userCheck";
 import { useHistory } from "react-router";
 import DOMPurify from "dompurify";
+import { getEthPrice } from "../../Services/generalServices";
 
 const ProductPage = () => {
   const [currentItem, setCurrentItem] = useState();
@@ -33,11 +34,21 @@ const ProductPage = () => {
   const [adding, setAdding] = useState(false);
 
   const [image, setImage] = useState("");
+  const [ethPrice, setEthPrice] = useState(0)
 
   const getImage = async (imageName) => {
     let imageLocation = await getImageUrl("itemimage", imageName);
     setImage(imageLocation);
   };
+
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthPrice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   // const [userAddress, setUserAddress] = useState("");
   // const [currentCourse, setCurrentCourse] = useState();
@@ -135,7 +146,7 @@ const ProductPage = () => {
                 icon="money"
                 loading={adding}
                 disabled={currentItem.isPurchased}
-                content={"Add to cart Price: " + currentItem.price}
+                content={"Add to cart Price: " + parseFloat(currentItem.price/ethPrice).toPrecision(6)}
                 color="red"
                 onClick={() => addToCart()}
               />
