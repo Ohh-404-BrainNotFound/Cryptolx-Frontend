@@ -3,6 +3,7 @@ import { Image, Grid, Icon, Segment, List, Dropdown } from "semantic-ui-react";
 import "./SoldItem.scss";
 import { getImageUrl } from "../../../Services/utils";
 import DOMPurify from "dompurify";
+import { getEthPrice } from '../../../Services/generalServices'
 function SoldItem({ imgSrc, soldProductId, name, price, description, date, productId, userId, updateOrderStatus, status, info, index, address }) {
   const statusOptions = [
     {key:1 , text: "dispatced", value: "dispatched"},
@@ -10,11 +11,22 @@ function SoldItem({ imgSrc, soldProductId, name, price, description, date, produ
     {key:3 , text: "delivered", value: "delivered"},
 ]
   const [image, setImage] = useState("");
+  const [ethPrice, setEthPrice] = useState(0);
   const createMarkup = (html) => {
     return {
       __html: DOMPurify.sanitize(html),
     };
   };
+
+  
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthPrice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
@@ -52,7 +64,7 @@ function SoldItem({ imgSrc, soldProductId, name, price, description, date, produ
                Name: {name}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-               Product Price: {price}
+               Product Price: {parseFloat(price/ethPrice).toPrecision(6)}
               </List.Item>
               {/* <List.Item as="span" className="span_description_item">
                About: {description}

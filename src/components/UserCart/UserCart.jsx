@@ -34,9 +34,11 @@ import {
   setShippingAddress,
 } from "../../Services/userServices";
 import Table from "./Table/Table";
+import { getEthPrice } from "../../Services/generalServices";
 
 const UserCart = () => {
   const [items, setItems] = useState([]);
+  const [ethPrice, setEthPrice] = useState(0);
   //Info is basically just used to check in if the user is logged in or not.
   const info = useContext(UserContext);
   const { user, isLoading } = info;
@@ -64,6 +66,14 @@ const UserCart = () => {
     }
     fetchCartItems();
   };
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthPrice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   const deleteSingleItem = async (itemid) => {
     try {
@@ -127,7 +137,8 @@ const UserCart = () => {
       );
       await addLabelToItem(item.sellarId, item.id);
       await deleteItem(item.productDocId);
-      await sendMoney(item.address, item.price);
+      let value =  parseFloat(item.price/ethPrice).toPrecision(6);
+      await sendMoney(item.address, String(value));
       // await deleteSingleItem(item.productDocId);
     });
     setTotalMoney(0);
@@ -140,7 +151,7 @@ const UserCart = () => {
   const getMoney = async () => {
     await items.map(async (item) => {
       setTotalMoney((prev) => {
-        return (prev + parseFloat(item.price)).toPrecision(6);
+        return (prev + parseFloat(item.price/ethPrice)).toPrecision(6);
       });
     });
   };

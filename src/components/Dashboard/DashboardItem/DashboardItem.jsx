@@ -14,6 +14,7 @@ import { deleteItem } from "../../../Services/userServices";
 import { getImageUrl } from "../../../Services/utils";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { getEthPrice } from '../../../Services/generalServices'
 
 function DashboardItem({
   imgSrc,
@@ -28,11 +29,21 @@ function DashboardItem({
 }) {
   const [image, setImage] = useState("");
   const [open, setOpen] = useState(false);
+  const [ethPrice, setEthprice] = useState(0);
 
   const getImage = async () => {
     let imageLocation = await getImageUrl("itemimage", imgSrc);
     setImage(imageLocation);
   };
+
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthprice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   const createMarkup = (html) => {
     return {
@@ -78,7 +89,7 @@ function DashboardItem({
                 Product Name: {name}
               </List.Item>
               <List.Item as="span" className="span_description_item">
-                Product Price: {price} ethereum
+                Product Price: {parseFloat(price/ethPrice).toPrecision(6)} ethereum
               </List.Item>
               <List.Item as="span" className="span_description_item">
                 About:

@@ -6,6 +6,7 @@ import { Redirect } from "react-router";
 import Loader from "../Shared/Loader/Loader";
 import { getSoldItems, updateOrderTrack } from "../../Services/userServices";
 import toast, { Toaster } from "react-hot-toast";
+import { getEthPrice } from '../../Services/generalServices'
 // const orderData = require('../../data/ordersData.json');
 function OrderPage() {
   const info = useContext(UserContext);
@@ -13,6 +14,7 @@ function OrderPage() {
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState([]);
   const [redirect, setredirect] = useState(null);
+  const [ethPrice, setEthPrice] = useState(0)
 
   const fetchUseritems = async () => {
     setLoading(true);
@@ -22,6 +24,14 @@ function OrderPage() {
     setOrderData(items);
    
   };
+  const getPrice = async () => {
+    let price = await getEthPrice();
+    setEthPrice(price)
+  }
+
+  useEffect(() => {
+    getPrice()
+  },[])
 
   useEffect(() => {
     if (!isLoading) {
@@ -45,15 +55,14 @@ function OrderPage() {
     }
   }
 
-  const getTotalPrice = (orders) => {
-    let value = 0
-    orders.map((order, index) => {
-      value += parseFloat(order.data.price)
-     
-    })
+  // const getTotalPrice = (orders) => {
+  //   let value = 0
+  //   orders.map((order, index) => {
+  //     value += parseFloat(order.data.price/ethPrice).toPrecision(6)
+  //   })
     
-    return value.toPrecision(6);
-  }
+  //   return value
+  // }
 
   return !loading ? (
     <div>
@@ -64,10 +73,10 @@ function OrderPage() {
             <Grid.Column width={8} className="left aligned" as="h1">
               Orders you received:
             </Grid.Column>
-            <Grid.Column width={8} className="right aligned" as="h1">
+            {/* <Grid.Column width={8} className="right aligned" as="h1">
               Total value:
               {getTotalPrice(orderData)} eth
-            </Grid.Column>
+            </Grid.Column> */}
           </Grid>
         </Header>
 
