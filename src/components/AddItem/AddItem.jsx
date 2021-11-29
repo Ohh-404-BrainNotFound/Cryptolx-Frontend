@@ -127,7 +127,7 @@ const convertContentToHTML = () => {
         </Form.Field>
         <Form.Field>
           <label style={{ color: "grey", font: "Gill Sans-Light" }}>
-            Product Price Ξ
+            Product Price (INR)
           </label>
           <input
             type="text"
