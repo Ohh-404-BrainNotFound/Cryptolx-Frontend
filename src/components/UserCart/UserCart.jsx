@@ -148,13 +148,13 @@ const UserCart = () => {
     setIsLoading(false);
     if (myRef !== null && myRef.current !== null) myRef.current.click();
   };
-  const getMoney = async () => {
-    await items.map(async (item) => {
-      setTotalMoney((prev) => {
-        return (prev + parseFloat(item.price/ethPrice)).toPrecision(6);
-      });
-    });
-  };
+  // const getMoney = async () => {
+  //   await items.map(async (item) => {
+  //     setTotalMoney((prev) => {
+  //       return (prev + parseFloat(item.price/ethPrice)).toPrecision(6);
+  //     });
+  //   });
+  // };
   useEffect(() => {
     if (user && !isLoading) {
       fetchCartItems();
@@ -207,7 +207,7 @@ const UserCart = () => {
               <>
                 <Header as="h1">All your added items are here </Header>
                 <Table info={items} userid={user.uid} deleteItem={deleteItem} />
-                <Header as="h2">Total-Ether: {totalMoney}</Header>
+                {/* <Header as="h2">Total-Ether: {totalMoney}</Header> */}
                 <Modal
                   basic
                   onClose={() => setOpen(false)}
