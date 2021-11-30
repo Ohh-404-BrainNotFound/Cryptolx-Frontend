@@ -161,9 +161,9 @@ const UserCart = () => {
     }
   }, [user, isLoading]);
 
-  useEffect(() => {
-    getMoney();
-  }, [items]);
+  // useEffect(() => {
+  //   getMoney();
+  // }, [items]);
 
   const marginTop = {
     marginTop: "10px",
